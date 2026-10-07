@@ -214,8 +214,17 @@ class FormRenderer
 
 	/** Detecta un shortcode de form en el contenido actual y encola el CSS. */
 	/** Versión del CSS de forms con cache-busting por mtime (evita CSS viejo). */
-	private static function form_css_version(): string {
-		$ver = defined( 'ESTANDAR_SUITE_CAPTURE_VERSION' ) ? ESTANDAR_SUITE_CAPTURE_VERSION : '1.0';
+	/** Versión de asset para cache-busting: versión del plugin + mtime del archivo. */
+	private static function asset_ver( string $rel ): string {
+		$base = defined( 'ESTANDAR_SUITE_CAPTURE_VERSION' ) ? ESTANDAR_SUITE_CAPTURE_VERSION : '1.0';
+		$f    = defined( 'ESTANDAR_SUITE_CAPTURE_PATH' ) ? ESTANDAR_SUITE_CAPTURE_PATH . $rel : '';
+		if ( $f && is_readable( $f ) ) {
+			$base .= '.' . filemtime( $f );
+		}
+		return $base;
+	}
+
+	private static function form_css_version(): string {		$ver = defined( 'ESTANDAR_SUITE_CAPTURE_VERSION' ) ? ESTANDAR_SUITE_CAPTURE_VERSION : '1.0';
 		$f   = defined( 'ESTANDAR_SUITE_CAPTURE_PATH' ) ? ESTANDAR_SUITE_CAPTURE_PATH . 'assets/css/estandar-form.css' : '';
 		if ( $f && is_readable( $f ) ) { $ver .= '.' . filemtime( $f ); }
 		return $ver;
@@ -560,7 +569,7 @@ class FormRenderer
 				'estandar-progressive',
 				plugin_dir_url( ESTANDAR_SUITE_CAPTURE_FILE ) . 'assets/js/estandar-progressive.js',
 				array(),
-				( defined( 'ESTANDAR_SUITE_CORE_VERSION' ) ? ESTANDAR_SUITE_CORE_VERSION : '13.0.0' ),
+				self::asset_ver( 'assets/js/estandar-progressive.js' ),
 				true
 			);
 		}
@@ -892,7 +901,7 @@ class FormRenderer
 		$has_rec  = ! empty( $config['require_recaptcha'] ) && defined( 'ESTANDAR_FORMS_RECAPTCHA_SITE_KEY' ) && ESTANDAR_FORMS_RECAPTCHA_SITE_KEY;
 
 		if ( $has_sw && ! wp_script_is( 'estandar-conditional', 'enqueued' ) ) {
-			wp_enqueue_script( 'estandar-conditional', plugin_dir_url( ESTANDAR_SUITE_CAPTURE_FILE ) . 'assets/js/estandar-conditional.js', array(), $ver, true );
+			wp_enqueue_script( 'estandar-conditional', plugin_dir_url( ESTANDAR_SUITE_CAPTURE_FILE ) . 'assets/js/estandar-conditional.js', array(), self::asset_ver( 'assets/js/estandar-conditional.js' ), true );
 		}
 
 		if ( $has_rut && ! wp_script_is( 'estandar-rut', 'enqueued' ) ) {
