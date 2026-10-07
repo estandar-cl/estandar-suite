@@ -455,7 +455,25 @@ class GfPostventaBridge
 		$posted = is_array( $capture['fields'] ?? null ) ? $capture['fields'] : array();
 		$contact = is_array( $capture['contact'] ?? null ) ? $capture['contact'] : array();
 
-		$proyecto = (string) ( $posted['proyecto'] ?? '' );
+		// VALUE_LABEL_V1: el contrato muestra el LABEL de la opción elegida (no el
+		// value/slug). El QR llega con el value (p. ej. "casas_de_quinta") y antes
+		// se enviaba crudo al asunto/filas; ahora se resuelve a su label
+		// ("CASAS DE QUINTA") con la config del form.
+		$fields_by_name = array();
+		foreach ( (array) \Estandar\Capture\Forms::renderable_fields( $config ) as $ff ) {
+			if ( is_array( $ff ) && isset( $ff['name'] ) && $ff['name'] !== '' ) {
+				$fields_by_name[ (string) $ff['name'] ] = $ff;
+			}
+		}
+		$opt_label = static function ( string $name, $val ) use ( $fields_by_name ) {
+			$v = is_scalar( $val ) ? (string) $val : '';
+			if ( $v !== '' && isset( $fields_by_name[ $name ] ) ) {
+				return \Estandar\Capture\Forms::field_option_label( $fields_by_name[ $name ], $v );
+			}
+			return $v;
+		};
+
+		$proyecto = $opt_label( 'proyecto', $posted['proyecto'] ?? '' );
 		$subject  = str_replace( '{proyecto}', $proyecto, (string) ( $s['subject_template'] ?? 'Solicitud PostVenta {proyecto} desde la web Empresa Demo' ) );
 
 		// Filas Label:Value en el mismo orden/estructura que GF.
@@ -497,6 +515,9 @@ class GfPostventaBridge
 			if ( $key === 'nombre_propietario' && $val === '' ) {
 				$val = trim( (string) ( $posted['nombre'] ?? '' ) . ' ' . (string) ( $posted['apellido'] ?? '' ) );
 			}
+			// VALUE_LABEL_V1: selects/radios (proyecto, tipo_postventa,
+			// requerimiento) → label de la opción.
+			$val = $opt_label( $key, $val );
 			if ( $val !== '' ) {
 				$rows[] = array( 'label' => $label, 'value' => $val );
 			}
@@ -523,6 +544,9 @@ class GfPostventaBridge
 			$inc = is_array( $inc ) ? $inc : array();
 			$n  = (int) $i + 1;
 			$loc = (string) ( $inc['location'] ?? '' );
+			// VALUE_LABEL_V1: la ubicación del problema (lugar_problema_N) es un
+			// select con value/slug → mostrar su label.
+			$loc = $opt_label( 'lugar_problema_' . $n, $loc );
 			$desc = (string) ( $inc['description'] ?? '' );
 			$fotos = isset( $inc['fotos'] ) && is_array( $inc['fotos'] ) ? array_values( array_filter( array_map( 'strval', $inc['fotos'] ) ) ) : array();
 			if ( $loc !== '' ) {
