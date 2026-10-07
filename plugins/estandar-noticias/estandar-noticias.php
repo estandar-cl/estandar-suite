@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Estandar Noticias
  * Description: Boletín diario de noticias reales: ingesta RSS/Atom, curación por perfil, publicación y envío por correo. Funciona con o sin Estandar Suite.
- * Version: 0.4.8
+ * Version: 0.4.9
  * Requires at least: 6.0
  * Tested up to: 7.0
  * Requires PHP: 8.0
@@ -20,7 +20,7 @@ if ( version_compare( PHP_VERSION, '8.0', '<' ) ) {
 }
 
 define( 'ESTANDAR_NOTICIAS_FILE', __FILE__ );
-define( 'ESTANDAR_NOTICIAS_VERSION', '0.4.8' );
+define( 'ESTANDAR_NOTICIAS_VERSION', '0.4.9' );
 define( 'ESTANDAR_NOTICIAS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ESTANDAR_NOTICIAS_URL', plugin_dir_url( __FILE__ ) );
 

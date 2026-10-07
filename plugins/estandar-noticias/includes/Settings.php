@@ -225,30 +225,39 @@ class Settings {
 	public static function sanitize( array $in, array $base ): array {
 		$out = $base;
 
-		$g = isset( $in['general'] ) && is_array( $in['general'] ) ? $in['general'] : array();
-		$out['general']['activo']         = empty( $g['activo'] ) ? 0 : 1;
-		$out['general']['hora']           = self::hora( (string) ( $g['hora'] ?? '07:30' ) );
-		$out['general']['ventana_horas']  = self::int_range( $g['ventana_horas'] ?? 24, 1, 720, 24 );
-		$out['general']['max_por_tema']   = self::int_range( $g['max_por_tema'] ?? 10, 1, 200, 10 );
-		$out['general']['max_por_fuente'] = self::int_range( $g['max_por_fuente'] ?? 3, 1, 200, 3 );
-		$salida = (string) ( $g['salida'] ?? 'ambos' );
-		$out['general']['salida']         = in_array( $salida, array( 'ambos', 'post', 'correo' ), true ) ? $salida : 'ambos';
-		$out['general']['post_type']      = sanitize_key( (string) ( $g['post_type'] ?? 'noticia' ) ) ?: 'noticia';
-		$out['general']['taxonomia']      = sanitize_key( (string) ( $g['taxonomia'] ?? 'tema' ) ) ?: 'tema';
-		$out['general']['categoria']      = sanitize_text_field( (string) ( $g['categoria'] ?? 'Noticias' ) );
-		$out['general']['idioma']         = sanitize_key( (string) ( $g['idioma'] ?? 'es' ) ) ?: 'es';
-		$out['general']['remitente']      = sanitize_email( (string) ( $g['remitente'] ?? '' ) );
+		// Solo se procesa un grupo si ESE grupo vino en el POST. Guardar una pestaña
+		// distinta (p. ej. "Temas") NO debe resetear "general"/"ai" a sus defaults:
+		// ese era el footgun que apagaba `general.activo` y vaciaba `ruido`.
+		if ( isset( $in['general'] ) && is_array( $in['general'] ) ) {
+			$g = $in['general'];
+			// `activo` se conserva salvo que la pestaña General se haya guardado
+			// explícitamente (la casilla ausente = desactivación deliberada).
+			$out['general']['activo']         = empty( $g['activo'] ) ? 0 : 1;
+			$out['general']['hora']           = self::hora( (string) ( $g['hora'] ?? '07:30' ) );
+			$out['general']['ventana_horas']  = self::int_range( $g['ventana_horas'] ?? 24, 1, 720, 24 );
+			$out['general']['max_por_tema']   = self::int_range( $g['max_por_tema'] ?? 10, 1, 200, 10 );
+			$out['general']['max_por_fuente'] = self::int_range( $g['max_por_fuente'] ?? 3, 1, 200, 3 );
+			$salida = (string) ( $g['salida'] ?? 'ambos' );
+			$out['general']['salida']         = in_array( $salida, array( 'ambos', 'post', 'correo' ), true ) ? $salida : 'ambos';
+			$out['general']['post_type']      = sanitize_key( (string) ( $g['post_type'] ?? 'noticia' ) ) ?: 'noticia';
+			$out['general']['taxonomia']      = sanitize_key( (string) ( $g['taxonomia'] ?? 'tema' ) ) ?: 'tema';
+			$out['general']['categoria']      = sanitize_text_field( (string) ( $g['categoria'] ?? 'Noticias' ) );
+			$out['general']['idioma']         = sanitize_key( (string) ( $g['idioma'] ?? 'es' ) ) ?: 'es';
+			$out['general']['remitente']      = sanitize_email( (string) ( $g['remitente'] ?? '' ) );
+		}
 
-		$ai = isset( $in['ai'] ) && is_array( $in['ai'] ) ? $in['ai'] : array();
-		$provider = in_array( ( $ai['provider'] ?? '' ), self::PROVIDERS, true ) ? $ai['provider'] : 'deepseek';
-		$out['ai']['provider'] = $provider;
-		$modelo = sanitize_text_field( (string) ( $ai['modelo'] ?? '' ) );
-		$out['ai']['modelo'] = in_array( $modelo, self::models( $provider ), true ) ? $modelo : '';
-		$key = isset( $ai['api_key'] ) ? trim( (string) $ai['api_key'] ) : '';
-		if ( $key !== '' ) {
-			$out['ai']['api_key'] = $key;
-		} elseif ( ! empty( $base['ai']['api_key'] ) ) {
-			$out['ai']['api_key'] = $base['ai']['api_key'];
+		if ( isset( $in['ai'] ) && is_array( $in['ai'] ) ) {
+			$ai = $in['ai'];
+			$provider = in_array( ( $ai['provider'] ?? '' ), self::PROVIDERS, true ) ? $ai['provider'] : 'deepseek';
+			$out['ai']['provider'] = $provider;
+			$modelo = sanitize_text_field( (string) ( $ai['modelo'] ?? '' ) );
+			$out['ai']['modelo'] = in_array( $modelo, self::models( $provider ), true ) ? $modelo : '';
+			$key = isset( $ai['api_key'] ) ? trim( (string) $ai['api_key'] ) : '';
+			if ( $key !== '' ) {
+				$out['ai']['api_key'] = $key;
+			} elseif ( ! empty( $base['ai']['api_key'] ) ) {
+				$out['ai']['api_key'] = $base['ai']['api_key'];
+			}
 		}
 
 		$temas = array();
@@ -315,8 +324,14 @@ class Settings {
 			$out['ediciones'] = $eds;
 		}
 
-		$out['ruido']              = self::lines( $in['ruido'] ?? array() );
-		$out['blacklist_dominios'] = self::lines( $in['blacklist_dominios'] ?? array() );
+		// `ruido`/`blacklist_dominios` viven en la pestaña Filtros; guardar otra
+		// pestaña NO debe vaciarlos (antes se hacía `?? array()` -> reset).
+		if ( array_key_exists( 'ruido', $in ) ) {
+			$out['ruido'] = self::lines( $in['ruido'] );
+		}
+		if ( array_key_exists( 'blacklist_dominios', $in ) ) {
+			$out['blacklist_dominios'] = self::lines( $in['blacklist_dominios'] );
+		}
 
 		return $out;
 	}

@@ -132,6 +132,20 @@ check( $clean['ruido'] === array( 'uno', 'dos' ), 'sanitize: ruido dedup' );
 
 check( Settings::sanitize( array( 'general' => array( 'hora' => '23:59' ) ), $d )['general']['hora'] === '23:59', 'sanitize: hora valida 23:59' );
 
+// Regresion del footgun: guardar una pestana distinta de "General" NO debe
+// apagar `general.activo` ni vaciar `ruido`/`ai` (bug que corto el boletin 27-sep).
+$base_active = $d;
+$base_active['general']['activo'] = 1;
+$base_active['ruido'] = array( 'farándula' );
+$solo_temas = Settings::sanitize(
+	array( 'temas' => array( array( 'nombre' => 'Otro', 'activo' => 1, 'feeds' => array( 'https://x.test/rss' ) ) ) ),
+	$base_active
+);
+check( (int) $solo_temas['general']['activo'] === 1, 'sanitize: guardar otra pestana NO apaga general.activo' );
+check( $solo_temas['ruido'] === array( 'farándula' ), 'sanitize: guardar otra pestana NO vacia ruido' );
+check( $solo_temas['ai']['provider'] === $base_active['ai']['provider'], 'sanitize: guardar otra pestana NO resetea ai' );
+check( (int) Settings::sanitize( array( 'general' => array( 'hora' => '08:00' ) ), $base_active )['general']['activo'] === 0, 'sanitize: guardar General sin casilla SI desactiva (accion explicita)' );
+
 $j = Curate::extract_json( "```json\n{\"items\":[{\"i\":0,\"tema\":\"x\",\"resumen\":\"y\"}]}\n```" );
 check( is_array( $j ) && $j['items'][0]['i'] === 0, 'curate: extract_json con cerca' );
 check( Curate::extract_json( 'sin json aqui' ) === null, 'curate: extract_json sin objeto -> null' );
