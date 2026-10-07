@@ -773,6 +773,11 @@ class Fields
 	private static function show_when_attr( array $f ): string
 	{
 		$sw = $f['show_when'] ?? null;
+		// SHOW_WHEN_EXPR_V1: regla de texto (permite condiciones compuestas,
+		// p. ej. "a!=* && b!=valor"). Se emite tal cual.
+		if ( is_string( $sw ) && trim( $sw ) !== '' ) {
+			return ' data-es-show-when="' . esc_attr( trim( $sw ) ) . '"';
+		}
 		if ( ! is_array( $sw ) ) {
 			return '';
 		}

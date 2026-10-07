@@ -624,7 +624,17 @@ class FormRenderer
 			if ( $is_incident ) {
 				$html .= IncidentRenderer::render_repeater( $config );
 			}
-			$html .= '<div style="margin-top:14px;clear:both;"><button type="submit" class="estandar-form-v2-submit" style="padding:10px 22px;cursor:pointer;">'
+			// SUBMIT_GATE_V1: `data-es-gate-fields` habilita el botón cuando los
+			// campos visibles listados están completos.
+			$gate_attr = '';
+			if ( ! empty( $config['submit_gate_fields'] ) ) {
+				$gf = is_array( $config['submit_gate_fields'] ) ? $config['submit_gate_fields'] : preg_split( '/[\s,]+/', (string) $config['submit_gate_fields'] );
+				$gf = array_values( array_filter( array_map( 'sanitize_key', (array) $gf ) ) );
+				if ( $gf ) {
+					$gate_attr = ' data-es-gate-fields="' . esc_attr( implode( ',', $gf ) ) . '"';
+				}
+			}
+			$html .= '<div style="margin-top:14px;clear:both;"><button type="submit" class="estandar-form-v2-submit"' . $gate_attr . ' style="padding:10px 22px;cursor:pointer;">'
 				. esc_html( $submit ) . '</button></div>';
 		} else {
 			$html .= self::progressive_steps_html( $config, $fields, $step_map, $flow_steps, $submit, $is_incident );
@@ -868,9 +878,14 @@ class FormRenderer
 		$has_sw = false;
 		foreach ( $fields as $f ) {
 			$types[] = strtolower( (string) ( $f['type'] ?? '' ) );
-			if ( is_array( $f['show_when'] ?? null ) ) {
+			$sw = $f['show_when'] ?? null;
+			if ( is_array( $sw ) || ( is_string( $sw ) && trim( $sw ) !== '' ) ) {
 				$has_sw = true;
 			}
+		}
+		// SUBMIT_GATE_V1: habilita el botón sólo con los campos indicados.
+		if ( ! empty( $config['submit_gate_fields'] ) ) {
+			$has_sw = true;
 		}
 		$has_rut  = in_array( 'rut', $types, true ) || in_array( 'phone', $types, true ) || in_array( 'tel', $types, true );
 		$has_dep  = in_array( 'dependent_select', $types, true );
