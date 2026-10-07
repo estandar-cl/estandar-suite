@@ -1006,6 +1006,29 @@ foreach ( $st_subs as $st_k => $st_l ) {
 	}
 
 	function typeLabel(t) { return TYPES[t] || t; }
+	// HTML_BLOCK_UI_V1: los campos html/heading no tienen etiqueta (su contenido
+	// va en `html`). Antes se mostraban como "(sin etiqueta)" y no se veía ni se
+	// podía editar el contenido → parecían vacíos y se podían borrar por error.
+	function isHtmlType(t) { return t === 'html' || t === 'heading'; }
+	function stripTags(s) { return String(s || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim(); }
+	function fieldDisplayLabel(f) {
+		if (f && String(f.label || '').trim()) { return f.label; }
+		if (f && isHtmlType(f.type)) {
+			var t = stripTags(f.html || f.content || '');
+			return t ? ('HTML: ' + t.slice(0, 48)) : '(bloque HTML vacío)';
+		}
+		return '(sin etiqueta)';
+	}
+	function bindHtmlContent(el, si, fi) {
+		var ta = el.querySelector('.maq-html');
+		if (!ta) { return; }
+		ta.addEventListener('input', function () {
+			SECTIONS[si].fields[fi].html = this.value;
+			var b = el.querySelector('.maq-badge-label');
+			if (b) { b.textContent = fieldDisplayLabel(SECTIONS[si].fields[fi]); }
+			renderPreview();
+		});
+	}
 
 	// Normaliza tipos duplicados/legacy (phone → tel: mismo render y validación).
 	SECTIONS.forEach(function (sec) { (sec.fields || []).forEach(function (f) { if (f.type === 'phone') { f.type = 'tel'; } }); });
@@ -1018,10 +1041,13 @@ foreach ( $st_subs as $st_k => $st_l ) {
 		} else if (optionsTypes[f.type]) {
 			opts = '<tr class="maq-options-row"><th>Opciones</th><td><label class="description">Una por línea</label><textarea class="maq-options" rows="2" style="width:100%;">' + esc((f.options || []).map(optLabel).join('\n')) + '</textarea></td></tr>';
 		}
+		var htmlRow = isHtmlType(f.type)
+			? '<tr class="maq-html-row"><th>Contenido (HTML)</th><td><textarea class="maq-html" rows="4" style="width:100%;font-family:ui-monospace,Menlo,Consolas,monospace;">' + esc(f.html || f.content || '') + '</textarea><span class="description">Texto/HTML del bloque informativo (se muestra tal cual en el formulario; no es un campo de captura).</span></td></tr>'
+			: '';
 		return '<div class="maq-field" draggable="true" data-si="' + si + '" data-fi="' + fi + '" style="border:1px solid #c3c4c7;border-radius:6px;padding:8px 10px;margin-bottom:8px;background:#fff;">'
 			+ '<div style="display:flex;align-items:center;gap:8px;">'
 			+ '<span style="color:#8c8f94;cursor:grab;" title="Arrastrar para reordenar">⋮⋮</span>'
-			+ '<strong class="maq-badge-label" style="flex:1;">' + esc(f.label || '(sin etiqueta)') + '</strong>'
+			+ '<strong class="maq-badge-label" style="flex:1;">' + esc(fieldDisplayLabel(f)) + '</strong>'
 			+ '<span class="description maq-type-badge">' + esc(typeLabel(f.type)) + '</span>'
 			+ '<button type="button" class="button maq-up" title="Subir">↑</button>'
 			+ '<button type="button" class="button maq-down" title="Bajar">↓</button>'
@@ -1035,6 +1061,7 @@ foreach ( $st_subs as $st_k => $st_l ) {
 			+ '<tr><th>Obligatorio</th><td><input class="maq-required" type="checkbox"' + (f.required ? ' checked' : '') + '> Sí</td></tr>'
 			+ '<tr><th>Ancho</th><td><select class="maq-width" style="width:100%;">' + widthOptionsHTML(f.column_width) + '</select><span class="description">100% = línea completa · 50% = mitad · 33,3% = tercio. En celular todo pasa a 100%.</span></td></tr>'
 			+ '<tr><th>Mostrar si</th><td>' + showWhenEditorHTML(f) + '</td></tr>'
+			+ htmlRow
 			+ opts
 			+ '</table>'
 			+ '</div>'
@@ -1167,12 +1194,21 @@ foreach ( $st_subs as $st_k => $st_l ) {
 			});
 			el.querySelector('.maq-up').addEventListener('click', function () { moveField(si, fi, -1); });
 			el.querySelector('.maq-down').addEventListener('click', function () { moveField(si, fi, 1); });
-			el.querySelector('.maq-del').addEventListener('click', function () { SECTIONS[si].fields.splice(fi, 1); openField = null; render(); });
+			el.querySelector('.maq-del').addEventListener('click', function () {
+				var f = SECTIONS[si].fields[fi];
+				// HTML_BLOCK_UI_V1: avisar si el bloque html/heading tiene contenido
+				// (antes se borraba a ciegas porque no se veía su contenido).
+				if (f && isHtmlType(f.type)) {
+					var txt = stripTags(f.html || f.content || '');
+					if (txt && !window.confirm('Este bloque HTML tiene contenido:\n\n«' + txt.slice(0, 140) + (txt.length > 140 ? '…' : '') + '»\n\n¿Quitar el bloque de todos modos?')) { return; }
+				}
+				SECTIONS[si].fields.splice(fi, 1); openField = null; render();
+			});
 			var dupeBtn = el.querySelector('.maq-dupe');
 			if (dupeBtn) { dupeBtn.addEventListener('click', function () { dupeField(si, fi); }); }
 			// Edición en vivo: cualquier cambio actualiza SECTIONS y la vista previa, sin recargar.
 			var labelEl = el.querySelector('.maq-label');
-			if (labelEl) { labelEl.addEventListener('input', function () { SECTIONS[si].fields[fi].label = this.value; el.querySelector('.maq-badge-label').textContent = this.value || '(sin etiqueta)'; renderPreview(); }); }
+			if (labelEl) { labelEl.addEventListener('input', function () { SECTIONS[si].fields[fi].label = this.value; el.querySelector('.maq-badge-label').textContent = fieldDisplayLabel(SECTIONS[si].fields[fi]); renderPreview(); }); }
 			var typeSel = el.querySelector('.maq-type');
 			if (typeSel) {
 				typeSel.addEventListener('change', function () {
@@ -1193,6 +1229,16 @@ foreach ( $st_subs as $st_k => $st_l ) {
 							else { row.querySelector('.maq-options').addEventListener('input', function () { SECTIONS[si].fields[fi].options = parseOptions(this.value); renderPreview(); }); }
 						}
 					} else if (row) { row.parentNode.removeChild(row); }
+					var hrow = el.querySelector('.maq-html-row');
+					if (isHtmlType(f.type)) {
+						if (!hrow) {
+							hrow = document.createElement('tr'); hrow.className = 'maq-html-row';
+							hrow.innerHTML = '<th>Contenido (HTML)</th><td><textarea class="maq-html" rows="4" style="width:100%;font-family:ui-monospace,Menlo,Consolas,monospace;"></textarea><span class="description">Texto/HTML del bloque informativo (se muestra tal cual en el formulario; no es un campo de captura).</span></td>';
+							el.querySelector('.maq-editbox table').appendChild(hrow);
+							bindHtmlContent(el, si, fi);
+						}
+					} else if (hrow) { hrow.parentNode.removeChild(hrow); }
+					el.querySelector('.maq-badge-label').textContent = fieldDisplayLabel(f);
 					renderPreview();
 				});
 			}
@@ -1200,6 +1246,7 @@ foreach ( $st_subs as $st_k => $st_l ) {
 			if (optEl) { optEl.addEventListener('input', function () { SECTIONS[si].fields[fi].options = parseOptions(this.value); renderPreview(); }); }
 			var wSel = el.querySelector('.maq-width');
 			if (wSel) { wSel.addEventListener('change', function () { SECTIONS[si].fields[fi].column_width = this.value; renderPreview(); }); }
+			if (el.querySelector('.maq-html')) { bindHtmlContent(el, si, fi); }
 			var swField = el.querySelector('.maq-show-field');
 			if (swField) { bindShowWhen(el, si, fi); }
 			var rwrap = el.querySelector('.maq-routing-options');
@@ -1342,6 +1389,12 @@ foreach ( $st_subs as $st_k => $st_l ) {
 			(sec.fields || []).forEach(function (f) {
 				// SYSFIELD_HIDE_V1: no mostrar campos de sistema en la vista previa.
 				if (isSystemField(f)) { return; }
+				// HTML_BLOCK_UI_V1: los bloques html/heading se muestran con su contenido.
+				if (isHtmlType(f.type || '')) {
+					var raw = String(f.html || f.content || '');
+					h += '<div style="box-sizing:border-box;width:' + fieldWidthPct(f) + '%;float:left;padding:0 4px;margin-bottom:8px;">' + (raw || '<em class="description">(bloque ' + esc(typeLabel(f.type)) + ' sin contenido)</em>') + '</div>';
+					return;
+				}
 				var t = f.type || 'text';
 				var inner = '<label>' + esc(f.label || '(sin etiqueta)') + (f.required ? ' <span style="color:#d63638;">*</span>' : '') + '</label><br>';
 				if (t === 'textarea') { inner += '<textarea rows="2" style="width:100%;"></textarea>'; }
@@ -1396,6 +1449,8 @@ foreach ( $st_subs as $st_k => $st_l ) {
 			else { var ta = el.querySelector('.maq-options'); f.options = ta ? parseOptions(ta.value) : []; }
 			var wSel = el.querySelector('.maq-width');
 			if (wSel) { f.column_width = wSel.value; }
+			var htmlEl = el.querySelector('.maq-html');
+			if (htmlEl) { f.html = htmlEl.value; }
 			var sw = readShowWhen(el);
 			if (sw) { f.show_when = sw; } else { delete f.show_when; }
 			// NAME_STABLE_V1: el name solo se auto-genera para campos NUEVOS o sin
