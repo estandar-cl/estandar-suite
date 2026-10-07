@@ -5,7 +5,7 @@
  * atribución (click IDs + UTM), webhooks de ingreso y adopción de leads
  * históricos de los plugins originales (lectura read-only, first-writer-wins).
  * Producto aislado; NO reemplaza ni modifica los plugins originales.
- * Version: 3.4.7
+ * Version: 3.4.8
  * Requires at least: 6.0
  * Tested up to: 7.0
  * Requires PHP: 8.0
@@ -22,7 +22,7 @@ if ( version_compare( PHP_VERSION, '8.0', '<' ) ) {
 }
 
 define( 'ESTANDAR_SUITE_CAPTURE_FILE', __FILE__ );
-define( 'ESTANDAR_SUITE_CAPTURE_VERSION', '3.4.7');
+define( 'ESTANDAR_SUITE_CAPTURE_VERSION', '3.4.8');
 define( 'ESTANDAR_SUITE_CAPTURE_PATH', plugin_dir_path( __FILE__ ) );
 
 require_once ESTANDAR_SUITE_CAPTURE_PATH . 'includes/Ingestion.php';
