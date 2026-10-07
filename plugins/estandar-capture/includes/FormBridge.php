@@ -102,7 +102,10 @@ class FormBridge
 			'contact'     => $contact,
 			'content'     => array( 'source_form_id' => $form_id, 'message' => (string) ( $fields['your-message'] ?? $fields['message'] ?? '' ) ),
 			'fields'      => $fields,
-			'attribution' => array( 'landing_url' => (string) ( $_SERVER['HTTP_REFERER'] ?? '' ) ),
+			'attribution' => array_merge(
+				array( 'landing_url' => (string) ( $_SERVER['HTTP_REFERER'] ?? '' ) ),
+				is_array( $meta['attribution'] ?? null ) ? $meta['attribution'] : array()
+			),
 			'ip'          => (string) ( $meta['ip'] ?? ( $_SERVER['REMOTE_ADDR'] ?? '' ) ),
 			'spam'        => array(),
 		);
@@ -235,6 +238,18 @@ class FormBridge
 	public static function handle_facebook( int $form_id, array $fields, array $meta = array() ): array
 	{
 		$meta = array_merge( array( 'ip' => '' ), $meta );
+		// META_ATTR_V1 (2026-10-07): los Instant Forms de Meta no propagan un
+		// click-id (el usuario nunca visita el sitio), pero el webhook "leadgen"
+		// sí entrega ad_id/adset_id/campaign_id. Se persisten como atribución
+		// para poder trazar el anuncio sin depender de gclid/fbclid.
+		if ( empty( $meta['attribution'] ) || ! is_array( $meta['attribution'] ) ) {
+			$meta['attribution'] = array();
+		}
+		foreach ( array( 'ad_id', 'campaign_id', 'adset_id', 'leadgen_id' ) as $k ) {
+			if ( ! empty( $meta[ $k ] ) ) {
+				$meta['attribution'][ 'meta_' . $k ] = (string) $meta[ $k ];
+			}
+		}
 		return self::ingest_form( 'facebook', $form_id, $fields, $meta );
 	}
 }

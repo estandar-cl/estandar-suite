@@ -138,6 +138,17 @@ check('1d honeypot → spam flag', $n['spam_honeypot'] === 1);
 check('1e uuid presente', strlen($n['capture_uuid']) === 36);
 check('1f source_form_id', $n['source_form_id'] === 'contacto');
 
+// META_ATTR_V1: los ids de anuncio de Meta Instant Form se persisten en
+// click_ids_json (sin click-id, el ad_id es la única traza de atribución).
+$na = C\Ingestion::normalize(array(
+    'source'      => 'facebook',
+    'contact'     => array('name' => 'Lead Meta', 'phone' => '+56912345678'),
+    'attribution' => array('meta_ad_id' => 'AD9', 'meta_campaign_id' => 'CMP8', 'meta_adset_id' => 'ADST7', 'meta_leadgen_id' => 'LG6'),
+));
+check('1g meta_ad_id persistido', strpos($na['click_ids_json'], '"meta_ad_id";s:2:"AD9"') !== false || strpos($na['click_ids_json'], 'AD9') !== false);
+check('1h meta_campaign_id persistido', strpos($na['click_ids_json'], 'CMP8') !== false);
+check('1i meta_leadgen_id persistido', strpos($na['click_ids_json'], 'LG6') !== false);
+
 // ── 2. normalize_phone edge cases ─────────────────────────────────────────
 check('2a vacío', C\Ingestion::normalize_phone('') === '');
 check('2b 9 dígitos → prefijo 56', C\Ingestion::normalize_phone('9 1234 5678') === '56912345678');

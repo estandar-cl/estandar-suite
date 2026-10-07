@@ -214,6 +214,18 @@ check( '11m vocabulario ajeno (situacion no reconocida) → null',
 $intent_nece = B\LeadScorer::intent_from_fields( $q_ideal_new );
 check( '11i intent derivado de la necesidad', $intent_nece === 'necesito_llevar_la_contabilidad_de_mi_empresa' );
 
+// ACACIOS_RE_V1: vocabulario inmobiliario (when_buy/how_finance/project_slug).
+check( '11n inmobiliario asap+credito+proyecto → 100',
+	B\LeadScorer::qualification_from_fields( array( 'when_buy' => 'asap', 'how_finance' => 'credito', 'project_slug' => 'altacruz' ) ) === 100 );
+check( '11o inmobiliario m3_6+subsidio+proyecto → 70',
+	B\LeadScorer::qualification_from_fields( array( 'when_buy' => 'm3_6', 'how_finance' => 'subsidio', 'project_slug' => 'parronales' ) ) === 70 );
+check( '11p inmobiliario sin campos de cualificación (solo mensaje) → null',
+	B\LeadScorer::qualification_from_fields( array( 'mensaje' => 'hola' ) ) === null );
+check( '11q inmobiliario vocabulario no reconocido → null',
+	B\LeadScorer::qualification_from_fields( array( 'when_buy' => 'alguna_vez', 'how_finance' => 'nose' ) ) === null );
+check( '11r campos AK no contaminados por rama inmobiliaria',
+	B\LeadScorer::qualification_from_fields( $q_ideal_new ) === 100 );
+
 $t_hot = B\Scoring::calculate( array( 'capture' => 100, 'qualification' => 100, 'behavior_events' => array() ) );
 check( '11j ideal captura+cualificación → CALIENTE (≥70)', $t_hot['temperature'] === 'CALIENTE' );
 $t_cold = B\Scoring::calculate( array( 'capture' => 100, 'qualification' => 0, 'behavior_events' => array() ) );

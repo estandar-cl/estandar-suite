@@ -26,7 +26,9 @@ class Ingestion
 	const VERSION = '1.4.0';
 
 	/** Click/attribution identifiers the Capture product owns. */
-	const ID_KEYS = array( 'gclid', 'gbraid', 'wbraid', 'fbclid', 'meta_fbc', 'meta_fbp', 'ttclid', 'msclkid' );
+	const ID_KEYS = array( 'gclid', 'gbraid', 'wbraid', 'fbclid', 'meta_fbc', 'meta_fbp', 'ttclid', 'msclkid',
+		// META_ATTR_V1: identificadores de anuncio de Meta Instant Form (sin click-id).
+		'meta_ad_id', 'meta_campaign_id', 'meta_adset_id', 'meta_leadgen_id' );
 
 	public static function activate_schema(): void
 	{

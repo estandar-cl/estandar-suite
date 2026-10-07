@@ -540,6 +540,11 @@ class AdsDataManager
 					'gclid'        => (string) ( $click['gclid'] ?? '' ),
 					'gbraid'       => (string) ( $click['gbraid'] ?? '' ),
 					'wbraid'       => (string) ( $click['wbraid'] ?? '' ),
+					// META_ATTR_V1: atribución de Meta Instant Form (sin click-id).
+					'fbclid'          => (string) ( $click['fbclid'] ?? '' ),
+					'meta_ad_id'      => (string) ( $click['meta_ad_id'] ?? '' ),
+					'meta_campaign_id'=> (string) ( $click['meta_campaign_id'] ?? '' ),
+					'meta_adset_id'   => (string) ( $click['meta_adset_id'] ?? '' ),
 					'landing_url'  => (string) $r['landing_url'],
 					'referrer'     => (string) $r['referrer'],
 				),

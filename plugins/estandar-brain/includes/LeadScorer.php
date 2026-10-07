@@ -239,6 +239,15 @@ class LeadScorer
 	 */
 	public static function qualification_from_fields( array $fields ): ?int
 	{
+		// ACACIOS_RE_V1 (2026-10-07): vocabulario inmobiliario (when_buy /
+		// how_finance / project_slug). Se evalúa primero; devuelve null si el
+		// payload no usa ese vocabulario → el scoring de AK/estandar.cl queda
+		// intacto (mismo gate semántico que la rama contable).
+		$re = self::real_estate_qualification( $fields );
+		if ( $re !== null ) {
+			return $re;
+		}
+
 		$situ  = self::field_value( $fields, array( 'cual_es_la_situacion_actual_de_tu_empresa', 'situacion_empresa', 'tipo_cliente' ) );
 		$cont  = self::field_value( $fields, array( 'actualmente_tienes_contador', 'contador_actual' ) );
 		$plazo = self::field_value( $fields, array( 'cuando_necesitas_comenzar', 'plazo_inicio', 'urgencia' ) );
@@ -346,6 +355,54 @@ class LeadScorer
 		if ( self::contains_any( $msg, array( 'internacional', 'matriz en el extranjero', 'matriz fuera', 'sede en chile', 'expansion internacional', 'expansión internacional', 'doble tributacion', 'doble tributación', 'inversion extranjera', 'inversión extranjera', 'holding', 'grupo de empresas', 'varias sociedades', 'operar en otro pais', 'operar en otro país' ) ) ) {
 			$q += 10;
 		}
+
+		return max( 0, min( 100, $q ) );
+	}
+
+	/**
+	 * PURE: qualification (0–100) para formularios inmobiliarios (Acacios).
+	 *
+	 * Vocabulario: `when_buy` (urgencia, H3), `how_finance` (intención de
+	 * financiar, H2) y `project_slug` (proyecto concreto, H1/H4). Devuelve null
+	 * cuando el payload NO usa ese vocabulario (ni when_buy ni how_finance), para
+	 * no alterar el scoring de otros sitios.
+	 */
+	public static function real_estate_qualification( array $fields ): ?int
+	{
+		$when = str_replace( '-', '_', strtolower( trim( self::field_value( $fields, array( 'when_buy', 'cuando_comprar', 'plazo_compra' ) ) ) ) );
+		$how  = str_replace( '-', '_', strtolower( trim( self::field_value( $fields, array( 'how_finance', 'financiamiento', 'como_financiar' ) ) ) ) );
+
+		// Gate de identidad semántica: sin vocabulario inmobiliario → null.
+		if ( $when === '' && $how === '' ) {
+			return null;
+		}
+
+		$when_map = array(
+			'asap'            => 40, 'lo_antes_posible' => 40, 'inmediato' => 40,
+			'm1_3'            => 25, '1_3_meses' => 25, 'este_mes' => 25,
+			'm3_6'            => 15, '3_6_meses' => 15, 'este_semestre' => 15,
+			'm6_12'           => 5,  '6_12_meses' => 5,
+			'solo_explorando' => 0,  'explorando' => 0, 'no_se' => 0,
+		);
+		$how_map = array(
+			'credito'           => 30, 'credito_hipotecario' => 30, 'hipotecario' => 30,
+			'contado'           => 25,
+			'subsidio'          => 20,
+			'no_lo_tengo_aun'   => 5, 'por_ver' => 5, 'aun_no_se' => 5,
+		);
+
+		// Al menos un valor reconocido (evita ruido de vocabularios ajenos).
+		if ( ! isset( $when_map[ $when ] ) && ! isset( $how_map[ $how ] ) ) {
+			return null;
+		}
+
+		$q = 0;
+		// H1/H4: proyecto concreto = intención real sobre un desarrollo.
+		if ( self::field_value( $fields, array( 'project_slug', 'project', 'proyecto' ) ) !== '' ) {
+			$q += 35;
+		}
+		if ( isset( $when_map[ $when ] ) ) { $q += $when_map[ $when ]; }
+		if ( isset( $how_map[ $how ] ) )  { $q += $how_map[ $how ]; }
 
 		return max( 0, min( 100, $q ) );
 	}
