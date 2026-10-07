@@ -1,0 +1,82 @@
+/* Estandar Pop - Popup Block Editor Styles */
+
+.estandar-pop-block {
+  margin: 16px 0;
+}
+
+.ep-block-button {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 150ms ease;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.ep-block-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+  background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+}
+
+.ep-block-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0, 123, 255, 0.3);
+}
+
+.ep-block-banner {
+  padding: 16px;
+  background: linear-gradient(135deg, #fff3cd 0%, #ffe8a6 100%);
+  border: 2px solid #ffc107;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  transition: all 150ms ease;
+}
+
+.ep-block-banner:hover {
+  background: linear-gradient(135deg, #ffe8a6 0%, #ffd966 100%);
+  border-color: #ff9800;
+  transform: translateX(4px);
+}
+
+/* Estilos para el frontend */
+.wp-block-estandar-pop-popup-picker {
+  margin: 16px 0;
+}
+
+.estandar-pop-block[data-mode="button"] .ep-block-button {
+  width: auto;
+  display: inline-block;
+}
+
+.estandar-pop-block[data-mode="banner"] .ep-block-banner {
+  width: 100%;
+  display: block;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .ep-block-button,
+  .ep-block-banner {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+  }
+
+  .ep-block-button {
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+
+  .ep-block-banner {
+    padding: 12px;
+    font-size: 16px;
+  }
+}

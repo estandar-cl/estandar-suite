@@ -1,0 +1,120 @@
+.efx-spatial-gallery {
+	position: relative;
+	min-height: var(--efx-sg-height, 720px);
+	overflow: clip;
+	background: #f8fafc;
+	color: #111827;
+	isolation: isolate;
+}
+
+.efx-sg-stage {
+	position: relative;
+	min-height: var(--efx-sg-height, 720px);
+}
+
+.efx-sg-index {
+	position: absolute;
+	z-index: 3;
+	top: 1.25rem;
+	left: 1.25rem;
+	font-size: 0.8125rem;
+	letter-spacing: 0.04em;
+	opacity: 0.55;
+}
+
+.efx-sg-item {
+	position: absolute;
+	z-index: 1;
+	top: calc(var(--efx-sg-y) * var(--efx-sg-spread, 1));
+	left: calc(var(--efx-sg-x) * var(--efx-sg-spread, 1));
+	width: min(var(--efx-sg-width, 280px), 42vw);
+	margin: 0;
+	transform: translate3d(-50%, -50%, 0) rotate(var(--efx-sg-r)) scale(var(--efx-sg-scale, 1));
+	transition: filter 220ms ease, opacity 220ms ease, z-index 0s linear 220ms;
+	will-change: transform;
+	outline: none;
+}
+
+.efx-sg-item:focus {
+	outline: none;
+}
+
+.efx-sg-item:focus-visible img {
+	outline: 2px solid rgb(17 24 39 / 0.45);
+	outline-offset: 4px;
+}
+
+.efx-sg-item img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 1.15rem;
+	box-shadow: 0 24px 70px rgb(15 23 42 / 0.18);
+	transition: box-shadow 220ms ease;
+}
+
+.efx-sg-item figcaption {
+	padding-top: 0.55rem;
+	font-size: 0.8125rem;
+	line-height: 1.2;
+	letter-spacing: 0.02em;
+	opacity: 0.6;
+}
+
+.efx-spatial-gallery.has-focus .efx-sg-item:not(.is-focus) {
+	filter: grayscale(0.5) blur(1px);
+	opacity: 0.38;
+}
+
+.efx-sg-item.is-focus {
+	z-index: 5;
+	transition-delay: 0s;
+}
+
+.efx-sg-item.is-focus img {
+	box-shadow: 0 32px 90px rgb(15 23 42 / 0.3);
+}
+
+.efx-sg-empty {
+	padding: 3rem;
+	text-align: center;
+	border: 1px dashed currentColor;
+	opacity: 0.6;
+}
+
+@media (max-width: 781px) {
+	.efx-spatial-gallery,
+	.efx-sg-stage {
+		min-height: auto;
+	}
+
+	.efx-spatial-gallery {
+		padding: 1rem;
+		overflow: visible;
+	}
+
+	.efx-sg-index {
+		position: static;
+		margin-bottom: 1rem;
+	}
+
+	.efx-sg-stage {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.efx-sg-item {
+		position: relative;
+		top: auto;
+		left: auto;
+		width: 100%;
+		transform: none !important;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.efx-sg-item,
+	.efx-sg-item img {
+		transition: none;
+	}
+}

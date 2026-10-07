@@ -1,0 +1,30 @@
+/* Estandar Experience — Mobile boost.
+ *
+ * Regla de producto: en móvil los efectos deben ser IGUAL o MÁS pirotécnicos
+ * que en desktop. El runtime ya corre FX en móvil por defecto (advanced.mobile
+ * default true). Este hoja amplifica las experiencias en pantallas pequeñas
+ * de forma puramente aditiva: no desactiva nada, no toca el kernel, no altera
+ * la lógica JS (distancia/velocidad JS siguen viniendo del config).
+ *
+ * Se enqueue SOLO cuando una página usa FX (vía Frontend::enqueue_module).
+ */
+
+@media (max-width: 781px) {
+
+	/* Ambient: más energía en pantalla pequeña. */
+	.efx-ambient-float { animation-duration: 3.5s !important; }
+	.efx-ambient-pulse { animation-duration: 1.8s !important; animation-iteration-count: infinite !important; }
+	.efx-ambient-gradient { animation-duration: 4s !important; }
+
+	/* Hover/pointer se convierten en :active en touch: refuerzo el estado. */
+	.efx-hover-lift:active,
+	.efx-hover-glow:active,
+	.efx-hover-shine:active { transform: scale(1.04) !important; }
+
+	/* Reveals JS con pre-estado: garantiza que el contenido nunca quede
+	   oculto si algo no corre (progressive enhancement estricto). */
+	.efx { will-change: auto; }
+
+	/* Base de movimiento más rápida en móvil. */
+	.efx { transition-duration: 320ms !important; }
+}

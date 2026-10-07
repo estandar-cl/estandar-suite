@@ -1,0 +1,155 @@
+/* Estandar Experience — estilos del editor. */
+.efx-editor {
+	border: 1px dashed #c3c4c7;
+	border-radius: 6px;
+	padding: 14px 16px;
+	background: #f6f7f7;
+}
+
+.efx-editor__hint {
+	font-size: 12.5px;
+	color: #50575e;
+	margin-bottom: 8px;
+}
+
+.efx-editor__hint strong {
+	color: #1d2327;
+	font-size: 13px;
+}
+
+.efx-editor__attrs {
+	margin: 0;
+	padding-left: 18px;
+	font-size: 11.5px;
+	color: #646970;
+	columns: 2;
+}
+
+/* ── Panel de Experiencia (inspector) ─────────────────────────── */
+.efx-panel .efx-module {
+	margin-bottom: 14px;
+	padding-left: 10px;
+	border-left: 2px solid #e0e0e0;
+}
+
+.efx-panel .efx-module.is-active {
+	border-left-color: #10b981;
+}
+
+.efx-panel .efx-module .components-base-control {
+	margin-top: 8px;
+}
+
+.efx-compat-note {
+	margin: 0 0 12px;
+	font-size: 12px;
+	color: #6b7280;
+}
+
+.efx-control-color {
+	margin-top: 10px;
+}
+
+.efx-control-color__label {
+	display: block;
+	margin-bottom: 6px;
+	font-size: 11px;
+	font-weight: 500;
+	text-transform: uppercase;
+	color: #1e1e1e;
+}
+
+.efx-control-color input[type="color"] {
+	width: 100%;
+	height: 32px;
+	padding: 0;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	background: none;
+}
+
+/* Responsive: en pantallas pequeñas el inspector de WP colapsa; aseguramos
+   que los controles del panel se apilen y no desborden. */
+@media (max-width: 782px) {
+	.efx-panel .efx-module {
+		padding-left: 8px;
+	}
+	.efx-editor__attrs {
+		columns: 1;
+	}
+}
+
+/* ── Galería horizontal parallax (editor) ─────────────────────── */
+.efx-editor-gallery__preview {
+	display: flex;
+	gap: 6px;
+	overflow-x: auto;
+	padding: 6px 0;
+	margin-bottom: 8px;
+}
+
+.efx-editor-gallery__preview img {
+	height: 64px;
+	width: auto;
+	border-radius: 6px;
+	flex: 0 0 auto;
+}
+
+.efx-editor-slides {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-top: 10px;
+}
+
+.efx-editor-slide {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	padding: 8px;
+}
+
+.efx-editor-slide__thumb {
+	width: 72px;
+	height: 54px;
+	object-fit: cover;
+	border-radius: 6px;
+	flex: 0 0 auto;
+}
+
+.efx-editor-slide__fields {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.efx-editor-slide__fields .components-base-control {
+	margin-bottom: 0;
+}
+
+.efx-editor-slide__actions {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+@media (max-width: 782px) {
+	.efx-editor-slide {
+		flex-wrap: wrap;
+	}
+	.efx-editor-slide__fields {
+		flex-basis: 100%;
+	}
+}
+
+/* Pinned Image Reveal (editor) */
+.efx-editor-pin__preview {
+	display: block;
+	max-width: 100%;
+	max-height: 220px;
+	border-radius: 8px;
+	margin: 6px 0 10px;
+}

@@ -1,0 +1,4 @@
+# Falsos positivos del guard de secretos (2026-10-07)
+release-suite.command
+plugins 2/estandar-core/includes/Secrets.php
+_retired/**/Secrets.php

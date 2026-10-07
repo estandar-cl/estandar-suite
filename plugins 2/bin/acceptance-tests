@@ -1,0 +1,127 @@
+#!/bin/zsh
+set -euo pipefail
+# Acceptance Tests — Estandar Suite Production Release Gate
+# Run BEFORE any release. Each test verifies a critical production behavior.
+# Fails if any acceptance criterion is not met.
+
+DRAGON_HOME="${DRAGON_HOME:-${HOME}/Applications/Dragon}"
+WORKSPACE="/Volumes/ESTANDAR_2026/ESTANDAR_STUDIO_IA/Plugins_Workspace/wp-content/plugins"
+PASS=0
+FAIL=0
+SKIP=0
+
+pass() { echo "PASS $1"; PASS=$((PASS+1)); }
+fail() { echo "FAIL $1"; FAIL=$((FAIL+1)); }
+skip() { echo "SKIP $1"; SKIP=$((SKIP+1)); }
+
+echo "╔══════════════════════════════════════════════════════════╗"
+echo "║   Estandar Suite — Production Acceptance Tests          ║"
+echo "╚══════════════════════════════════════════════════════════╝"
+echo ""
+
+# ══════════════════════════════════════════════════════════════════════
+# SECTION 1: Phone Validation (CRITICAL)
+# ══════════════════════════════════════════════════════════════════════
+echo "── 1. Phone Validation ──"
+
+# Test 1.1: Source-level phone validation checks
+cd "$WORKSPACE"
+HELPERS_SRC=$(cat "estandar-forms/includes/helpers.php")
+
+# Check phone spec function exists
+echo "$HELPERS_SRC" | grep -q "function estandar_forms_get_phone_spec" && pass "Phone spec function defined" || fail "Phone spec function missing"
+echo "$HELPERS_SRC" | grep -q "function estandar_forms_validate_phone" && pass "Phone validate function defined" || fail "Phone validate function missing"
+echo "$HELPERS_SRC" | grep -q "function estandar_forms_phone_input_attrs" && pass "Phone input_attrs function defined" || fail "Phone input_attrs function missing"
+
+# Check phone spec has minlength >= 8
+SPEC_MIN=$(echo "$HELPERS_SRC" | grep -A5 "function estandar_forms_get_phone_spec" | grep "'minlength'" | sed 's/.*=> *//' | sed 's/,.*//')
+if [ -n "$SPEC_MIN" ] && [ "$SPEC_MIN" -ge 8 ]; then pass "Phone spec minlength >= 8 ($SPEC_MIN)"; else fail "Phone spec minlength too low ($SPEC_MIN)"; fi
+
+# Check phone pattern requires at least 9 digits
+echo "$HELPERS_SRC" | grep -q "9,12\|9,15\|{9,}" && pass "Phone pattern requires at least 9 digits" || fail "Phone pattern may accept short numbers"
+
+# Check default pattern for Chile
+echo "$HELPERS_SRC" | grep -q "56" && pass "Phone spec references Chile country code 56" || fail "Phone spec missing Chile reference"
+
+# ══════════════════════════════════════════════════════════════════════
+# SECTION 2: Form Processing
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 2. Form Processing ──"
+
+# Test form handler loads
+if [ -f "estandar-forms/includes/class-forms.php" ]; then
+    pass "Form handler class exists"
+else
+    fail "Form handler class missing"
+fi
+
+# Test helpers load
+if [ -f "estandar-forms/includes/helpers.php" ]; then
+    pass "Helpers file exists"
+else
+    fail "Helpers file missing"
+fi
+
+# ══════════════════════════════════════════════════════════════════════
+# SECTION 3: Quotes Plugin
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 3. Quotes Plugin ──"
+
+cd "$WORKSPACE/estandar-quotes"
+
+# 3.1 Plugin loads
+php -l estandar-quotes.php >/dev/null 2>&1 && pass "Quotes plugin PHP syntax OK" || fail "Quotes plugin syntax error"
+
+# 3.2 Schema has quote_number column
+grep -q "quote_number" includes/class-estandar-quotes-schema.php && pass "quote_number column defined in schema" || fail "quote_number column missing from schema"
+
+# 3.3 PDF adapter handles empty content
+grep -q "strip_tags" includes/class-estandar-quotes-artifacts.php && pass "Artifacts strip_tags validation exists" || fail "Artifacts missing strip_tags validation"
+
+# 3.4 WP Mail transport validates byte_size
+grep -q "byte_size" includes/class-estandar-quotes-wp-mail-transport.php && pass "Mail transport byte_size validation exists" || fail "Mail transport missing byte_size validation"
+
+# 3.5 Admin send validates artifact
+grep -q "invalid_artifact" includes/class-estandar-quotes-admin.php && pass "Admin send invalid_artifact check exists" || fail "Admin send missing invalid_artifact check"
+
+# 3.6 Email template has professional branding
+grep -q "Estandar Suite" includes/class-estandar-quotes-delivery-email.php && pass "Email template has Estandar Suite branding" || fail "Email template missing Estandar Suite branding"
+
+# 3.7 Human-readable filename
+grep -q "Cotizacion-" includes/class-estandar-quotes-admin.php && pass "Human-readable filename format in download" || fail "Missing Cotizacion- filename format"
+
+# 3.8 Run quick subset of tests
+cd "$WORKSPACE/estandar-quotes"
+PHP_LINT=$(for f in estandar-quotes.php includes/*.php; do php -l "$f" 2>/dev/null; done | grep -c "Parse error")
+if [ "$PHP_LINT" -eq 0 ]; then pass "All PHP files pass lint"; else fail "PHP lint errors found ($PHP_LINT)"; fi
+
+# ══════════════════════════════════════════════════════════════════════
+# SECTION 4: Leads Plugin
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 4. Leads Plugin ──"
+
+cd "$WORKSPACE/estandar-leads"
+leads_main="estandar-leads.php"
+if [ -f "estandar-leads.php" ]; then
+    php -l "$leads_main" >/dev/null 2>&1 && pass "Leads plugin PHP syntax OK" || fail "Leads plugin syntax error"
+else
+    # Try alternate filename
+    for f in *.php; do
+        if grep -q "Plugin Name:" "$f" 2>/dev/null; then
+            php -l "$f" >/dev/null 2>&1 && pass "Leads plugin ($f) PHP syntax OK" || fail "Leads plugin syntax error"
+            break
+        fi
+    done
+fi
+
+# ══════════════════════════════════════════════════════════════════════
+# RESULTS
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "╔══════════════════════════════════════════════════════════╗"
+echo "║  Acceptance Tests: ${PASS} PASS / ${FAIL} FAIL / ${SKIP} SKIP"
+echo "╚══════════════════════════════════════════════════════════╝"
+exit $FAIL

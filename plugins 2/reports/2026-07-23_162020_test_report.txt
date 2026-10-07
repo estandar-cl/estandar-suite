@@ -1,0 +1,224 @@
+==================================================
+ESTANDAR SUITE TEST REPORT
+Fecha: 2026-07-23 16:20:20
+PHP: PHP 8.5.3 (cli) (built: Feb 10 2026 18:25:51) (NTS)
+==================================================
+
+------------------------------------------------
+Plugin: estandar-acceptance
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (1 archivos)
+
+------------------------------------------------
+Plugin: estandar-analytics
+------------------------------------------------
+PASS run-attribution-bridge.php
+PASS run-conversion-contract.php
+PASS run-taxonomy-coverage.php
+PASS run-whatsapp-canonical.php
+PASS run-whatsapp-health.php
+php -l: OK (38 archivos)
+
+------------------------------------------------
+Plugin: estandar-chatbot
+------------------------------------------------
+PASS run-contact-merge-preservation.php
+PASS run-prompt-composition.php
+php -l: OK (47 archivos)
+
+------------------------------------------------
+Plugin: estandar-cpt-manager
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (6 archivos)
+
+------------------------------------------------
+Plugin: estandar-delivery-locator-lite
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (12 archivos)
+
+------------------------------------------------
+Plugin: estandar-destinations
+------------------------------------------------
+PASS run-webhook-adapter-test.php
+php -l: OK (11 archivos)
+
+------------------------------------------------
+Plugin: estandar-duplicate-post
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (1 archivos)
+
+------------------------------------------------
+Plugin: estandar-experience-blocks
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (21 archivos)
+
+------------------------------------------------
+Plugin: estandar-firmas
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (4 archivos)
+
+------------------------------------------------
+Plugin: estandar-forms
+------------------------------------------------
+PASS run-acceptance.php
+PASS run-admin-menu-regression.php
+PASS run-form-engine.php
+PASS run-json-editor-wiring.php
+PASS run-json-lifecycle.php
+PASS run-meta-lead-response-standalone.php
+PASS run-meta-lead-response.php
+PASS run-pipeline-failure-observability.php
+PASS run-saladepruebas.php
+PASS run-survey-json-lifecycle.php
+PASS run-survey-migration-safety.php
+php -l: OK (56 archivos)
+
+------------------------------------------------
+Plugin: estandar-kickoff
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (53 archivos)
+
+------------------------------------------------
+Plugin: estandar-leads
+------------------------------------------------
+PASS run-ads-feedback-observability.php
+PASS run-ai-context-bulk-export.php
+PASS run-ai-context-export.php
+PASS run-ai-context-notification-explainability.php
+PASS run-attribution-merge-precedence.php
+PASS run-audit-function.php
+PASS run-autoresponse-email-fallback.php
+PASS run-autoresponse-hardening.php
+PASS run-autoresponse-observability.php
+PASS run-autoresponse-settings.php
+PASS run-channel-resolver.php
+PASS run-chatbot-evidence.php
+SKIPPED run-commercial-journey-mysql-safety.php
+    SKIP: MySQL gate requires ESTANDAR_MYSQL_GATE_CONTENT without a SQLite db.php drop-in.
+SKIPPED run-commercial-journey-mysql-schema.php
+    SKIP: MySQL gate requires ESTANDAR_MYSQL_GATE_CONTENT without a SQLite db.php drop-in.
+PASS run-commercial-journey-phase-1.php
+PASS run-commercial-journey-wordpress.php
+PASS run-commercial-outcomes.php
+PASS run-commercial-profile.php
+PASS run-compliance-timing-v2.php
+PASS run-contact-normalization.php
+PASS run-conversion-backfill.php
+PASS run-core-optionality-matrix.php
+PASS run-customer-backfill.php
+PASS run-deferred-idempotency.php
+PASS run-deferred-submission-binding.php
+PASS run-first-capture-network-write-once.php
+PASS run-google-oci-observability.php
+PASS run-historical-customer-backfill.php
+PASS run-identity-collision.php
+PASS run-identity-mutex-release.php
+PASS run-intent-score.php
+PASS run-invariants.php
+PASS run-landing-precedence.php
+PASS run-lead-attribution-audit.php
+PASS run-leads-attribution-health-summary.php
+PASS run-manual-override.php
+PASS run-meta-adapter.php
+PASS run-meta-captured-contract.php
+PASS run-meta-config-preservation.php
+PASS run-meta-diagnostics.php
+PASS run-meta-gate-skip.php
+PASS run-meta-graph-client.php
+PASS run-meta-immediate-dispatch.php
+PASS run-meta-payload-builder.php
+PASS run-meta-pixel.php
+PASS run-meta-settings-gates.php
+PASS run-meta-status-options.php
+PASS run-operator-sla-open-evidence.php
+PASS run-platform-eligibility.php
+PASS run-platform-worker-revalidation.php
+PASS run-production-cases.php
+PASS run-qa-policy.php
+PASS run-qualification-engine.php
+PASS run-qualification-policy-gate.php
+PASS run-qualification-transversal.php
+PASS run-recontact-project-preservation.php
+PASS run-sales-activation-cron.php
+PASS run-sales-activation-engine.php
+PASS run-scoring.php
+PASS run-semantic-status.php
+PASS run-seo-intelligence-absence.php
+PASS run-seo-intelligence-context.php
+PASS run-terminal-reopen.php
+PASS run-visual-audit.php
+PASS run-webhook-dispatcher.php
+php -l: OK (155 archivos)
+
+------------------------------------------------
+Plugin: estandar-notifications
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (7 archivos)
+
+------------------------------------------------
+Plugin: estandar-pop
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (5 archivos)
+
+------------------------------------------------
+Plugin: estandar-primer
+------------------------------------------------
+PASS run-campaign-label-auto-registry.php
+PASS run-capture-attribution.php
+PASS run-compliance-shadow-copy.php
+PASS run-operational-hours.php
+PASS run-project-calendar.php
+PASS run-project-registry-migration-guard.php
+php -l: OK (39 archivos)
+
+------------------------------------------------
+Plugin: estandar-quotes
+------------------------------------------------
+PASS run-acacios-profile.php
+PASS run-admin-actions.php
+PASS run-admin-regression.php
+PASS run-architecture-tests.php
+PASS run-artifacts-generate.php
+PASS run-audit-fixes-regression.php
+PASS run-delivery-service.php
+PASS run-document-engine.php
+PASS run-email-to-gateway.php
+PASS run-field-mapping.php
+PASS run-foundation.php
+PASS run-generic-profile.php
+PASS run-hydration-pipeline.php
+PASS run-operator-gateway.php
+PASS run-pdf-fake-adapter.php
+PASS run-preview-service.php
+PASS run-schema.php
+php -l: OK (476 archivos)
+
+------------------------------------------------
+Plugin: estandar-seo-intelligence
+------------------------------------------------
+PASS run-admin-guard-contract.php
+PASS run-conversion-analytics-contract.php
+PASS run-landing-context-contract.php
+PASS run-operational-contract.php
+PASS run-search-console-adapter-contract.php
+PASS run-url-and-adapter-contract.php
+php -l: OK (16 archivos)
+
+------------------------------------------------
+Plugin: estandar-signal-core
+------------------------------------------------
+PASS run-advertising-event-contract.php
+PASS run-fallback-observability.php
+PASS run-google-oci-contract.php
+PASS run-hash-repair-batching.php
+PASS run-meta-capi-contract.php
+PASS run-qa-ads-gate.php

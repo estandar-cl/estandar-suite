@@ -1,0 +1,105 @@
+.estandar-admin {
+  --ecb-admin-bg: #f3f4f6;
+  --ecb-admin-surface: #ffffff;
+  --ecb-admin-border: #d9d9de;
+  --ecb-admin-text: #1d1d1f;
+  --ecb-admin-muted: #6e6e73;
+  --ecb-admin-accent: #1f2937;
+  --ecb-admin-brand: #f95b1f;
+
+  color: var(--ecb-admin-text);
+}
+
+.estandar-admin.wrap {
+  margin-right: 20px;
+}
+
+.estandar-admin .description {
+  color: var(--ecb-admin-muted);
+}
+
+.estandar-admin h2 {
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+
+.estandar-admin table.form-table th {
+  width: 260px;
+  font-weight: 600;
+}
+
+.estandar-admin input[type="text"],
+.estandar-admin input[type="url"],
+.estandar-admin input[type="password"],
+.estandar-admin input[type="number"],
+.estandar-admin select,
+.estandar-admin textarea {
+  border-radius: 10px;
+}
+
+.estandar-admin .button.button-primary {
+  background: var(--ecb-admin-accent);
+  border-color: var(--ecb-admin-accent);
+}
+
+.estandar-admin .button.button-primary:hover {
+  background: #111827;
+  border-color: #111827;
+}
+
+.estandar-admin .nav-tab-wrapper {
+  margin: 14px 0 12px;
+  border-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.estandar-admin .nav-tab-wrapper .nav-tab {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #555;
+  margin: 0;
+  padding: 7px 11px;
+  line-height: 1.2;
+  font-size: 12px;
+  min-height: auto;
+  box-shadow: none;
+}
+
+.estandar-admin .nav-tab-wrapper .nav-tab.nav-tab-active {
+  background: var(--ecb-admin-surface);
+  border-color: var(--ecb-admin-border);
+  color: var(--ecb-admin-text);
+}
+
+.estandar-admin > form {
+  background: var(--ecb-admin-surface);
+  border: 1px solid var(--ecb-admin-border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 12px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+.estandar-admin .widefat {
+  border-color: var(--ecb-admin-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.estandar-admin .ecb-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.estandar-admin .ecb-card {
+  background: var(--ecb-admin-surface);
+  border: 1px solid var(--ecb-admin-border);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+

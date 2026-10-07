@@ -1,0 +1,68 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "estandar/magnetic-carousel",
+	"title": "Magnetic Carousel",
+	"category": "estandar-experience",
+	"icon": "images-alt2",
+	"description": "Galería de barras magnéticas que se expanden por proximidad del cursor.",
+	"keywords": [
+		"magnetic",
+		"carousel",
+		"dock",
+		"gallery",
+		"galeria"
+	],
+	"textdomain": "estandar-experience",
+	"attributes": {
+		"slides": {
+			"type": "array",
+			"default": []
+		},
+		"collapsedWidth": {
+			"type": "number",
+			"default": 86
+		},
+		"hoverWidth": {
+			"type": "number",
+			"default": 210
+		},
+		"height": {
+			"type": "number",
+			"default": 360
+		},
+		"gap": {
+			"type": "number",
+			"default": 14
+		},
+		"influence": {
+			"type": "number",
+			"default": 220
+		},
+		"radius": {
+			"type": "number",
+			"default": 24
+		},
+		"blur": {
+			"type": "number",
+			"default": 2
+		},
+		"showTitles": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"align": [
+			"wide",
+			"full"
+		],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"render": "file:./render.php",
+	"editorScript": "estandar-experience-editor",
+	"editorStyle": "estandar-experience-editor-css"
+}

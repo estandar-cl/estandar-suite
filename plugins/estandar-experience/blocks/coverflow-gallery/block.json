@@ -1,0 +1,64 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "estandar/coverflow-gallery",
+	"title": "Coverflow Gallery",
+	"category": "estandar-experience",
+	"icon": "format-gallery",
+	"description": "Galería 3D tipo coverflow con navegación, teclado y autoplay opcional.",
+	"keywords": [
+		"coverflow",
+		"gallery",
+		"carousel",
+		"galeria",
+		"carrusel"
+	],
+	"textdomain": "estandar-experience",
+	"attributes": {
+		"slides": {
+			"type": "array",
+			"default": []
+		},
+		"autoplay": {
+			"type": "boolean",
+			"default": false
+		},
+		"interval": {
+			"type": "number",
+			"default": 4200
+		},
+		"cardWidth": {
+			"type": "number",
+			"default": 320
+		},
+		"gap": {
+			"type": "number",
+			"default": 96
+		},
+		"tilt": {
+			"type": "number",
+			"default": 52
+		},
+		"radius": {
+			"type": "number",
+			"default": 24
+		},
+		"showTitles": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"align": [
+			"wide",
+			"full"
+		],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"render": "file:./render.php",
+	"editorScript": "estandar-experience-editor",
+	"editorStyle": "estandar-experience-editor-css"
+}

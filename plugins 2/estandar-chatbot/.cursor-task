@@ -1,0 +1,5 @@
+1. Revisar estructura general del plugin y archivos críticos
+2. Inspeccionar PHP (hooks, includes, endpoints)
+3. Inspeccionar JS (fetch, AJAX, eventos)
+4. Revisar settings/admin/render del chatbot
+5. Identificar top 3 bugs críticos

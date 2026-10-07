@@ -1,0 +1,114 @@
+# ============================================================
+# Dragon — .gitignore BASE (aplica a TODO proyecto)
+# ============================================================
+
+# --- macOS / Finder ---
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Icon\r
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# --- Backups / temporales (nunca al repo) ---
+*.bak
+*.bak-*
+*.original.bak
+*.tmp
+*.swp
+*.swo
+*~
+*.log
+
+# --- Estado transitorio Dragon (punteros mutables, no historia) ---
+.active-session
+.transcript-map.json
+.dragon-state/
+handoff-comodin.md.tmp
+
+# --- Node genérico (los subproyectos suelen ser JS/TS) ---
+node_modules/
+dist/
+build/
+.turbo/
+.cache/
+coverage/
+*.tsbuildinfo
+.next/
+.vercel/
+
+# --- Secretos: NUNCA al repo ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+id_rsa*
+*credential*
+*creds*.json
+
+# --- Builds de compiladores / apps nativas / volcados de datos ---
+.build/
+*.app/
+*.dSYM/
+*.psd
+*.pptx
+*.ai
+*.indd
+*.sketch
+*.aep
+*.sql
+*.sql.gz
+
+# --- Media pesada: excluida por defecto (usar LFS o almacenamiento aparte) ---
+*.m4a
+*.mp3
+*.mp4
+*.mov
+*.mkv
+*.m4b
+*.wav
+*.zip
+
+# ============================================================
+# Tipo: WORDPRESS (plugins/temas, sitios)
+# Se añade al base.gitignore.
+# ============================================================
+
+# Subidas y contenido generado por WP
+wp-content/uploads/
+uploads/
+wp-content/cache/
+cache/
+wp-content/upgrade/
+
+# Backups de PHP (evitar pisadas / secretos embebidos)
+*.php.bak
+*.php.bak-*
+*.php~
+*.replica-*.bak.html
+
+# Dependencias y compilados de tema/plugin
+vendor/
+node_modules/
+dist/
+build/
+
+# --- Estandar Suite: estado de release / workspace ---
+.release-build/
+.release-history.log
+.release-suite-state.json
+Playground/
+estandar-experience.zip
+
+# --- Fixtures de temas externos (Astra/Divi) — no es código del cliente ---
+tests/themes/

@@ -1,0 +1,61 @@
+<!-- Dragon Visual Audit | Page: estandar-customers | Status: PASS | 2026-07-20T17:43:20+00:00 -->
+
+<div class="wrap estandar-admin estandar-admin--fluid"><div class="estandar-sticky-top"><div class="estandar-shell"><div class="estandar-utility-bar estandar-utility-bar--titled"><a class="estandar-utility-bar__brand" href="https://www.estandar.cl" target="_blank" rel="noopener noreferrer"><img src="https://www.estandar.cl/wp-content/uploads/2024/07/estandar_logo_color-768x227.png" alt="Estandar Studio" /></a><span class="estandar-utility-bar__title" title="Clientes">Clientes</span></div></div><div class="estandar-platform-nav-wrap"><div class="estandar-platform-nav-title">Estandar</div><nav class="estandar-platform-nav" aria-label="Navegación de plataforma"><a class="estandar-platform-nav__item" href="http://localhost:10000/actual-instalacion-pruebas/wp-admin/admin.php?page=estandar_core_diagnostics">Dashboard</a><a class="estandar-platform-nav__item" href="http://localhost:10000/actual-instalacion-pruebas/wp-admin/admin.php?page=estandar-forms">Forms</a><a class="estandar-platform-nav__item" href="http://localhost:10000/actual-instalacion-pruebas/wp-admin/admin.php?page=estandar-chatbot">Chatbot</a><a class="estandar-platform-nav__item" href="http://localhost:10000/actual-instalacion-pruebas/wp-admin/admin.php?page=estandar_projects">Proyectos</a><a class="estandar-platform-nav__item" href="http://localhost:10000/actual-instalacion-pruebas/wp-admin/admin.php?page=estandar-leads">Leads</a><a class="estandar-platform-nav__item" href="http://localhost:10000/actual-instalacion-pruebas/wp-admin/admin.php?page=estandar-destinations">Destinations</a><a class="estandar-platform-nav__item" href="http://localhost:10000/actual-instalacion-pruebas/wp-admin/admin.php?page=ea-funnel">Analytics</a><a class="estandar-platform-nav__item" href="http://localhost:10000/actual-instalacion-pruebas/wp-admin/admin.php?page=estandar-quotes">Cotizaciones</a></nav></div></div><hr class="wp-header-end" /><div class="estandar-surface"><a href="http://localhost:10000/actual-instalacion-pruebas/wp-admin/admin.php?page=estandar-customers&#038;view=edit" class="page-title-action">+ Nuevo cliente</a>
+<a href="http://localhost:10000/actual-instalacion-pruebas/wp-admin/admin.php?page=estandar-customers&#038;view=import" class="page-title-action">Importar</a>
+
+
+<!-- Filters -->
+<form method="get" style="margin:12px 0;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+    <input type="hidden" name="page" value="estandar-customers">
+    <input type="search" name="s" value="" placeholder="Nombre, email, teléfono, RUT…" style="width:220px;">
+    <select name="project">
+        <option value="">Todos los proyectos</option>
+            </select>
+    <select name="stage">
+        <option value="">Todas las etapas</option>
+            </select>
+    <select name="matched">
+        <option value="">Todos</option>
+        <option value="yes" >Vinculados</option>
+        <option value="no"  >Sin vincular</option>
+    </select>
+    <input type="submit" class="button" value="Filtrar"  />    </form>
+
+<!-- Reconcile All -->
+<form method="post" action="http://localhost:10000/actual-instalacion-pruebas/wp-admin/admin-post.php" style="margin-bottom:12px;">
+    <input type="hidden" id="_wpnonce" name="_wpnonce" value="806c6bd313" /><input type="hidden" name="_wp_http_referer" value="/wp-admin/admin.php?page=estandar-customers" />    <input type="hidden" name="action" value="estandar_customers_reconcile_all">
+    <button type="submit" class="button">Reconciliar todos</button>
+    <span style="color:#666;font-size:12px;margin-left:8px;">0 cliente(s) en total</span>
+</form>
+
+<!-- Backfill histórico a Meta (CUSTOMER_BACKFILL_V1) -->
+
+<form method="post" action="http://localhost:10000/actual-instalacion-pruebas/wp-admin/admin-post.php" style="margin-bottom:12px;padding:10px;border:1px solid #dcdcde;background:#fff;">
+    <input type="hidden" id="_wpnonce" name="_wpnonce" value="cc38747777" /><input type="hidden" name="_wp_http_referer" value="/wp-admin/admin.php?page=estandar-customers" />    <input type="hidden" name="action" value="estandar_customers_meta_backfill">
+    <strong style="margin-right:8px;">Backfill histórico a Meta (Purchase)</strong>
+    <select name="bf_backfill_mode" title="Reconciliados: identidad y atribución desde el lead canónico. Histórico: solo clientes sin lead, identidad del registro de cliente, sin atribución inventada."
+        onchange="document.getElementById('es-bf-global-date').style.display = this.value === 'historical' ? '' : 'none';">
+        <option value="reconciled"  selected='selected'>Reconciliados con lead</option>
+        <option value="historical" >Histórico sin lead</option>
+    </select>
+    <input type="date" name="bf_global_date" id="es-bf-global-date" value="" style="display:none;"
+        max="2026-07-20"
+        title="Fecha de conversión global (opcional, solo modo histórico): se usa únicamente para clientes sin fecha de cierre propia. Solo aplica a esta ejecución; no se guarda.">
+    <select name="bf_project">
+        <option value="">Todos los proyectos</option>
+            </select>
+    <select name="bf_stage">
+        <option value="">Todas las etapas</option>
+            </select>
+    <input type="number" name="bf_limit" value="200" min="1" max="1000" style="width:90px;" title="Máximo de clientes a procesar">
+    <button type="submit" name="mode" value="dry" class="button">Simular</button>
+    <button type="submit" name="mode" value="send" class="button button-primary"
+        onclick="return confirm('Se enviarán eventos Purchase reales a Meta para los clientes elegibles. ¿Continuar?');">Enviar a Meta</button>
+    <span style="color:#666;font-size:12px;margin-left:8px;">
+        Reconciliados: solo clientes con lead válido. Histórico: solo clientes sin lead, con email o teléfono, proyecto y fecha de cierre (propia, o la fecha global si no tiene). No modifica leads ni clientes. Reejecutar no duplica.
+    </span>
+</form>
+
+<p>Sin resultados.</p>
+</div>
+</div></div>

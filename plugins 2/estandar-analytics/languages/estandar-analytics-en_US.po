@@ -1,0 +1,117 @@
+# English translations for Estandar Analytics.
+# Copyright (C) 2026 Estandar
+msgid ""
+msgstr ""
+"Project-Id-Version: Estandar Analytics 1.0.0\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Estandar Analytics"
+msgstr "Estandar Analytics"
+
+msgid "Analítica"
+msgstr "Analytics"
+
+msgid "Inteligencia comercial para WordPress"
+msgstr "Business intelligence for WordPress"
+
+msgid "Resumen"
+msgstr "Overview"
+
+msgid "Visitantes"
+msgstr "Visitors"
+
+msgid "Comportamiento"
+msgstr "Behavior"
+
+msgid "Adquisición"
+msgstr "Acquisition"
+
+msgid "Conversiones"
+msgstr "Conversions"
+
+msgid "Configuración"
+msgstr "Settings"
+
+msgid "Filtros"
+msgstr "Filters"
+
+msgid "Actualizar"
+msgstr "Refresh"
+
+msgid "Desde"
+msgstr "From"
+
+msgid "Hasta"
+msgstr "To"
+
+msgid "Fuente"
+msgstr "Source"
+
+msgid "Todas"
+msgstr "All"
+
+msgid "Dispositivo"
+msgstr "Device"
+
+msgid "Todos"
+msgstr "All"
+
+msgid "Campaña"
+msgstr "Campaign"
+
+msgid "Conversión"
+msgstr "Conversion"
+
+msgid "Aplicar filtros"
+msgstr "Apply filters"
+
+msgid "Restablecer"
+msgstr "Reset"
+
+msgid "Páginas vistas"
+msgstr "Pageviews"
+
+msgid "Duración promedio"
+msgstr "Avg. duration"
+
+msgid "Tasa de conversión"
+msgstr "Conversion rate"
+
+msgid "Rebote"
+msgstr "Bounce rate"
+
+msgid "Datos insuficientes"
+msgstr "Insufficient data"
+
+msgid "Aún no hay suficientes datos para mostrar esta métrica."
+msgstr "There is not enough data to show this metric yet."
+
+msgid "Cantidad de visitantes únicos estimados dentro del período seleccionado."
+msgstr "Estimated unique visitors within the selected period."
+
+msgid "Porcentaje de sesiones donde el usuario abandonó sin interacción adicional."
+msgstr "Percentage of sessions where the user left without further interaction."
+
+msgid "Porcentaje de sesiones que completaron una conversión definida."
+msgstr "Percentage of sessions that completed a defined conversion."
+
+msgid "Insights de negocio"
+msgstr "Business insights"
+
+msgid "Exportar sesiones CSV"
+msgstr "Export sessions CSV"
+
+msgid "Idioma del panel"
+msgstr "Dashboard language"
+
+msgid "Español"
+msgstr "Spanish"
+
+msgid "English"
+msgstr "English"
+
+msgid "Guardar cambios"
+msgstr "Save changes"

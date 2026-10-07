@@ -1,0 +1,131 @@
+/**
+ * Estandar FX — Magnetic Carousel styles.
+ */
+
+.efx-magnetic-carousel {
+	--efx-mc-collapsed: 86px;
+	--efx-mc-hover: 210px;
+	--efx-mc-height: 360px;
+	--efx-mc-gap: 14px;
+	--efx-mc-influence: 220px;
+	--efx-mc-radius: 24px;
+	--efx-mc-blur: 2px;
+	position: relative;
+	overflow-x: auto;
+	overflow-y: visible;
+	padding-block: 1.5rem;
+	-webkit-overflow-scrolling: touch;
+}
+
+.efx-mc-track {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--efx-mc-gap);
+	min-width: max-content;
+	min-height: var(--efx-mc-height);
+	perspective: 900px;
+}
+
+.efx-mc-item {
+	--efx-mc-width: var(--efx-mc-collapsed);
+	appearance: none;
+	position: relative;
+	display: block;
+	width: var(--efx-mc-width);
+	height: var(--efx-mc-height);
+	min-width: 0;
+	padding: 0;
+	border: 0;
+	border-radius: var(--efx-mc-radius);
+	overflow: hidden;
+	cursor: pointer;
+	background: #111;
+	box-shadow: 0 28px 72px -42px rgba(0, 0, 0, 0.72);
+	transform: translateZ(0) scale(var(--efx-mc-scale, 1));
+	transition: filter 220ms ease, box-shadow 220ms ease;
+	will-change: width, transform;
+}
+
+.efx-mc-item img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	pointer-events: none;
+	user-select: none;
+}
+
+.efx-mc-title {
+	position: absolute;
+	left: 0.65rem;
+	right: 0.65rem;
+	bottom: 0.65rem;
+	padding: 0.45rem 0.6rem;
+	border-radius: 999px;
+	background: rgba(0, 0, 0, 0.58);
+	color: #fff;
+	font-size: 0.82rem;
+	line-height: 1.2;
+	text-align: center;
+	opacity: var(--efx-mc-title-opacity, 0);
+	transform: translateY(calc((1 - var(--efx-mc-title-opacity, 0)) * 8px));
+	transition: opacity 180ms ease, transform 180ms ease;
+	backdrop-filter: blur(10px);
+}
+
+.efx-mc-item.is-open {
+	--efx-mc-width: min(var(--efx-mc-hover), 78vw);
+	--efx-mc-scale: 1.04;
+	z-index: 3;
+	box-shadow: 0 34px 86px -36px rgba(0, 0, 0, 0.82);
+}
+
+.efx-mc-item.is-open .efx-mc-title,
+.efx-mc-item:focus-visible .efx-mc-title,
+.efx-mc-item:hover .efx-mc-title {
+	--efx-mc-title-opacity: 1;
+}
+
+.efx-mc-track.has-open .efx-mc-item:not(.is-open) {
+	filter: blur(var(--efx-mc-blur)) saturate(0.78) brightness(0.72);
+}
+
+.efx-mc-item:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 4px;
+}
+
+.efx-mc-empty {
+	padding: 2rem;
+	border: 1px dashed currentColor;
+	border-radius: 1rem;
+	text-align: center;
+	opacity: 0.72;
+}
+
+.efx-magnetic-carousel.is-editor .efx-mc-item {
+	--efx-mc-width: min(var(--efx-mc-collapsed), 140px);
+}
+
+@media (max-width: 781px), (pointer: coarse) {
+	.efx-mc-track {
+		justify-content: flex-start;
+	}
+
+	.efx-mc-item {
+		--efx-mc-width: min(72vw, var(--efx-mc-hover));
+		flex: 0 0 var(--efx-mc-width);
+	}
+
+	.efx-mc-title {
+		--efx-mc-title-opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.efx-mc-item,
+	.efx-mc-title {
+		transition: none;
+	}
+}

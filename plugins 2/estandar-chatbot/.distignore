@@ -1,0 +1,12 @@
+/storage/*
+!/storage/.htaccess
+!/storage/.gitignore
+
+/tmp/*
+/scripts/*
+/tests/*
+phpunit.xml.dist
+docker-compose.yml
+DOCKER-TEST.md
+test.txt
+

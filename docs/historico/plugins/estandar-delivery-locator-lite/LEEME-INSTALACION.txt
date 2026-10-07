@@ -1,0 +1,13 @@
+ESTANDAR Delivery Locator Lite — instalación rápida
+===================================================
+
+1. WordPress → Plugins → Añadir nuevo → Subir plugin → elegir el ZIP.
+2. Activar el plugin.
+3. Ajustes → Delivery Locator: número WhatsApp, email receptor, radio y centro (opcional webhook n8n).
+4. Crear o editar una página y pegar: [estandar_delivery_locator]
+
+Este paquete no incluye Composer ni tests: solo PHP del plugin y assets (CSS/JS).
+Requisitos: WordPress 5.8+, PHP 7.4+, extensiones habituales (MySQL, curl recomendado para webhooks).
+
+Seguridad / servidor: el plugin no ejecuta código arbitrario ni shell; las peticiones externas son
+opcionales (mapas/OSM, geocodificación en el navegador, webhook n8n desde el servidor con wp_remote_post).

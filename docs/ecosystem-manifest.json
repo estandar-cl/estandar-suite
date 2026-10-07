@@ -1,0 +1,228 @@
+{
+  "manifest_version": "1.0",
+  "generated_at": "2026-07-16T00:00:00Z",
+  "canonical_versions": {
+    "estandar-analytics": "13.0.90",
+    "estandar-chatbot": "13.0.90",
+    "estandar-primer": "13.0.90",
+    "estandar-cpt-manager": "13.0.90",
+    "estandar-delivery-locator-lite": "13.0.90",
+    "estandar-destinations": "13.0.90",
+    "estandar-duplicate-post": "13.0.90",
+    "estandar-experience-blocks": "13.0.90",
+    "estandar-firmas": "13.0.90",
+    "estandar-forms": "13.0.90",
+    "estandar-kickoff": "13.0.90",
+    "estandar-leads": "13.0.90",
+    "estandar-notifications": "13.0.90",
+    "estandar-pop": "13.0.90",
+    "estandar-quotes": "13.0.90",
+    "estandar-seo-intelligence": "13.0.90",
+    "estandar-signal-core": "13.0.90",
+    "estandar-website-scanner": "13.0.90",
+    "estandar-wp-exporter": "13.0.90"
+  },
+  "plugin_inventory": {
+    "estandar-analytics": {
+      "version": "13.0.90",
+      "file": "estandar-analytics.php",
+      "directory": "plugins/estandar-analytics",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "No external dependencies"
+    },
+    "estandar-chatbot": {
+      "version": "13.0.90",
+      "file": "estandar-chatbot.php",
+      "directory": "plugins/estandar-chatbot",
+      "status": "active_real_plugin",
+      "dependencies": [
+        "composer"
+      ],
+      "notes": "Has composer.json, uses external packages"
+    },
+    "estandar-primer": {
+      "version": "13.0.90",
+      "file": "estandar-core.php",
+      "directory": "plugins/estandar-primer",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "Core runtime, renamed file (not estandar-core.php matching folder). Carpeta renombrada de estandar-core-mu a estandar-primer (2026-07-16); constantes/funciones legacy ESTANDAR_CORE_MU_* se mantienen como alias de compatibilidad."
+    },
+    "estandar-cpt-manager": {
+      "version": "13.0.90",
+      "file": "estandar-cpt-manager.php",
+      "directory": "plugins/estandar-cpt-manager",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "No external dependencies"
+    },
+    "estandar-delivery-locator-lite": {
+      "version": "13.0.90",
+      "file": "estandar-delivery-locator-lite.php",
+      "directory": "plugins/estandar-delivery-locator-lite",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "No external dependencies"
+    },
+    "estandar-destinations": {
+      "version": "13.0.90",
+      "file": "estandar-destinations.php",
+      "directory": "plugins/estandar-destinations",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "No external dependencies"
+    },
+    "estandar-duplicate-post": {
+      "version": "13.0.90",
+      "file": "estandar-duplicate-post.php",
+      "directory": "plugins/estandar-duplicate-post",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "No external dependencies"
+    },
+    "estandar-experience-blocks": {
+      "version": "13.0.90",
+      "file": "estandar-experience-blocks.php",
+      "directory": "plugins/estandar-experience-blocks",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "No external dependencies"
+    },
+    "estandar-firmas": {
+      "version": "13.0.90",
+      "file": "estandar-signature-generator.php",
+      "directory": "plugins/estandar-firmas",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "Renamed file (not estandar-firmas.php)"
+    },
+    "estandar-forms": {
+      "version": "13.0.90",
+      "file": "estandar-forms.php",
+      "directory": "plugins/estandar-forms",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "No external dependencies"
+    },
+    "estandar-kickoff": {
+      "version": "13.0.90",
+      "file": "estandar-kickoff.php",
+      "directory": "plugins/estandar-kickoff",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "No external dependencies"
+    },
+    "estandar-leads": {
+      "version": "13.0.90",
+      "file": "estandar-leads.php",
+      "directory": "plugins/estandar-leads",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "No external dependencies"
+    },
+    "estandar-notifications": {
+      "version": "13.0.90",
+      "file": "estandar-notifications.php",
+      "directory": "plugins/estandar-notifications",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "Bootstrap del subsistema de notificaciones. Incluido en release por decision de Rodrigo 2026-07-04 (revoca exclusion del Production Readiness Audit); versionado en lockstep con el ecosistema."
+    },
+    "estandar-pop": {
+      "version": "13.0.90",
+      "file": "estandar-pop.php",
+      "directory": "plugins/estandar-pop",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "No external dependencies"
+    },
+    "estandar-quotes": {
+      "version": "13.0.90",
+      "file": "estandar-quotes.php",
+      "directory": "plugins/estandar-quotes",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "Bounded context de cotizaciones auditables. Faltaba en el manifest — agregado 2026-07-16."
+    },
+    "estandar-seo-intelligence": {
+      "version": "13.0.90",
+      "file": "estandar-seo-intelligence.php",
+      "directory": "plugins/estandar-seo-intelligence",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "Inteligencia de búsqueda orgánica (Search Console). Faltaba en el manifest — agregado 2026-07-16."
+    },
+    "estandar-signal-core": {
+      "version": "13.0.90",
+      "file": "estandar-signal-core.php",
+      "directory": "plugins/estandar-signal-core",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "No external dependencies"
+    },
+    "estandar-website-scanner": {
+      "version": "13.0.90",
+      "file": "estandar-scanner.php",
+      "directory": "plugins/estandar-website-scanner",
+      "status": "active_real_plugin",
+      "dependencies": [
+        "composer"
+      ],
+      "notes": "Has composer.json, renamed file (not estandar-website-scanner.php)"
+    },
+    "estandar-wp-exporter": {
+      "version": "13.0.90",
+      "file": "estandar-wp-exporter.php",
+      "directory": "plugins/estandar-wp-exporter",
+      "status": "active_real_plugin",
+      "dependencies": [],
+      "notes": "No external dependencies"
+    }
+  },
+  "summary": {
+    "total_plugins": 19,
+    "real_plugins": 19,
+    "with_composer_deps": 2,
+    "version_groups": {
+      "13.0.90": [
+        "estandar-analytics",
+        "estandar-chatbot",
+        "estandar-primer",
+        "estandar-cpt-manager",
+        "estandar-delivery-locator-lite",
+        "estandar-destinations",
+        "estandar-duplicate-post",
+        "estandar-experience-blocks",
+        "estandar-firmas",
+        "estandar-forms",
+        "estandar-kickoff",
+        "estandar-leads",
+        "estandar-notifications",
+        "estandar-pop",
+        "estandar-quotes",
+        "estandar-seo-intelligence",
+        "estandar-signal-core",
+        "estandar-website-scanner",
+        "estandar-wp-exporter"
+      ]
+    }
+  },
+  "notes": [
+    "All 19 plugins are real, production plugins",
+    "3 plugins have non-standard filenames (estandar-core.php en estandar-primer, estandar-signature-generator, estandar-scanner)",
+    "2 plugins have external dependencies (composer): estandar-chatbot, estandar-website-scanner",
+    "No orphaned or duplicate plugins detected",
+    "No temporary or placeholder modules detected",
+    "2026-07-16: estandar-core-mu renombrado a estandar-primer (rename de carpeta, ver session notes); estandar-quotes y estandar-seo-intelligence agregados al manifest (existian en disco pero nunca se habian inventariado aqui). release.command NO depende de este archivo para decidir que plugins incluye (globa estandar-*/ directamente) — este manifest es documentacion/inventario canonico, no el gate de seleccion.",
+    "Release 13.0.19: LOCKSTEP_VERSIONING — los plugins comparten una sola version de ecosistema y se liberan en paralelo aunque no tengan modificaciones (decision Rodrigo 2026-07-04; estandar-notifications incluido)."
+  ],
+  "release_version": "13.0.90",
+  "excluded_from_release": {
+    "estandar-core": "Suite v2 — canal v2/staging aislado. NO publicar en el feed legacy/production.",
+    "estandar-capture": "Suite v2 — canal v2/staging aislado. NO publicar en el feed legacy/production.",
+    "estandar-brain": "Suite v2 — canal v2/staging aislado. NO publicar en el feed legacy/production.",
+    "estandar-flow": "Suite v2 — canal v2/staging aislado. NO publicar en el feed legacy/production.",
+    "estandar-insights": "Suite v2 — canal v2/staging aislado. NO publicar en el feed legacy/production."
+  }
+}

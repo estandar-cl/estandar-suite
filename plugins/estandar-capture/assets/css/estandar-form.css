@@ -1,0 +1,243 @@
+/* ==========================================================
+   ESTANDAR FORM V2 — Public Styles (global, mobile-first)
+   Autocontenido: no depende del CSS del theme host.
+   Tipografía y placeholders óptimos en cualquier pantalla
+   (clamp), touch targets >= 48px, sin zoom de iOS en inputs.
+   ========================================================== */
+
+.estandar-form-v2 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    color: #1d2327;
+    max-width: 100%;
+    box-sizing: border-box;
+    font-size: clamp(16px, 2.2vw, 18px);
+}
+
+.estandar-form-v2 *,
+.estandar-form-v2 *::before,
+.estandar-form-v2 *::after {
+    box-sizing: border-box;
+}
+
+/* Forzar herencia tipográfica en controles (los themes suelen anularla) */
+.estandar-form-v2 input,
+.estandar-form-v2 select,
+.estandar-form-v2 textarea,
+.estandar-form-v2 button {
+    font-family: inherit;
+}
+
+/* ── Labels ─────────────────────────────────────────────── */
+.estandar-form-v2 label {
+    display: block;
+    font-size: clamp(15px, 2vw, 17px);
+    font-weight: 600;
+    color: #1d2327;
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+/* ── Campos (inputs / selects / textareas) ──────────────── */
+.estandar-form-v2 input[type="text"],
+.estandar-form-v2 input[type="email"],
+.estandar-form-v2 input[type="tel"],
+.estandar-form-v2 input[type="number"],
+.estandar-form-v2 input[type="url"],
+.estandar-form-v2 input[type="date"],
+.estandar-form-v2 select,
+.estandar-form-v2 textarea {
+    width: 100%;
+    min-height: 50px;
+    padding: 10px 12px;
+    font-size: 16px; /* >=16px evita zoom automático en iOS */
+    line-height: 1.4;
+    color: #1d2327;
+    background: #ffffff;
+    border: 1px solid #c3c4c7;
+    border-radius: 8px;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.estandar-form-v2 input:focus,
+.estandar-form-v2 select:focus,
+.estandar-form-v2 textarea:focus {
+    outline: none;
+    border-color: #f95b1f;
+    box-shadow: 0 0 0 3px rgba(249, 91, 31, .15);
+}
+
+.estandar-form-v2 textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+/* ── Placeholders legibles y del tamaño correcto ────────── */
+.estandar-form-v2 input::placeholder,
+.estandar-form-v2 textarea::placeholder {
+    color: #7d8288;
+    opacity: 1;
+    font-size: 15px;
+    -webkit-text-fill-color: #7d8288;
+}
+
+/* ── Select: misma altura/alineación que los inputs + chevron propio ── */
+.estandar-form-v2 select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235c6066' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 12px 8px;
+    padding-right: 40px;
+    min-height: 50px;
+    height: auto;
+    line-height: 1.4;
+    cursor: pointer;
+}
+.estandar-form-v2 select option {
+    color: #1d2327;
+    background: #ffffff;
+    font-size: 15px;
+}
+
+/* ── Checkbox / radio: targets amplios ──────────────────── */
+.estandar-form-v2 input[type="checkbox"],
+.estandar-form-v2 input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #f95b1f;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+.estandar-form-v2 .estandar-form-v2-choice-group label,
+.estandar-form-v2 label[style*="display:block"] {
+    padding: 8px 0;
+}
+
+/* ── Botón submit ───────────────────────────────────────── */
+.estandar-form-v2 .estandar-form-v2-submit {
+    display: inline-block;
+    min-height: 46px;
+    padding: 11px 24px;
+    font-size: clamp(16px, 2.2vw, 18px);
+    font-weight: 600;
+    color: #ffffff;
+    background: #f95b1f;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .2s ease, transform .1s ease;
+}
+.estandar-form-v2 .estandar-form-v2-submit:hover { background: #e04e12; }
+.estandar-form-v2 .estandar-form-v2-submit:active { transform: scale(.98); }
+
+/* ── Botón del panel de motivos de recontacto ────────────── */
+.estandar-form-v2-reason .estandar-form-v2-reason-submit {
+    display: inline-block;
+    min-height: 44px;
+    padding: 10px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #f95b1f;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .2s ease, transform .1s ease;
+}
+.estandar-form-v2-reason .estandar-form-v2-reason-submit:hover { background: #e04e12; }
+.estandar-form-v2-reason .estandar-form-v2-reason-submit:active { transform: scale(.98); }
+
+/* ── Repeater de incidencias (problemas) ────────────────── */
+.estandar-form-v2 .estandar-form-v2-incident {
+    border: 1px solid #dcdcde;
+    border-radius: 10px;
+    padding: 14px 14px 6px;
+    margin-bottom: 14px;
+    background: #ffffff;
+}
+.estandar-form-v2 .estandar-form-v2-incident legend {
+    font-weight: 700;
+    font-size: clamp(15px, 2vw, 17px);
+    padding: 0 6px;
+}
+.estandar-form-v2 .estandar-form-v2-field {
+    margin-bottom: 12px;
+}
+.estandar-form-v2 .estandar-form-v2-add-incident,
+.estandar-form-v2 .estandar-form-v2-remove-incident {
+    min-height: 44px;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid #c3c4c7;
+    background: #ffffff;
+    color: #1d2327;
+}
+.estandar-form-v2 .estandar-form-v2-add-incident {
+    border-color: #f95b1f;
+    color: #f95b1f;
+}
+
+/* ── Errores inline ─────────────────────────────────────── */
+.estandar-form-v2 .es2-inline-warn {
+    font-size: 13px;
+}
+
+/* ── Mobile: todos los tamaños (common improvements) ────── */
+@media (max-width: 600px) {
+    .estandar-form-v2 label {
+        font-size: 15px;
+    }
+    /* Los campos v2 se renderizan con float:left + ancho en % inline
+       (column_width). En móvil deben ocupar el 100% del ancho: override
+       inline con !important acotado al breakpoint. */
+    .estandar-form-v2 > div[style*="float:left"],
+    .estandar-form-v2 > div[style*="float: left"] {
+        width: 100% !important;
+        float: none !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .estandar-form-v2 input[type="text"],
+    .estandar-form-v2 input[type="email"],
+    .estandar-form-v2 input[type="tel"],
+    .estandar-form-v2 input[type="number"],
+    .estandar-form-v2 input[type="url"],
+    .estandar-form-v2 input[type="date"],
+    .estandar-form-v2 select,
+    .estandar-form-v2 textarea {
+        min-height: 48px;
+        padding: 12px 14px;
+        font-size: 16px;
+    }
+    .estandar-form-v2 .estandar-form-v2-submit {
+        width: 100%;
+        min-height: 54px;
+    }
+    .estandar-form-v2 .estandar-form-v2-add-incident,
+    .estandar-form-v2 .estandar-form-v2-remove-incident {
+        width: 100%;
+        min-height: 48px;
+    }
+}
+
+/* ── Muy pequeñas (≥320px) ──────────────────────────────── */
+@media (max-width: 360px) {
+    .estandar-form-v2 label {
+        font-size: 14px;
+    }
+    .estandar-form-v2 input[type="text"],
+    .estandar-form-v2 input[type="email"],
+    .estandar-form-v2 input[type="tel"],
+    .estandar-form-v2 select,
+    .estandar-form-v2 textarea {
+        font-size: 16px;
+    }
+}

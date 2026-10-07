@@ -1,0 +1,118 @@
+/**
+ * Estandar Analytics — estilos específicos del producto.
+ * Layout base, tokens, KPIs, tablas y filtros: ESTANDAR ADMIN FRAMEWORK (Core).
+ * Este archivo solo contiene lo que Core no provee: charts, ranked table bars, panel grid, insights.
+ */
+
+/* ── Charts ────────────────────────────────────────────────────────────── */
+.ea-charts-grid,
+.ea-panels-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+	margin-bottom: 14px;
+}
+
+/* ── Panel (contenedor de sección Analytics) ──────────────────────────── */
+.ea-panel {
+	background: var(--estandar-color-surface, #fff);
+	border: 1px solid var(--estandar-color-border, #d9d9de);
+	border-radius: var(--estandar-radius-md, 12px);
+	padding: 12px 14px 14px;
+	box-shadow: var(--estandar-shadow-md, 0 6px 20px rgba(15,23,42,.04));
+}
+
+.ea-panel__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+
+.ea-panel__head h2 {
+	margin: 0;
+	font-size: 14px;
+	font-weight: 650;
+	color: var(--estandar-color-text, #1d1d1f);
+}
+
+.ea-chart { width: 100%; display: block; }
+
+/* ── Ranked table (barras proporcionales) ─────────────────────────────── */
+.ea-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ea-table th,
+.ea-table td { padding: 8px 6px; border-bottom: 1px solid var(--estandar-color-border, #d9d9de); text-align: left; vertical-align: middle; }
+.ea-table th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--estandar-color-muted, #6e6e73); font-weight: 600; }
+.ea-table__label { max-width: 360px; word-break: break-word; font-weight: 600; }
+.ea-table-scroll { overflow-x: auto; }
+
+.ea-bar {
+	height: 7px;
+	background: #eef2f7;
+	border-radius: 99px;
+	overflow: hidden;
+	min-width: 80px;
+}
+
+.ea-bar span {
+	display: block;
+	height: 100%;
+	background: linear-gradient(90deg, var(--estandar-color-primary, #f95b1f), #60a5fa);
+	border-radius: 99px;
+}
+
+/* ── Insights (bloque de insights narrativos) ─────────────────────────── */
+.ea-insights { margin-bottom: 14px; }
+
+.ea-insights__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: 10px;
+}
+
+.ea-insight {
+	background: var(--estandar-color-surface, #fff);
+	border: 1px solid var(--estandar-color-border, #d9d9de);
+	border-left: 3px solid var(--estandar-color-primary, #f95b1f);
+	border-radius: var(--estandar-radius-md, 12px);
+	padding: 12px 14px;
+}
+
+.ea-insight__kicker { margin: 0 0 5px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--estandar-color-muted, #6e6e73); font-weight: 700; }
+.ea-insight__value  { margin: 0; font-size: 14px; font-weight: 650; color: var(--estandar-color-text, #1d1d1f); line-height: 1.35; }
+.ea-insight__meta   { margin: 5px 0 0; font-size: 11px; color: var(--estandar-color-muted, #6e6e73); line-height: 1.35; }
+
+/* ── Tooltip (ayuda contextual) ───────────────────────────────────────── */
+.ea-help {
+	width: 22px; height: 22px;
+	border-radius: 50%;
+	border: 1px solid var(--estandar-color-border, #d9d9de);
+	background: #e8efff;
+	color: #1a5cff;
+	font-size: 12px; font-weight: 700;
+	cursor: help; padding: 0; line-height: 1;
+}
+
+.ea-tooltip {
+	position: absolute; z-index: 100000;
+	max-width: 280px;
+	padding: 10px 12px;
+	background: #0f172a; color: #fff;
+	font-size: 12px; line-height: 1.45;
+	border-radius: 8px;
+	pointer-events: none;
+}
+
+/* ── Utilidades ────────────────────────────────────────────────────────── */
+.ea-empty { text-align: center; padding: 18px 12px; color: var(--estandar-color-muted, #6e6e73); }
+.ea-empty__icon { font-size: 20px; opacity: 0.35; margin-bottom: 6px; }
+.ea-export-row { margin-top: 8px; }
+.ea-code { font-size: 11px; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+.ea-section-title { font-size: 15px; font-weight: 650; margin: 0 0 10px; color: var(--estandar-color-text, #1d1d1f); }
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+	.ea-charts-grid,
+	.ea-panels-grid { grid-template-columns: 1fr; }
+}

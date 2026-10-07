@@ -1,0 +1,11 @@
+{
+  "name": "estandar/estandar-chatbot",
+  "description": "Chatbot IA para WordPress",
+  "type": "wordpress-plugin",
+  "require-dev": {
+    "phpunit/phpunit": "^9.6"
+  },
+  "config": {
+    "allow-plugins": {}
+  }
+}

@@ -1,0 +1,370 @@
+{
+    "meta": {
+        "project": "actual-instalacion-pruebas",
+        "run_id": "20260720-173741-af0db041",
+        "timestamp": "2026-07-20T17:37:41+00:00",
+        "tools": {
+            "playwright": true,
+            "screenshot": true,
+            "html_render": true
+        },
+        "version": "2.0.0"
+    },
+    "pages": [
+        {
+            "slug": "estandar-customers",
+            "url": "/wp-admin/admin.php?page=estandar-customers",
+            "title": "Clientes",
+            "timestamp": "2026-07-20T17:37:41+00:00",
+            "status": "PASS",
+            "html_size": 5999,
+            "html_hash": "e67f7759a08a2fad2af0b89f5fbe1970d47d95d75b2252672633af3462f5209b",
+            "checks": [
+                {
+                    "label": "Single Heading",
+                    "pass": true,
+                    "detail": "OK"
+                },
+                {
+                    "label": "Primer Shell",
+                    "pass": true,
+                    "detail": "Present"
+                },
+                {
+                    "label": "No Double Wrap",
+                    "pass": true,
+                    "detail": "OK"
+                },
+                {
+                    "label": "PHP Errors",
+                    "pass": true,
+                    "detail": "No PHP errors"
+                },
+                {
+                    "label": "WordPress Errors",
+                    "pass": true,
+                    "detail": "No WordPress errors"
+                },
+                {
+                    "label": "Database Errors",
+                    "pass": true,
+                    "detail": "No database errors"
+                },
+                {
+                    "label": "JavaScript Errors",
+                    "pass": true,
+                    "detail": "No JS error fingerprints"
+                }
+            ],
+            "observations": [
+                "All checks passed"
+            ],
+            "evidence_html": "estandar-customers.html"
+        },
+        {
+            "slug": "estandar-forms",
+            "url": "/wp-admin/admin.php?page=estandar-forms",
+            "title": "Forms",
+            "timestamp": "2026-07-20T17:37:41+00:00",
+            "status": "PASS",
+            "html_size": 17903,
+            "html_hash": "75799f97865fd1ab6027a4566be0148cac366122c207061f271623e2e955a9a1",
+            "checks": [
+                {
+                    "label": "Single Heading",
+                    "pass": true,
+                    "detail": "OK"
+                },
+                {
+                    "label": "Primer Shell",
+                    "pass": true,
+                    "detail": "Present"
+                },
+                {
+                    "label": "PHP Errors",
+                    "pass": true,
+                    "detail": "No PHP errors"
+                },
+                {
+                    "label": "WordPress Errors",
+                    "pass": true,
+                    "detail": "No WordPress errors"
+                },
+                {
+                    "label": "Database Errors",
+                    "pass": true,
+                    "detail": "No database errors"
+                },
+                {
+                    "label": "JavaScript Errors",
+                    "pass": true,
+                    "detail": "No JS error fingerprints"
+                }
+            ],
+            "observations": [
+                "All checks passed"
+            ],
+            "evidence_html": "estandar-forms.html"
+        },
+        {
+            "slug": "estandar-forms-entries",
+            "url": "/wp-admin/admin.php?page=estandar-forms-entries",
+            "title": "Forms",
+            "timestamp": "2026-07-20T17:37:41+00:00",
+            "status": "PASS",
+            "html_size": 30549,
+            "html_hash": "e0736ed273a00acd61f5f56b9177919c1bd6766e4ef38974e6542d00b2b67fde",
+            "checks": [
+                {
+                    "label": "Single Heading",
+                    "pass": true,
+                    "detail": "OK"
+                },
+                {
+                    "label": "Primer Shell",
+                    "pass": true,
+                    "detail": "Present"
+                },
+                {
+                    "label": "PHP Errors",
+                    "pass": true,
+                    "detail": "No PHP errors"
+                },
+                {
+                    "label": "WordPress Errors",
+                    "pass": true,
+                    "detail": "No WordPress errors"
+                },
+                {
+                    "label": "Database Errors",
+                    "pass": true,
+                    "detail": "No database errors"
+                },
+                {
+                    "label": "JavaScript Errors",
+                    "pass": true,
+                    "detail": "No JS error fingerprints"
+                }
+            ],
+            "observations": [
+                "All checks passed"
+            ],
+            "evidence_html": "estandar-forms-entries.html"
+        },
+        {
+            "slug": "estandar-surveys",
+            "url": "/wp-admin/admin.php?page=estandar-surveys",
+            "title": "Surveys",
+            "timestamp": "2026-07-20T17:37:41+00:00",
+            "status": "PASS",
+            "html_size": 5761,
+            "html_hash": "98360f25852da622a22d7e8236057d42c8c21dea27ea670f69be375be938cce7",
+            "checks": [
+                {
+                    "label": "Single Heading",
+                    "pass": true,
+                    "detail": "OK"
+                },
+                {
+                    "label": "Primer Shell",
+                    "pass": true,
+                    "detail": "Present"
+                },
+                {
+                    "label": "PHP Errors",
+                    "pass": true,
+                    "detail": "No PHP errors"
+                },
+                {
+                    "label": "WordPress Errors",
+                    "pass": true,
+                    "detail": "No WordPress errors"
+                },
+                {
+                    "label": "Database Errors",
+                    "pass": true,
+                    "detail": "No database errors"
+                },
+                {
+                    "label": "JavaScript Errors",
+                    "pass": true,
+                    "detail": "No JS error fingerprints"
+                }
+            ],
+            "observations": [
+                "All checks passed"
+            ],
+            "evidence_html": "estandar-surveys.html"
+        },
+        {
+            "slug": "configuracion",
+            "url": "/wp-admin/admin.php?page=estandar_core_diagnostics&tab=configuracion",
+            "title": "Estandar Primer · Estado",
+            "timestamp": "2026-07-20T17:37:41+00:00",
+            "status": "PASS",
+            "html_size": 41766,
+            "html_hash": "128a1a986a21dcb834440cd319415bbf2c766959bff1724a76667e7e3ac130c4",
+            "checks": [
+                {
+                    "label": "Single Heading",
+                    "pass": true,
+                    "detail": "OK"
+                },
+                {
+                    "label": "Primer Shell",
+                    "pass": true,
+                    "detail": "Present"
+                },
+                {
+                    "label": "Card Icons",
+                    "pass": true,
+                    "detail": "Present"
+                },
+                {
+                    "label": "PHP Errors",
+                    "pass": true,
+                    "detail": "No PHP errors"
+                },
+                {
+                    "label": "WordPress Errors",
+                    "pass": true,
+                    "detail": "No WordPress errors"
+                },
+                {
+                    "label": "Database Errors",
+                    "pass": true,
+                    "detail": "No database errors"
+                },
+                {
+                    "label": "JavaScript Errors",
+                    "pass": true,
+                    "detail": "No JS error fingerprints"
+                }
+            ],
+            "observations": [
+                "All checks passed"
+            ],
+            "evidence_html": "configuracion.html"
+        },
+        {
+            "slug": "estado_ecosistema",
+            "url": "/wp-admin/admin.php?page=estandar_core_diagnostics&tab=estado_ecosistema",
+            "title": "Estandar Primer · Estado",
+            "timestamp": "2026-07-20T17:37:41+00:00",
+            "status": "PASS",
+            "html_size": 43656,
+            "html_hash": "f93b3cb722630387c3db0f3349d11012dfc3218c8339981d47e089b9970e2f02",
+            "checks": [
+                {
+                    "label": "Single Heading",
+                    "pass": true,
+                    "detail": "OK"
+                },
+                {
+                    "label": "Primer Shell",
+                    "pass": true,
+                    "detail": "Present"
+                },
+                {
+                    "label": "Card Icons",
+                    "pass": true,
+                    "detail": "Present"
+                },
+                {
+                    "label": "PHP Errors",
+                    "pass": true,
+                    "detail": "No PHP errors"
+                },
+                {
+                    "label": "WordPress Errors",
+                    "pass": true,
+                    "detail": "No WordPress errors"
+                },
+                {
+                    "label": "Database Errors",
+                    "pass": true,
+                    "detail": "No database errors"
+                },
+                {
+                    "label": "JavaScript Errors",
+                    "pass": true,
+                    "detail": "No JS error fingerprints"
+                }
+            ],
+            "observations": [
+                "All checks passed"
+            ],
+            "evidence_html": "estado_ecosistema.html"
+        },
+        {
+            "slug": "communications",
+            "url": "/wp-admin/admin.php?page=estandar_communications",
+            "title": "Comunicaciones",
+            "timestamp": "2026-07-20T17:37:41+00:00",
+            "status": "PASS",
+            "html_size": 20893,
+            "html_hash": "36c7064f492458fdc38da83c3d8b1821b053ab0e8d465d59f83cd99872c3c9a5",
+            "checks": [
+                {
+                    "label": "Single Heading",
+                    "pass": true,
+                    "detail": "OK"
+                },
+                {
+                    "label": "Primer Shell",
+                    "pass": true,
+                    "detail": "Present"
+                },
+                {
+                    "label": "Card Icons",
+                    "pass": true,
+                    "detail": "Present"
+                },
+                {
+                    "label": "PHP Errors",
+                    "pass": true,
+                    "detail": "No PHP errors"
+                },
+                {
+                    "label": "WordPress Errors",
+                    "pass": true,
+                    "detail": "No WordPress errors"
+                },
+                {
+                    "label": "Database Errors",
+                    "pass": true,
+                    "detail": "No database errors"
+                },
+                {
+                    "label": "JavaScript Errors",
+                    "pass": true,
+                    "detail": "No JS error fingerprints"
+                }
+            ],
+            "observations": [
+                "All checks passed"
+            ],
+            "evidence_html": "communications.html"
+        }
+    ],
+    "summary": {
+        "total": 7,
+        "passed": 7,
+        "failed": 0,
+        "checks_total": 46,
+        "checks_passed": 46
+    },
+    "severity": "PASS",
+    "regression": {
+        "previous_run": "20260720-173739-1bee9fb3",
+        "previous_at": "2026-07-20T17:37:39+00:00",
+        "total": 7,
+        "added": 0,
+        "removed": 0,
+        "modified": 0,
+        "unchanged": 7,
+        "status_changes": 0,
+        "changes": []
+    },
+    "regression_severity": "PASS"
+}

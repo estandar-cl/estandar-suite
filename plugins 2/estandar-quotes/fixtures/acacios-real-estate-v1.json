@@ -1,0 +1,14 @@
+{
+  "reference": "Cotizacion_11035737.pdf; functional and visual reference only; synthetic client data",
+  "document_version": "acacios_real_estate@1",
+  "client": {"name":"Cliente de referencia","email":"cliente@example.test","phone":"+56900000000","tax_id":""},
+  "project": {"name":"Altacruz","stage":"1","sales_room":{"name":"Sala de ventas Acacios","address":"Av. Armando Jaramillo 1053, Nancagua, Chile","phone":"+56942305982","email":"acacios@acacios.cl","hours":"No informa"}},
+  "property": {"unit_code":"C-10","model":"110","orientation":"Indefinido","area_total_m2":110,"area_usable_m2":null,"floors":1,"bedrooms":4,"bathrooms":3,"storage":false,"parking":false,"images":[{"kind":"floor_plan","asset_ref":"acacios_reference_plan_ground"},{"kind":"floor_plan","asset_ref":"acacios_reference_plan_upper"}]},
+  "pricing": {"total_uf":{"currency":"UF","amount":4875,"precision":2,"source":"inventory_snapshot"}},
+  "uf_rate": {"currency":"CLP","value_clp":40712.34,"precision":2,"source":"reference_document","source_reference":"Cotizacion_11035737.pdf","effective_date":"2026-06-06"},
+  "financing": {"credit_percent":80,"annual_rate_percent":4.10,"terms_years":[5,8,10,15,20,25,30],"income_multiple":4,"rate_source":"referential"},
+  "validity": {"issued_at":"2026-06-06","days":7,"expires_at":""},
+  "issuer": {"authority_name":"Sala de ventas Acacios","authority_role":"Emisor comercial","authority_id":""},
+  "conditions": {"policy_version":"acacios_conditions@1","items":[{"id":"availability","text":"La disponibilidad y el precio deben confirmarse con el canal comercial autorizado."},{"id":"rate","text":"La simulación financiera es referencial y requiere confirmación al formalizar la operación."},{"id":"validity","text":"Este documento no reserva una unidad."}]},
+  "editorial_blocks": []
+}

@@ -1,0 +1,235 @@
+/* ── Shell ──────────────────────────────────────────────────────────────── */
+
+/* POPUP_ANIM_V2: el wrapper se renderiza SIEMPRE (display:flex) y se oculta con
+   visibility + opacity, de modo que las transiciones CSS SÍ corren al abrir y
+   cerrar. Antes arrancaba en display:none y el paso a display:flex ocurría en el
+   mismo frame que opacity:1 → la animación nunca se veía (entraba de golpe).
+   Sin `max-height` en el wrapper: `inset:0` cubre TODO el viewport (el tope
+   anterior recortaba la caja y el overlay dejaba una franja inferior). */
+.ep-popup {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  box-sizing: border-box;
+
+  /* Isolated stacking context: prevents z-index fights with page builders */
+  isolation: isolate;
+
+  /* Prevent background scroll on touch devices */
+  touch-action: none;
+  overscroll-behavior: none;
+
+  /* Safe area insets for iOS notch / home indicator */
+  padding: max(0.75rem, env(safe-area-inset-top, 0px))
+           max(0.75rem, env(safe-area-inset-right, 0px))
+           max(0.75rem, env(safe-area-inset-bottom, 0px))
+           max(0.75rem, env(safe-area-inset-left, 0px));
+
+  /* Variables de animación (la duración llega inline como --ep-dur) */
+  --ep-dur: 0.4s;
+  --ep-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Oculto pero renderizado: permite animar apertura y cierre */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--ep-dur) var(--ep-ease), visibility 0s linear var(--ep-dur);
+}
+
+.ep-popup.ep-is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity var(--ep-dur) var(--ep-ease), visibility 0s linear 0s;
+}
+
+/* Estado de CIERRE: mantiene visible mientras corre el efecto de salida */
+.ep-popup.ep-is-closing {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--ep-dur) var(--ep-ease), visibility 0s linear var(--ep-dur);
+}
+
+/* ── Body scroll lock class (applied by JS) ─────────────────────────────── */
+/* JS uses position:fixed + top:-scrollY for iOS. This adds the bounce guard. */
+
+body.ep-modal-open {
+  overscroll-behavior: none;
+}
+
+/* ── Overlay ────────────────────────────────────────────────────────────── */
+
+.ep-popup__overlay {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+
+/* ── Container ──────────────────────────────────────────────────────────── */
+
+.ep-popup__container {
+  position: relative;
+  background: #fff;
+  max-height: 90vh;
+  max-height: 90dvh;
+  max-width: calc(100vw - 32px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* momentum scroll on iOS */
+  overscroll-behavior: contain;      /* prevent scroll chaining to background */
+  border-radius: 4px;
+  z-index: 1;
+}
+
+/* ── Sizes ──────────────────────────────────────────────────────────────── */
+
+.ep-popup--small    .ep-popup__container { width: 400px; }
+.ep-popup--medium   .ep-popup__container { width: 600px; }
+.ep-popup--large    .ep-popup__container { width: 800px; }
+.ep-popup--fullscreen .ep-popup__container {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: 0;
+}
+
+/* ── Close button ───────────────────────────────────────────────────────── */
+
+.ep-popup__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: #666;
+  padding: 4px;
+  z-index: 2;
+  /* Minimum tap target size for mobile */
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ep-popup__close:hover { color: #000; }
+
+.ep-popup__close:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── Body ───────────────────────────────────────────────────────────────── */
+
+.ep-popup__body {
+  padding: 40px 32px 32px;
+}
+
+/* ── Screen-reader only utility ─────────────────────────────────────────── */
+/* Own implementation: WP core .screen-reader-text is overridden by many themes */
+
+.ep-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* ── Animations (POPUP_ANIM_LIB_V1) ─────────────────────────────────────── */
+/* La opacidad del wrapper la maneja el shell; el contenedor recibe el transform
+   del efecto de ENTRADA (`.ep-popup--in-*`) y el de SALIDA (`.ep-popup--out-*`
+   con `.ep-is-closing`). La duración llega inline como `--ep-dur`. */
+
+.ep-popup__container {
+  transition: transform var(--ep-dur, 0.4s) var(--ep-ease, cubic-bezier(0.22, 0.61, 0.36, 1));
+}
+
+/* Estado abierto: sin transform (destino de la entrada) */
+.ep-popup.ep-is-open .ep-popup__container {
+  transform: none;
+}
+
+/* ── Efectos de ENTRADA (transform inicial) ── */
+.ep-popup--in-fade .ep-popup__container      { transform: translateY(18px) scale(0.98); }
+.ep-popup--in-slide-up .ep-popup__container  { transform: translateY(56px); }
+.ep-popup--in-slide-down .ep-popup__container{ transform: translateY(-56px); }
+.ep-popup--in-slide-left .ep-popup__container{ transform: translateX(72px); }
+.ep-popup--in-slide-right .ep-popup__container{ transform: translateX(-72px); }
+.ep-popup--in-zoom .ep-popup__container      { transform: scale(0.8); }
+.ep-popup--in-spin .ep-popup__container      { transform: rotate(-180deg) scale(0.6); }
+.ep-popup--in-flip-x .ep-popup__container    { transform: perspective(1000px) rotateX(70deg); transform-origin: top center; }
+.ep-popup--in-flip-y .ep-popup__container    { transform: perspective(1000px) rotateY(70deg); }
+.ep-popup--in-bounce .ep-popup__container    { transform: translateY(-72px); }
+.ep-popup--in-none .ep-popup__container      { transform: none; }
+
+/* ── Efectos de SALIDA (mientras está `.ep-is-closing`) ── */
+.ep-popup--out-fade.ep-is-closing .ep-popup__container      { transform: translateY(18px) scale(0.98); }
+.ep-popup--out-slide-up.ep-is-closing .ep-popup__container  { transform: translateY(56px); }
+.ep-popup--out-slide-down.ep-is-closing .ep-popup__container{ transform: translateY(-56px); }
+.ep-popup--out-slide-left.ep-is-closing .ep-popup__container{ transform: translateX(72px); }
+.ep-popup--out-slide-right.ep-is-closing .ep-popup__container{ transform: translateX(-72px); }
+.ep-popup--out-zoom.ep-is-closing .ep-popup__container      { transform: scale(0.8); }
+.ep-popup--out-spin.ep-is-closing .ep-popup__container      { transform: rotate(180deg) scale(0.6); }
+.ep-popup--out-flip-x.ep-is-closing .ep-popup__container    { transform: perspective(1000px) rotateX(-70deg); transform-origin: top center; }
+.ep-popup--out-flip-y.ep-is-closing .ep-popup__container    { transform: perspective(1000px) rotateY(-70deg); }
+.ep-popup--out-bounce.ep-is-closing .ep-popup__container    { transform: translateY(-72px); }
+.ep-popup--out-none.ep-is-closing .ep-popup__container      { transform: none; }
+
+/* Curvas con un poco de "rebote" para los efectos que lo piden */
+.ep-popup--in-bounce, .ep-popup--out-bounce { --ep-ease: cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+.ep-popup--in-spin, .ep-popup--out-spin,
+.ep-popup--in-zoom, .ep-popup--out-zoom,
+.ep-popup--in-flip-x, .ep-popup--out-flip-x,
+.ep-popup--in-flip-y, .ep-popup--out-flip-y { --ep-ease: cubic-bezier(0.34, 1.28, 0.64, 1); }
+
+/* Accesibilidad: sin movimiento ni transición si el usuario lo pide */
+@media (prefers-reduced-motion: reduce) {
+  .ep-popup,
+  .ep-popup.ep-is-open,
+  .ep-popup.ep-is-closing,
+  .ep-popup__container {
+    transition: none !important;
+  }
+  .ep-popup--in-fade .ep-popup__container,
+  .ep-popup--in-slide-up .ep-popup__container,
+  .ep-popup--in-slide-down .ep-popup__container,
+  .ep-popup--in-slide-left .ep-popup__container,
+  .ep-popup--in-slide-right .ep-popup__container,
+  .ep-popup--in-zoom .ep-popup__container,
+  .ep-popup--in-spin .ep-popup__container,
+  .ep-popup--in-flip-x .ep-popup__container,
+  .ep-popup--in-flip-y .ep-popup__container,
+  .ep-popup--in-bounce .ep-popup__container {
+    transform: none;
+  }
+}
+
+/* ── Encapsulated mode ──────────────────────────────────────────────────── */
+
+.ep-popup--encapsulated .ep-popup__body,
+.ep-popup--encapsulated .ep-popup__body * {
+  box-sizing: border-box;
+}
+
+.ep-popup--encapsulated .ep-popup__body input,
+.ep-popup--encapsulated .ep-popup__body textarea,
+.ep-popup--encapsulated .ep-popup__body select,
+.ep-popup--encapsulated .ep-popup__body button {
+  font-family: inherit;
+  font-size: inherit;
+}

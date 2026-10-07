@@ -1,0 +1,11 @@
+# rest-link-baseline.txt — deuda preexistente tolerada por gate-rest-link.php
+#
+# Cada línea es una ruta de consumidor que hoy apunta a un endpoint NO registrado
+# y que se acepta temporalmente (así el gate NO bloquea el release por deuda
+# vieja, pero SÍ caza regresiones nuevas). Una ruta por línea; '#' comenta.
+#
+# Al arreglar una ruta, BORRAR su línea aquí: el gate volverá a protegerla.
+#
+# Hallazgo 2026-09-10 (real, pendiente de decisión): el enlace de notificación a
+# operadores apunta al namespace retirado estandar-leads.
+estandar-leads/v1/go

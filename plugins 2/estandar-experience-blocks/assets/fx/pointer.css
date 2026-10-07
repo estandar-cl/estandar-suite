@@ -1,0 +1,46 @@
+/**
+ * Estandar FX — Pointer module styles (glare + spotlight overlays).
+ *
+ * `:where()` keeps specificity at zero so theme positioning always wins.
+ */
+
+.efx-glare {
+	position: absolute;
+	inset: -30%;
+	pointer-events: none;
+	background: radial-gradient(60% 45% at 50% 35%, rgba(255, 255, 255, 0.28), transparent 70%);
+	opacity: 0;
+	transition: opacity 0.4s var(--efx-ease-quint);
+	will-change: transform, opacity;
+	z-index: 2;
+}
+
+.efx-spotlight-orb {
+	position: absolute;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	border-radius: 50%;
+	background: radial-gradient(circle, color-mix(in srgb, var(--efx-accent) 55%, transparent), transparent 70%);
+	filter: blur(24px);
+	mix-blend-mode: soft-light;
+	opacity: 0;
+	transition: opacity 0.5s var(--efx-ease-quint);
+	will-change: transform, opacity;
+	z-index: 1;
+}
+
+.efx-emoji-burst-item {
+	position: absolute;
+	pointer-events: none;
+	z-index: 3;
+	font-size: clamp(14px, 1.4em, 28px);
+	line-height: 1;
+	will-change: transform, opacity;
+}
+
+@supports not (background: color-mix(in srgb, red 50%, transparent)) {
+	.efx-spotlight-orb {
+		background: radial-gradient(circle, rgba(255, 255, 255, 0.35), transparent 70%);
+	}
+}

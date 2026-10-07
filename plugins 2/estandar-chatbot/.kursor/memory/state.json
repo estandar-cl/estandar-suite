@@ -1,0 +1,111 @@
+{
+  "flightPlan": {
+    "objective": "Lee el archivo admin/tabs/partials/boton-item.php y dime qué ves",
+    "steps": [
+      "Leer el archivo admin/tabs/partials/boton-item.php completo",
+      "Analizar la estructura PHP/HTML del componente",
+      "Identificar variables clave y lógica condicional",
+      "Resumir qué hace el archivo y cómo se comporta"
+    ],
+    "currentStepIndex": 125,
+    "status": "completed",
+    "notes": [
+      {
+        "timestamp": 1775494990763,
+        "note": "[PROJECT_CHECK_BLOCK] command:npm run check reason:Command failed: /Volumes/ESTANDAR_2026/03_ESTANDAR_LABS/KURSOR/kursor-personal/dist/mac-arm64/Kursor Personal.app/Contents/MacOS/Kursor Personal /Volumes/ESTANDAR_2026/03_ESTANDAR_LABS/wp-e"
+      },
+      {
+        "timestamp": 1775494990763,
+        "note": "[SELF_HEALING] retry:1 step:89: reason:Project check failed: npm run check"
+      },
+      {
+        "timestamp": 1775494990764,
+        "note": "[SELF_HEALING_CONTEXT] target:tmp/project-check-ui-smoke/ok.js\nORIGINAL:\nconst a = 1;\nconst b = 2;\nconst c = 3;\nconsole.log(a + b + c);\nPROPOSED:\nconst a = 1;\nconst b = 2;\nconst c = 4;\nconsole.log(a + b + c);\nCURRENT:\nconst a = 1;\nconst b ="
+      },
+      {
+        "timestamp": 1775495016857,
+        "note": "[TRUTH_GATE_FAIL] step:91: status:project_check_fail reason:Project check failed: npm run check"
+      },
+      {
+        "timestamp": 1775495016857,
+        "note": "[TRUTH_GATE_FILE] path:tmp/project-check-ui-smoke/ok.js status:changed_verified reason:Cambio aplicado y verificado correctamente."
+      },
+      {
+        "timestamp": 1775495016857,
+        "note": "[PROJECT_CHECK_BLOCK] command:npm run check reason:Command failed: /Volumes/ESTANDAR_2026/03_ESTANDAR_LABS/KURSOR/kursor-personal/dist/mac-arm64/Kursor Personal.app/Contents/MacOS/Kursor Personal /Volumes/ESTANDAR_2026/03_ESTANDAR_LABS/wp-e"
+      },
+      {
+        "timestamp": 1775495016857,
+        "note": "[SELF_HEALING] retry:1 step:91: reason:Project check failed: npm run check"
+      },
+      {
+        "timestamp": 1775495016858,
+        "note": "[SELF_HEALING_CONTEXT] target:tmp/project-check-ui-smoke/ok.js\nORIGINAL:\nconst a = 1;\nconst b = 2;\nconst c = 4;\nconsole.log(a + b + c);\nPROPOSED:\nconst a = 1;\nconst b = 2;\nconst c = 3;\nconsole.log(a + b + c);\nCURRENT:\nconst a = 1;\nconst b ="
+      },
+      {
+        "timestamp": 1775684592429,
+        "note": "[SAFE_GUARD] blocked:loop_detected reason:estandar-chatbot.php"
+      },
+      {
+        "timestamp": 1775684594314,
+        "note": "[SAFE_GUARD] blocked:loop_detected reason:estandar-chatbot.php"
+      },
+      {
+        "timestamp": 1775684706113,
+        "note": "[SAFE_GUARD] blocked:loop_detected reason:estandar-chatbot.php"
+      },
+      {
+        "timestamp": 1775684707359,
+        "note": "[SAFE_GUARD] blocked:loop_detected reason:estandar-chatbot.php"
+      },
+      {
+        "timestamp": 1775684894513,
+        "note": "[SAFE_GUARD] blocked:loop_detected reason:frontend/chatbot.js"
+      },
+      {
+        "timestamp": 1775684896648,
+        "note": "[SAFE_GUARD] blocked:loop_detected reason:frontend/chatbot.js"
+      },
+      {
+        "timestamp": 1775781156455,
+        "note": "[TRUTH_GATE_FAIL] step:120: status:changed_no_verify reason:Syntax Error: spawn php ENOENT"
+      },
+      {
+        "timestamp": 1775781156455,
+        "note": "[TRUTH_GATE_FILE] path:admin/tabs/leads-captacion.php status:changed_no_verify reason:Syntax Error: spawn php ENOENT"
+      },
+      {
+        "timestamp": 1775781156455,
+        "note": "[SYNTAX_FAIL] path:admin/tabs/leads-captacion.php reason:spawn php ENOENT"
+      },
+      {
+        "timestamp": 1775781156455,
+        "note": "[RETRY_HINT_FILE] step:120: El cambio se aplicó pero no coincide con lo esperado. Relee el archivo antes de proponer la corrección. Archivo: admin/tabs/leads-captacion.php"
+      },
+      {
+        "timestamp": 1775781156455,
+        "note": "[ENVIRONMENT_BLOCKED] step:120: reason:Syntax Error: spawn php ENOENT"
+      },
+      {
+        "timestamp": 1775781301016,
+        "note": "[TRUTH_GATE_FAIL] step:124: status:changed_no_verify reason:Syntax Error: spawn php ENOENT"
+      },
+      {
+        "timestamp": 1775781301016,
+        "note": "[TRUTH_GATE_FILE] path:admin/tabs/leads-captacion.php status:changed_no_verify reason:Syntax Error: spawn php ENOENT"
+      },
+      {
+        "timestamp": 1775781301016,
+        "note": "[SYNTAX_FAIL] path:admin/tabs/leads-captacion.php reason:spawn php ENOENT"
+      },
+      {
+        "timestamp": 1775781301016,
+        "note": "[RETRY_HINT_FILE] step:124: El cambio se aplicó pero no coincide con lo esperado. Relee el archivo antes de proponer la corrección. Archivo: admin/tabs/leads-captacion.php"
+      },
+      {
+        "timestamp": 1775781301016,
+        "note": "[ENVIRONMENT_BLOCKED] step:124: reason:Syntax Error: spawn php ENOENT"
+      }
+    ]
+  }
+}

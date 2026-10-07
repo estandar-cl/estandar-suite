@@ -1,0 +1,149 @@
+/**
+ * Estandar FX — Ambient library (pure CSS, zero JS).
+ *
+ * Continuous, low-key motion. Loops run at low amplitude and long periods;
+ * all of them stop under prefers-reduced-motion (see core.css) while keeping
+ * their settled visual state.
+ */
+
+/* Float ---------------------------------------------------------------- */
+
+.efx-ambient-float {
+	animation: efx-float calc(var(--efx-ambient-speed) * 1) ease-in-out infinite;
+	will-change: transform;
+}
+
+@keyframes efx-float {
+	0%,
+	100% {
+		transform: translate3d(0, calc(-4px * var(--efx-ambient-intensity)), 0);
+	}
+	50% {
+		transform: translate3d(0, calc(4px * var(--efx-ambient-intensity)), 0);
+	}
+}
+
+/* Pulse ---------------------------------------------------------------- */
+
+.efx-ambient-pulse {
+	animation: efx-pulse calc(var(--efx-ambient-speed) * 0.5) ease-in-out infinite;
+	will-change: transform;
+}
+
+@keyframes efx-pulse {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(calc(1 + 0.015 * var(--efx-ambient-intensity)));
+	}
+}
+
+/* Gradient motion -------------------------------------------------------- */
+
+.efx-ambient-gradient {
+	background-image: linear-gradient(
+		120deg,
+		var(--efx-accent),
+		var(--efx-accent-b),
+		var(--efx-accent)
+	);
+	background-size: 220% 220%;
+	animation: efx-gradient-pan var(--efx-ambient-speed) ease-in-out infinite alternate;
+}
+
+/* On text blocks the gradient clips to the letters. */
+p.efx-ambient-gradient,
+h1.efx-ambient-gradient,
+h2.efx-ambient-gradient,
+h3.efx-ambient-gradient,
+h4.efx-ambient-gradient,
+h5.efx-ambient-gradient,
+h6.efx-ambient-gradient {
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
+}
+
+@keyframes efx-gradient-pan {
+	from {
+		background-position: 0% 50%;
+	}
+	to {
+		background-position: 100% 50%;
+	}
+}
+
+/* Blob — organic border-radius morph ------------------------------------- */
+
+.efx-ambient-blob {
+	overflow: hidden;
+	border-radius: 58% 42% 55% 45% / 48% 55% 45% 52%;
+	animation: efx-blob calc(var(--efx-ambient-speed) * 1.6) ease-in-out infinite;
+	will-change: border-radius;
+}
+
+@keyframes efx-blob {
+	0%,
+	100% {
+		border-radius: 58% 42% 55% 45% / 48% 55% 45% 52%;
+	}
+	33% {
+		border-radius: 45% 55% 42% 58% / 55% 45% 58% 42%;
+	}
+	66% {
+		border-radius: 52% 48% 58% 42% / 42% 58% 48% 55%;
+	}
+}
+
+/* Noise — filmic grain overlay -------------------------------------------- */
+
+:where(.efx-ambient-noise) {
+	position: relative;
+}
+
+.efx-ambient-noise::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	opacity: calc(0.07 * var(--efx-ambient-intensity));
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+	background-size: 140px 140px;
+	z-index: 1;
+}
+
+/* Glass ------------------------------------------------------------------- */
+
+.efx-ambient-glass {
+	background-color: color-mix(in srgb, #ffffff 8%, transparent);
+	-webkit-backdrop-filter: blur(calc(14px * var(--efx-ambient-intensity))) saturate(160%);
+	backdrop-filter: blur(calc(14px * var(--efx-ambient-intensity))) saturate(160%);
+	border: 1px solid rgba(255, 255, 255, 0.14);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+	.efx-ambient-glass {
+		background-color: rgba(255, 255, 255, 0.55);
+	}
+}
+
+/* Spotlight text — animated editorial light sweep ------------------------- */
+
+.efx-ambient-spotlight-text {
+	background-image: radial-gradient(circle at 50% 50%, var(--efx-accent) 0%, currentColor 28%, color-mix(in srgb, currentColor 35%, transparent) 58%);
+	background-size: 220% 220%;
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
+	animation: efx-spotlight-text var(--efx-ambient-speed) ease-in-out infinite alternate;
+}
+
+@keyframes efx-spotlight-text {
+	from { background-position: 0% 45%; }
+	to { background-position: 100% 55%; }
+}

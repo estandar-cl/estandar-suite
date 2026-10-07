@@ -1,0 +1,64 @@
+==================================================
+ESTANDAR SUITE TEST REPORT
+Fecha: 2026-07-22 11:46:36
+PHP: PHP 8.5.3 (cli) (built: Feb 10 2026 18:25:51) (NTS)
+==================================================
+
+------------------------------------------------
+Plugin: estandar-analytics
+------------------------------------------------
+PASS run-attribution-bridge.php
+PASS run-conversion-contract.php
+PASS run-taxonomy-coverage.php
+PASS run-whatsapp-canonical.php
+PASS run-whatsapp-health.php
+php -l: OK (38 archivos)
+
+------------------------------------------------
+Plugin: estandar-chatbot
+------------------------------------------------
+PASS run-contact-merge-preservation.php
+PASS run-prompt-composition.php
+php -l: OK (47 archivos)
+
+------------------------------------------------
+Plugin: estandar-cpt-manager
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (6 archivos)
+
+------------------------------------------------
+Plugin: estandar-delivery-locator-lite
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (12 archivos)
+
+------------------------------------------------
+Plugin: estandar-destinations
+------------------------------------------------
+PASS run-webhook-adapter-test.php
+php -l: OK (11 archivos)
+
+------------------------------------------------
+Plugin: estandar-duplicate-post
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (1 archivos)
+
+------------------------------------------------
+Plugin: estandar-experience-blocks
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (21 archivos)
+
+------------------------------------------------
+Plugin: estandar-firmas
+------------------------------------------------
+SKIPPED (sin tests)
+php -l: OK (4 archivos)
+
+------------------------------------------------
+Plugin: estandar-forms
+------------------------------------------------
+PASS run-acceptance.php
+PASS run-admin-menu-regression.php

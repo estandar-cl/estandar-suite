@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "estandar/sticky-grid-scroll",
+	"title": "Sticky Grid Scroll",
+	"category": "estandar-experience",
+	"icon": "grid-view",
+	"description": "Grilla sticky de imágenes con desplazamiento progresivo por scroll.",
+	"keywords": [ "sticky", "grid", "scroll", "gallery", "codrops" ],
+	"textdomain": "estandar-experience-blocks",
+	"attributes": {
+		"slides": { "type": "array", "default": [] },
+		"columns": { "type": "number", "default": 4 },
+		"height": { "type": "number", "default": 180 },
+		"gap": { "type": "number", "default": 18 },
+		"radius": { "type": "number", "default": 22 },
+		"travel": { "type": "number", "default": 180 },
+		"showCaptions": { "type": "boolean", "default": false }
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true, "padding": true }
+	},
+	"editorScript": "estandar-efx-blocks-editor",
+	"editorStyle": "estandar-efx-sticky-grid-scroll-css",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,113 @@
+{
+  "generated_at": "2026-07-31T16:26:11.693025Z",
+  "release_id": "20260731-162431-20311",
+  "release_version": "13.0.158",
+  "plugins": {
+    "estandar-acceptance": {
+      "version": "13.0.158",
+      "zip": "estandar-acceptance.zip",
+      "sha256": "8b9a8b705b972153271c4d5b8d9598ccd9e823d645a4c2973324336619ccd8c6"
+    },
+    "estandar-analytics": {
+      "version": "13.0.158",
+      "zip": "estandar-analytics.zip",
+      "sha256": "9648736ff0322929d34e267f12bb9e45acc9c3726292232b3fd31fda0834f7d7"
+    },
+    "estandar-chatbot": {
+      "version": "13.0.158",
+      "zip": "estandar-chatbot.zip",
+      "sha256": "6f51d975bd49a15f71cd0a46541f0fe22c698c7754fe3defca1cc6802c9b7813"
+    },
+    "estandar-cpt-manager": {
+      "version": "13.0.158",
+      "zip": "estandar-cpt-manager.zip",
+      "sha256": "5cde18d841921e8560fb195297b812747fa064c6c0f331af1f4b0b1e65ef8912"
+    },
+    "estandar-delivery-locator-lite": {
+      "version": "13.0.158",
+      "zip": "estandar-delivery-locator-lite.zip",
+      "sha256": "f4e1fb82a57c9605932053a268a41a17d1c06a087149940e3b6d6f7f077af5de"
+    },
+    "estandar-destinations": {
+      "version": "13.0.158",
+      "zip": "estandar-destinations.zip",
+      "sha256": "fce7fe17cbe21f111f89c8d4e119f52cce35970393543517033e11b6d2e9e5aa"
+    },
+    "estandar-duplicate-post": {
+      "version": "13.0.158",
+      "zip": "estandar-duplicate-post.zip",
+      "sha256": "642e45e6bdc2b96ced14e768c3b46936ea9bfb810c2caf615f9649bf4ebf3053"
+    },
+    "estandar-experience-blocks": {
+      "version": "13.0.158",
+      "zip": "estandar-experience-blocks.zip",
+      "sha256": "56af5aa26bf9a5a86fe45dbfa279bb2342f82ce011dd2d432824dfde70e56d72"
+    },
+    "estandar-firmas": {
+      "version": "13.0.158",
+      "zip": "estandar-firmas.zip",
+      "sha256": "5f4778324b284910a078abbb76263076c1de382575350b999cbf5784a8b4094a"
+    },
+    "estandar-forms": {
+      "version": "13.0.158",
+      "zip": "estandar-forms.zip",
+      "sha256": "a1d3b0a44068a26dca74e91c0f339901699a22670da4ddc9c392c4f853d98411"
+    },
+    "estandar-kickoff": {
+      "version": "13.0.158",
+      "zip": "estandar-kickoff.zip",
+      "sha256": "020943fe78919c9ca646d723a349a79ad1256693f2d931574a35d39747d1bc75"
+    },
+    "estandar-leads": {
+      "version": "13.0.158",
+      "zip": "estandar-leads.zip",
+      "sha256": "49235a8dfa8a541172b282b8c78d4da2889cae3aa97c02b0ec13a1c1ca22a0be"
+    },
+    "estandar-notifications": {
+      "version": "13.0.158",
+      "zip": "estandar-notifications.zip",
+      "sha256": "23abde538a878aa8a277948c213f8e7cca26609f88e9128e0507a174ba9e816a"
+    },
+    "estandar-pop": {
+      "version": "13.0.158",
+      "zip": "estandar-pop.zip",
+      "sha256": "2fce3093751ccb1a33cf57357337f526083013dd8a26a31dd210d9b51dce2c4e"
+    },
+    "estandar-primer": {
+      "version": "13.0.158",
+      "zip": "estandar-primer.zip",
+      "sha256": "a5a976b641bd0b6c1d180db6d96d7c70c14413fdeb5afe1325d11aca52a8b609"
+    },
+    "estandar-quotes": {
+      "version": "13.0.158",
+      "zip": "estandar-quotes.zip",
+      "sha256": "fd4c52a31f935241859dfbf9ac4a00d165aa33d4190eabe0300e72a01e661a57"
+    },
+    "estandar-secure-share": {
+      "version": "13.0.158",
+      "zip": "estandar-secure-share.zip",
+      "sha256": "03d588422ce1ffc8ed19ac721dfbac4d970b4f2650843d820c622936de6e524e"
+    },
+    "estandar-seo-intelligence": {
+      "version": "13.0.158",
+      "zip": "estandar-seo-intelligence.zip",
+      "sha256": "b076e4d4568eea7337893c2cc1009c142c8c4d90b32f87b4d79afb209dc06e0a"
+    },
+    "estandar-signal-core": {
+      "version": "13.0.158",
+      "zip": "estandar-signal-core.zip",
+      "sha256": "eef2b34b7db8fe282dd39991cc72469db69a7347981d874a30e7f2099c37532d"
+    },
+    "estandar-website-scanner": {
+      "version": "13.0.158",
+      "zip": "estandar-website-scanner.zip",
+      "sha256": "4d4a5778e74725384098868857c9480aa6567b732aa5494b82b1bc019c3ff4ff"
+    },
+    "estandar-wp-exporter": {
+      "version": "13.0.158",
+      "zip": "estandar-wp-exporter.zip",
+      "sha256": "28ccaec5015ffd1db3789c165a50a1750961db66b4b3fd04d94fd06ea7ce88c4"
+    }
+  },
+  "release_sha256": "3d57a4263077aecbe310c7d03bda0dd134b9b23a9026ddae33420816b509007a"
+}

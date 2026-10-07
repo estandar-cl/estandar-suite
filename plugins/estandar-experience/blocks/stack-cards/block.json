@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "estandar/stack-cards",
+	"title": "Tarjetas apiladas",
+	"category": "estandar-experience",
+	"icon": "images-alt",
+	"description": "Secciones que se apilan al hacer scroll (sticky), con escala y sombra progresivas. Usa bloques Grupo o Cubierta como tarjetas.",
+	"keywords": [
+		"stack",
+		"cards",
+		"sticky",
+		"apiladas"
+	],
+	"textdomain": "estandar-experience",
+	"attributes": {
+		"topOffset": {
+			"type": "number",
+			"default": 96
+		},
+		"gap": {
+			"type": "number",
+			"default": 32
+		},
+		"radius": {
+			"type": "number",
+			"default": 20
+		}
+	},
+	"supports": {
+		"align": [
+			"wide",
+			"full"
+		],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"render": "file:./render.php",
+	"editorScript": "estandar-experience-editor",
+	"editorStyle": "estandar-experience-editor-css"
+}

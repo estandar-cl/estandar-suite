@@ -1,0 +1,59 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "estandar/marquee",
+	"title": "Marquee infinito",
+	"category": "estandar-experience",
+	"icon": "leftright",
+	"description": "Cinta infinita de contenido (logos, texto, imágenes) con velocidad constante y pausa al pasar el cursor.",
+	"keywords": [
+		"marquee",
+		"cinta",
+		"logos",
+		"ticker"
+	],
+	"textdomain": "estandar-experience",
+	"attributes": {
+		"speed": {
+			"type": "number",
+			"default": 60
+		},
+		"direction": {
+			"type": "string",
+			"default": "left",
+			"enum": [
+				"left",
+				"right"
+			]
+		},
+		"hoverPause": {
+			"type": "boolean",
+			"default": true
+		},
+		"fade": {
+			"type": "boolean",
+			"default": true
+		},
+		"gap": {
+			"type": "number",
+			"default": 48
+		}
+	},
+	"supports": {
+		"align": [
+			"wide",
+			"full"
+		],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"color": {
+			"background": true,
+			"text": true
+		}
+	},
+	"render": "file:./render.php",
+	"editorScript": "estandar-experience-editor",
+	"editorStyle": "estandar-experience-editor-css"
+}

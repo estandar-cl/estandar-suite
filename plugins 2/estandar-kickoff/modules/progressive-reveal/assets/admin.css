@@ -1,0 +1,71 @@
+.estandar-pr-admin {
+	max-width: 1080px;
+}
+
+.estandar-pr-progress-card {
+	display: grid;
+	grid-template-columns: minmax(180px, auto) 1fr minmax(80px, auto) auto;
+	gap: 12px;
+	align-items: center;
+	margin: 18px 0 24px;
+	padding: 16px;
+	border: 1px solid #dcdcde;
+	background: #fff;
+}
+
+.estandar-pr-progress-card strong,
+.estandar-pr-progress-card em {
+	font-style: normal;
+}
+
+.estandar-pr-admin-progress {
+	height: 10px;
+	border-radius: 999px;
+	background: #e7e7e7;
+	overflow: hidden;
+}
+
+.estandar-pr-admin-progress span {
+	display: block;
+	height: 100%;
+	background: #2271b1;
+}
+
+.estandar-pr-token {
+	display: inline-block;
+	padding: 8px 10px;
+	background: #f6f7f7;
+}
+
+.estandar-pr-pages {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: 8px;
+	max-width: 920px;
+	margin: 12px 0 20px;
+}
+
+.estandar-pr-pages label {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: flex-start;
+	padding: 10px;
+	border: 1px solid #dcdcde;
+	background: #fff;
+}
+
+.estandar-pr-permalink {
+	flex-basis: 100%;
+	overflow-wrap: anywhere;
+}
+
+.estandar-pr-regen-form {
+	margin-top: 8px;
+}
+
+@media (max-width: 782px) {
+	.estandar-pr-progress-card {
+		grid-template-columns: 1fr;
+	}
+}

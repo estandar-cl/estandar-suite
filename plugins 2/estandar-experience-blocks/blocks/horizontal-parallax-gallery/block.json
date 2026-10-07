@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "estandar/horizontal-parallax-gallery",
+	"title": "Horizontal Parallax Gallery",
+	"category": "estandar-experience",
+	"icon": "images-alt2",
+	"description": "Galería horizontal con parallax DOM, útil como hero visual o carrusel editorial.",
+	"keywords": [ "horizontal", "parallax", "gallery", "hero", "carousel" ],
+	"textdomain": "estandar-experience-blocks",
+	"attributes": {
+		"slides": { "type": "array", "default": [] },
+		"height": { "type": "number", "default": 78 },
+		"imageWidth": { "type": "number", "default": 360 },
+		"gap": { "type": "number", "default": 28 },
+		"speed": { "type": "number", "default": 1 },
+		"depth": { "type": "number", "default": 1 },
+		"heroMode": { "type": "boolean", "default": true },
+		"showCaptions": { "type": "boolean", "default": true }
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true, "padding": true }
+	},
+	"editorScript": "estandar-efx-blocks-editor",
+	"editorStyle": "estandar-efx-horizontal-parallax-gallery-css",
+	"render": "file:./render.php"
+}

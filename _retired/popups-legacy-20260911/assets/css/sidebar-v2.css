@@ -1,0 +1,416 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+ * Estandar Pop v10.5 — Sidebar Styles (Workflows First)
+ * ───────────────────────────────────────────────────────────────────────────── */
+
+/* ═══ METHOD PICKER ═══════════════════════════════════════════════════════════ */
+
+.ep-method-picker-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.ep-method-option {
+  cursor: pointer;
+  padding: 12px;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f8f9fa;
+  transition: all 150ms ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.ep-method-option:hover {
+  border-color: #999;
+  background: #f0f0f0;
+}
+
+.ep-method-option.active {
+  border: 2px solid #46b450;
+  background: #e8f5e9;
+}
+
+.ep-method-option input[type="radio"] {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.ep-method-option-content {
+  flex: 1;
+}
+
+.ep-method-option-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 2px;
+}
+
+.ep-method-option-description {
+  display: block;
+  font-size: 12px;
+  color: #666;
+}
+
+.ep-method-option-icon {
+  font-size: 18px;
+  margin-right: 2px;
+}
+
+/* ═══ PANEL IMPORTANTE (destacado) ═════════════════════════════════════════ */
+
+.ep-panel-important .components-panel__body-title {
+  background: #fff3cd;
+  border-left: 3px solid #ffc107;
+  padding: 12px 16px;
+  font-weight: 600;
+}
+
+/* ═══ ELEMENT PICKER (CSS Selector) ════════════════════════════════════════ */
+
+.ep-element-picker-wrapper {
+  margin-top: 12px;
+}
+
+.ep-detector-modal {
+  animation: slideDown 200ms ease;
+}
+
+.ep-selector-validation {
+  padding: 8px 12px;
+  margin-top: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.ep-selector-validation.valid {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.ep-selector-validation.invalid {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.ep-selector-validation.warning {
+  background: #fff3e0;
+  color: #e65100;
+  border: 1px solid #ffe0b2;
+}
+
+.ep-selector-validation-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* ═══ INSTRUCTIONS BLOCK ═══════════════════════════════════════════════════ */
+
+.ep-usage-instructions {
+  margin-top: 16px;
+  padding: 12px;
+  background: #f5f5f5;
+  border-left: 3px solid #2196F3;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.ep-usage-instructions-title {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.ep-usage-option {
+  margin-bottom: 12px;
+}
+
+.ep-usage-option-title {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #222;
+}
+
+.ep-usage-option-desc {
+  display: block;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.ep-usage-code {
+  display: block;
+  padding: 6px 8px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  overflow: auto;
+  word-break: break-word;
+  color: #555;
+  margin-top: 4px;
+}
+
+.ep-usage-option:last-child {
+  margin-bottom: 0;
+}
+
+/* ═══ PREVIEW PANE ═════════════════════════════════════════════════════════ */
+
+.ep-preview-pane {
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  margin-top: 16px;
+  border: 1px solid #ddd;
+}
+
+.ep-preview-pane-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.ep-preview-pane-window {
+  padding: 12px;
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 12px;
+  position: relative;
+}
+
+.ep-preview-popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  max-width: 90%;
+}
+
+.ep-preview-popup-content p {
+  margin: 0 0 12px 0;
+  color: #333;
+  font-size: 14px;
+}
+
+.ep-preview-close-btn {
+  padding: 8px 16px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ep-preview-close-btn:hover {
+  background: #0056b3;
+}
+
+.ep-preview-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #999;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+  margin-top: 8px;
+}
+
+.ep-preview-toggle-btn {
+  padding: 8px 12px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  width: 100%;
+}
+
+.ep-preview-toggle-btn:hover {
+  background: #0056b3;
+}
+
+/* ═══ AUTO TRIGGER PANEL ═══════════════════════════════════════════════════ */
+
+.ep-auto-trigger-section {
+  margin-top: 0;
+}
+
+/* ═══ MANUAL USAGE PANEL ═══════════════════════════════════════════════════ */
+
+.ep-manual-usage-section {
+  margin-top: 0;
+}
+
+.ep-manual-code-block {
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  border-left: 3px solid #2196F3;
+}
+
+.ep-manual-code-block-title {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #222;
+  font-size: 12px;
+}
+
+.ep-manual-code-block-desc {
+  display: block;
+  color: #666;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.ep-manual-code-block code {
+  display: block;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 11px;
+  overflow: auto;
+  font-family: 'Courier New', monospace;
+  color: #555;
+}
+
+/* ═══ HELP TEXT ════════════════════════════════════════════════════════════ */
+
+.ep-help-text {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ═══ RESPONSIVE ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .ep-method-option {
+    padding: 10px;
+  }
+
+  .ep-method-option-label {
+    font-size: 13px;
+  }
+
+  .ep-usage-instructions {
+    font-size: 11px;
+  }
+
+  .ep-usage-code {
+    font-size: 10px;
+  }
+
+  .ep-preview-popup-content {
+    padding: 16px;
+  }
+
+  .ep-preview-toggle-btn {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+}
+
+/* ═══ EDITOR INTEGRATION ═══════════════════════════════════════════════════ */
+
+.editor-post-title__block textarea {
+  font-size: 16px !important;
+}
+
+/* Asegurar que el sidebar no tenga padding excesivo en mobile */
+.edit-post-sidebar {
+  max-width: 100%;
+}
+
+@media (max-width: 600px) {
+  .ep-method-option {
+    padding: 10px 8px;
+    gap: 8px;
+  }
+
+  .ep-preview-pane {
+    padding: 12px;
+  }
+
+  .ep-usage-instructions {
+    padding: 10px;
+    border-left-width: 2px;
+  }
+}
+
+/* ═══ ANIMATION & TRANSITIONS ══════════════════════════════════════════════ */
+
+.ep-method-option {
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ep-selector-validation {
+  animation: slideDown 200ms ease;
+}
+
+.ep-usage-instructions {
+  animation: slideDown 200ms ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══ FOCUS STATES ═════════════════════════════════════════════════════════ */
+
+.ep-preview-toggle-btn:focus,
+.ep-preview-close-btn:focus {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
+}
+
+input[type="radio"]:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}

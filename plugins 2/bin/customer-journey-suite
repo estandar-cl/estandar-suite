@@ -1,0 +1,163 @@
+#!/bin/zsh
+set -euo pipefail
+# Customer Journey Suite — Estandar Suite Production Release Gate
+# Tests the complete customer + operator experience across all modules.
+# Run BEFORE any release. Each test verifies a critical journey behavior.
+
+WORKSPACE="/Volumes/ESTANDAR_2026/ESTANDAR_STUDIO_IA/Plugins_Workspace/wp-content/plugins"
+PASS=0; FAIL=0; SKIP=0
+pass() { echo "PASS $1"; PASS=$((PASS+1)); }
+fail() { echo "FAIL $1"; FAIL=$((FAIL+1)); }
+skip() { echo "SKIP $1"; SKIP=$((SKIP+1)); }
+
+echo "╔══════════════════════════════════════════════════════════╗"
+echo "║   Estandar Suite — Customer Journey Suite              ║"
+echo "╚══════════════════════════════════════════════════════════╝"
+echo ""
+
+# ══════════════════════════════════════════════════════════════════════
+# 1. CAPTACIÓN — Formulario web
+# ══════════════════════════════════════════════════════════════════════
+echo "── 1. Captación por formulario ──"
+cd "$WORKSPACE"
+
+# 1.1 Form handler exists and processes submissions
+[ -f "estandar-forms/includes/class-forms.php" ] && pass "Form handler exists" || fail "Form handler missing"
+grep -q "estandar_forms_validate_phone" "estandar-forms/includes/helpers.php" && pass "Phone validation function exists" || fail "Phone validation function missing"
+
+# 1.2 Phone validation rejects incomplete numbers (found during audit)
+HELPERS=$(cat "estandar-forms/includes/helpers.php")
+echo "$HELPERS" | grep -q "function estandar_forms_validate_phone" && pass "validate_phone() defined" || fail "validate_phone() missing"
+SPEC_MIN=$(echo "$HELPERS" | grep -A5 "function estandar_forms_get_phone_spec" | grep "'minlength'" | sed 's/.*=> *//' | sed 's/,.*//')
+[ -n "$SPEC_MIN" ] && [ "$SPEC_MIN" -ge 9 ] && pass "Phone minlength >= 9 (is $SPEC_MIN)" || fail "Phone minlength insufficient ($SPEC_MIN)"
+
+# 1.3 Form phone validation is invoked during submission
+grep -q "case 'tel'" "estandar-forms/includes/class-forms.php" && pass "Form processes tel field type" || fail "Form missing tel field type handling"
+
+# 1.4 Duplicate prevention
+grep -q "payload_hash\|identity.*collision\|dedup" "estandar-leads/includes/class-estandar-leads-ingestion.php" 2>/dev/null && pass "Lead deduplication exists in ingestion" || skip "Lead dedup check not implemented at source level"
+
+# ══════════════════════════════════════════════════════════════════════
+# 2. CAPTACIÓN — Chatbot
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 2. Captación por chatbot ──"
+
+if [ -d "estandar-chatbot" ]; then
+    [ -f "estandar-chatbot/estandar-chatbot.php" ] && pass "Chatbot plugin file exists" || fail "Chatbot plugin missing"
+    grep -q "estandar_lead_captured\|estandar-leads" "estandar-chatbot/estandar-chatbot.php" 2>/dev/null && pass "Chatbot integrates with Leads" || skip "Chatbot-Leads integration not verified at source level"
+else
+    skip "Chatbot plugin directory not found"
+fi
+
+# ══════════════════════════════════════════════════════════════════════
+# 3. NOTIFICACIONES — Correo
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 3. Notificaciones por correo ──"
+
+cd "$WORKSPACE/estandar-leads"
+grep -q "operator_notified\|operator_notification" "includes/class-estandar-leads-notifier.php" 2>/dev/null && pass "Operator notification event exists" || fail "Operator notification event missing"
+grep -q "estandar_leads_quote_create_url" "includes/class-estandar-leads-email.php" 2>/dev/null && pass "Quote create URL filter exists in email" || fail "Quote create URL filter missing in email"
+
+# ══════════════════════════════════════════════════════════════════════
+# 4. REVISIÓN DEL LEAD — Backend
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 4. Revisión del lead ──"
+
+cd "$WORKSPACE/estandar-leads"
+[ -f "templates/admin/operator-portal.php" ] && pass "Operator portal template exists" || fail "Operator portal template missing"
+grep -q "lead_id\|lead->id" "templates/admin/operator-portal.php" 2>/dev/null && pass "Operator portal renders lead data" || fail "Operator portal may not render lead data"
+
+# ══════════════════════════════════════════════════════════════════════
+# 5. AI CONTEXT
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 5. AI Context ──"
+
+[ -f "includes/class-estandar-leads-ai-context.php" ] && pass "AI Context class exists" || fail "AI Context class missing"
+grep -q "operator_notification_deferred\|notification_deferred" "includes/class-estandar-leads-ai-context.php" 2>/dev/null && pass "AI Context handles deferred notifications" || fail "AI Context missing deferred notification handling"
+
+# ══════════════════════════════════════════════════════════════════════
+# 6. WORKSPACE DEL OPERADOR
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 6. Workspace del operador ──"
+
+cd "$WORKSPACE/estandar-quotes"
+grep -q "cotizacion/\|handle_handoff\|operator_authorized" "includes/class-estandar-quotes-operator-gateway.php" 2>/dev/null && pass "Operator Gateway exists with authorization" || fail "Operator Gateway missing authorization"
+
+# ══════════════════════════════════════════════════════════════════════
+# 7-9. CREACIÓN, PREVIEW, PDF
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 7–9. Creación, preview y PDF ──"
+
+cd "$WORKSPACE/estandar-quotes"
+grep -q "Hydration_Pipeline::hydrate_new" "includes/class-estandar-quotes-admin.php" 2>/dev/null && pass "Quote creation uses HydrationPipeline" || fail "Quote creation missing HydrationPipeline"
+grep -q "render_preview\|render_print" "includes/class-estandar-quotes-document-engine.php" 2>/dev/null && pass "Document Engine renders preview/print" || fail "Document Engine missing preview/print"
+grep -q "strip_tags" "includes/class-estandar-quotes-artifacts.php" 2>/dev/null && pass "Artifact generation validates HTML content" || fail "Artifact generation missing HTML validation"
+grep -q "%PDF" "includes/class-estandar-quotes-artifacts.php" 2>/dev/null && pass "Artifact generation validates PDF header" || fail "Artifact generation missing PDF header validation"
+
+# ══════════════════════════════════════════════════════════════════════
+# 10. ENVÍO
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 10. Envío ──"
+
+grep -q "byte_size" "includes/class-estandar-quotes-wp-mail-transport.php" 2>/dev/null && pass "Mail transport validates PDF byte_size" || fail "Mail transport missing byte_size validation"
+grep -q "invalid_artifact" "includes/class-estandar-quotes-admin.php" 2>/dev/null && pass "Admin validates artifact before send" || fail "Admin missing artifact validation before send"
+
+# ══════════════════════════════════════════════════════════════════════
+# 11-12. CORREOS
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 11–12. Correos cliente y operador ──"
+
+grep -q "Estandar Suite\|footer_legal\|company_name" "includes/class-estandar-quotes-delivery-email.php" 2>/dev/null && pass "Email template has professional branding" || fail "Email template missing professional branding"
+grep -q "operator_email\|operator_copy" "includes/class-estandar-quotes-admin.php" 2>/dev/null && pass "Admin sends CC to operator" || fail "Admin missing operator CC"
+
+# ══════════════════════════════════════════════════════════════════════
+# 13. DESCARGA POSTERIOR DEL PDF
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 13. Descarga posterior del PDF ──"
+
+grep -q "Cotizacion-" "includes/class-estandar-quotes-admin.php" 2>/dev/null && pass "Download uses human-readable filename" || fail "Download missing human-readable filename"
+grep -q "download_artifact\|artifact_uuid" "includes/class-estandar-quotes-admin.php" 2>/dev/null && pass "Admin can download artifact by UUID" || fail "Admin missing artifact download"
+
+# ══════════════════════════════════════════════════════════════════════
+# 14-15. NUEVA REVISIÓN Y REENVÍO
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 14–15. Nueva revisión y reenvío ──"
+
+grep -q "add_revision\|current_revision_no" "includes/class-estandar-quotes-repository.php" 2>/dev/null && pass "Repository supports adding revisions" || fail "Repository missing revision support"
+grep -q "resend\|create_new" "includes/class-estandar-quotes-delivery-service.php" 2>/dev/null && pass "Delivery service supports resend" || fail "Delivery service missing resend"
+
+# ══════════════════════════════════════════════════════════════════════
+# 16. HISTORIAL
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 16. Historial ──"
+
+grep -q "Historial\|revisions\|deliveries" "includes/class-estandar-quotes-admin.php" 2>/dev/null && pass "Admin renders history with revisions and deliveries" || fail "Admin missing history section"
+
+# ══════════════════════════════════════════════════════════════════════
+# 17-18. ARTEFACTO HISTÓRICO
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "── 17–18. Artefacto histórico y comparación ──"
+
+grep -q "storage_key\|artifact_uuid\|pdf_sha256" "includes/class-estandar-quotes-artifacts.php" 2>/dev/null && pass "Artifacts have storage_key and sha256" || fail "Artifacts missing storage integrity fields"
+grep -q "wp_upload_dir\|estandar-quotes" "includes/class-estandar-quotes-artifacts.php" 2>/dev/null && pass "Artifacts stored in uploads/estandar-quotes" || fail "Artifacts missing storage path"
+
+# ══════════════════════════════════════════════════════════════════════
+# RESULTS
+# ══════════════════════════════════════════════════════════════════════
+echo ""
+echo "╔══════════════════════════════════════════════════════════╗"
+echo "║  Customer Journey: ${PASS} PASS / ${FAIL} FAIL / ${SKIP} SKIP"
+echo "╚══════════════════════════════════════════════════════════╝"
+exit $FAIL

@@ -1,0 +1,15 @@
+.efx-horizontal-parallax-gallery{position:relative;min-height:100vh;background:var(--efx-hpg-bg,#050505);color:#f8fafc;overflow:clip;isolation:isolate}
+.efx-horizontal-parallax-gallery.is-hero{margin-block:0}
+.efx-hpg-stage{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden}
+.efx-hpg-track{display:flex;width:max-content;flex:0 0 auto;gap:var(--efx-hpg-gap,28px);padding-inline:8vw;transform:translate3d(var(--efx-hpg-x,0px),0,0);will-change:transform;backface-visibility:hidden}
+.efx-hpg-item{flex:0 0 var(--efx-hpg-width,360px);margin:0}
+.efx-hpg-item img{display:block;width:100%;height:var(--efx-hpg-img-height,min(58vh,520px));object-fit:cover;border-radius:var(--efx-hpg-radius,1.3rem);box-shadow:0 30px 80px rgb(0 0 0/.35);transform:translate3d(0,calc(var(--efx-hpg-depth,1)*var(--efx-hpg-y,0px)),0) scale(1.02)}
+.efx-hpg-item figcaption{padding-top:.7rem;font-size:.85rem;opacity:.7}
+.efx-hpg-empty{padding:3rem;text-align:center;border:1px dashed currentColor}
+/* Móvil: el parallax se MANTIENE activo (regla de producto: igual o más que desktop). */
+@media(max-width:781px){
+.efx-hpg-track{padding-inline:6vw}
+.efx-hpg-item{flex-basis:var(--efx-hpg-width,360px)}
+.efx-hpg-item img{height:var(--efx-hpg-img-height,320px)}
+}
+@media(prefers-reduced-motion:reduce){.efx-hpg-track,.efx-hpg-item img{transform:none!important}}

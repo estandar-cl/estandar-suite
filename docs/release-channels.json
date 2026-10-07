@@ -1,0 +1,102 @@
+{
+  "version": "1.1",
+  "generated_at": "2026-08-03T00:00:00Z",
+  "ssh": {
+    "host": "ssh.estandar.cl",
+    "port": 18765,
+    "user": "u1145-hdrkulkhlnq9",
+    "key": "~/.ssh/id_ed25519_estandar",
+    "remote_root": "/home/u1145-hdrkulkhlnq9/www/updates.estandar.cl/public_html"
+  },
+  "channels": {
+    "legacy": {
+      "label": "legacy/production",
+      "description": "Canal productivo de los plugins Estandar legacy. FROZEN desde 2026-08-03 (Legacy Release Pipeline Frozen). No recibe releases en el flujo normal; solo recuperación excepcional vía release-legacy-frozen.command.",
+      "frozen": true,
+      "unfreeze_token": "LEGACY-UNFREEZE-20260803-EMERGENCY-ONLY",
+      "default": false,
+      "remote_dir": ".",
+      "public_url": "https://updates.estandar.cl",
+      "source": {
+        "type": "glob",
+        "pattern": "estandar-*",
+        "exclude": [
+          "estandar-core",
+          "estandar-capture",
+          "estandar-brain",
+          "estandar-flow",
+          "estandar-insights"
+        ],
+        "ecosystem_manifest": "/Volumes/ESTANDAR_2026/ESTANDAR_STUDIO_IA/Wordpress_sites/Estandar_plugins/ecosystem-manifest.json"
+      },
+      "versioning": "lockstep",
+      "test_gate": "ESTANDAR_TEST.command",
+      "zip": {
+        "reproducible": false,
+        "exclude": [
+          ".git/*",
+          "node_modules/*",
+          "vendor/*",
+          "*.DS_Store",
+          "tests/audit-evidence/*"
+        ]
+      },
+      "artifacts": [
+        "versions.json",
+        "manifest.json"
+      ]
+    },
+    "v2": {
+      "label": "v2/staging",
+      "description": "ÚNICO canal activo desde 2026-08-03 (Legacy Release Pipeline Frozen). Suite v2 (5 plugins) aislada; SOLO staging. Promoción a producción = copia del mismo artefacto validado, sin reconstruir.",
+      "channel": "staging",
+      "default": true,
+      "remote_dir": "staging/v2",
+      "public_url": "https://updates.estandar.cl/staging/v2",
+      "source": {
+        "type": "explicit",
+        "dir": "plugins",
+        "slugs": [
+          "estandar-core",
+          "estandar-capture",
+          "estandar-brain",
+          "estandar-flow",
+          "estandar-insights"
+        ],
+        "manifest": "/Volumes/ESTANDAR_2026/ESTANDAR_STUDIO_IA/Wordpress_sites/Estandar_plugins/release/v2-manifest.json",
+        "test_gate": "/Users/luisrodrigovaldes/Applications/Dragon/projects/estandar-suite-v2/tests/run-suite.sh",
+        "suite_dir": "/Users/luisrodrigovaldes/Applications/Dragon/projects/estandar-suite-v2"
+      },
+      "versioning": "lockstep",
+      "test_gate": "run-suite.sh",
+      "zip": {
+        "reproducible": true,
+        "exclude": [
+          ".git/*",
+          "node_modules/*",
+          "vendor/*",
+          "*.DS_Store",
+          "tests/audit-evidence/*"
+        ]
+      },
+      "artifacts": [
+        "versions.json",
+        "manifest.json"
+      ],
+      "gates": [
+        "existence",
+        "suite",
+        "lint",
+        "integrity",
+        "collisions",
+        "headers",
+        "forbidden",
+        "reproducible",
+        "sha256",
+        "metadata",
+        "slug_collision",
+        "dry_run"
+      ]
+    }
+  }
+}

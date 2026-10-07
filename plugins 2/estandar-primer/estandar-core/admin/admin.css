@@ -1,0 +1,1534 @@
+.estandar-admin {
+  --estandar-color-bg: #f3f4f6;
+  --estandar-color-surface: #ffffff;
+  --estandar-color-border: #d9d9de;
+  --estandar-color-text: #1d1d1f;
+  --estandar-color-muted: #6e6e73;
+  --estandar-color-accent: #1f2937;
+  --estandar-color-primary: #f95b1f;
+  --estandar-color-primary-contrast: #fff7f2;
+  --estandar-font-size-xs: 12px;
+  --estandar-font-size-sm: 13px;
+  --estandar-font-size-base: 14px;
+  --estandar-font-size-md: 16px;
+  --estandar-font-size-lg: 20px;
+  --estandar-font-size-xl: 31px;
+  --estandar-space-xs: 4px;
+  --estandar-space-sm: 8px;
+  --estandar-space-md: 12px;
+  --estandar-space-lg: 16px;
+  --estandar-space-xl: 20px;
+  --estandar-radius-sm: 8px;
+  --estandar-radius-md: 12px;
+  --estandar-radius-lg: 14px;
+  --estandar-radius-xl: 16px;
+  --estandar-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --estandar-shadow-md: 0 6px 20px rgba(15, 23, 42, 0.04);
+  --estandar-transition-fast: 140ms ease;
+  --estandar-width-constrained: 960px;
+  --estandar-width-wide: 1280px;
+
+  --ecb-admin-bg: var(--estandar-color-bg);
+  --ecb-admin-surface: var(--estandar-color-surface);
+  --ecb-admin-border: var(--estandar-color-border);
+  --ecb-admin-text: var(--estandar-color-text);
+  --ecb-admin-muted: var(--estandar-color-muted);
+  --ecb-admin-accent: var(--estandar-color-accent);
+  --ecb-admin-brand: var(--estandar-color-primary);
+
+  color: var(--ecb-admin-text);
+  font-size: var(--estandar-font-size-base);
+}
+
+/*
+ * Contrato visual (transversal)
+ * - Estándar definitivo: clases `.estandar-*` (dentro de `.estandar-admin`).
+ * - Compatibilidad temporal: `.ecb-*` (legado del chatbot) se mantiene vía alias.
+ *   Evitar usar `.ecb-*` en plugins nuevos.
+ * - Scope estricto: nada de estilos fuera de `.estandar-admin`.
+ */
+
+.estandar-admin.wrap {
+  clear: both;
+  margin-top: 18px;
+  margin-right: 20px;
+}
+
+.estandar-admin.estandar-admin--fluid {
+  max-width: none;
+}
+
+.estandar-admin.estandar-admin--wide,
+.estandar-admin.estandar-layout-wide {
+  max-width: var(--estandar-width-wide);
+}
+
+.estandar-admin.estandar-admin--constrained,
+.estandar-admin.estandar-layout-constrained {
+  max-width: var(--estandar-width-constrained);
+}
+
+.estandar-admin.estandar-admin--fluid,
+.estandar-admin.estandar-admin--wide,
+.estandar-admin.estandar-admin--constrained,
+.estandar-admin.estandar-layout-fluid,
+.estandar-admin.estandar-layout-wide,
+.estandar-admin.estandar-layout-constrained {
+  width: auto;
+}
+
+.estandar-admin.estandar-layout-fluid {
+  max-width: none;
+}
+
+#wpbody-content > .notice:not(.inline) + .wrap.estandar-admin,
+#wpbody-content > .updated:not(.inline) + .wrap.estandar-admin,
+#wpbody-content > .error:not(.inline) + .wrap.estandar-admin,
+#wpbody-content > .update-nag + .wrap.estandar-admin,
+#wpbody-content > .notice:not(.inline) ~ .wrap.estandar-admin,
+#wpbody-content > .updated:not(.inline) ~ .wrap.estandar-admin,
+#wpbody-content > .error:not(.inline) ~ .wrap.estandar-admin,
+#wpbody-content > .update-nag ~ .wrap.estandar-admin {
+  margin-top: 18px;
+}
+
+/*
+ * Shared component baseline. Plugins may add functional styles, but shell,
+ * spacing, cards, tabs, badges, tables and forms live here.
+ */
+.estandar-admin h1,
+.estandar-admin h2,
+.estandar-admin h3 {
+  color: var(--estandar-color-text);
+}
+
+.estandar-admin h2 {
+  font-size: var(--estandar-font-size-md);
+  letter-spacing: 0;
+}
+
+.estandar-admin h3 {
+  margin-top: 0;
+  font-size: var(--estandar-font-size-base);
+}
+
+.estandar-admin .estandar-section {
+  margin: var(--estandar-space-lg) 0;
+}
+
+.estandar-admin .estandar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--estandar-space-md);
+}
+
+.estandar-admin .estandar-form {
+  display: grid;
+  gap: var(--estandar-space-md);
+}
+
+.estandar-admin .estandar-plugin-branding,
+.estandar-plugin-branding {
+  display: flex;
+  align-items: center;
+  gap: var(--estandar-space-md);
+  margin: 0 0 var(--estandar-space-lg);
+  padding: var(--estandar-space-sm) 0;
+  color: var(--estandar-color-text);
+}
+
+.estandar-admin .estandar-plugin-branding__identity,
+.estandar-plugin-branding__identity {
+  display: flex;
+  align-items: center;
+  gap: var(--estandar-space-md);
+}
+
+.estandar-admin .estandar-plugin-branding__logo,
+.estandar-plugin-branding__logo {
+  display: block;
+  width: auto;
+  height: 28px;
+  max-width: 150px;
+}
+
+.estandar-admin .estandar-plugin-branding__title,
+.estandar-plugin-branding__title {
+  margin: 0;
+  font-size: var(--estandar-font-size-lg);
+  line-height: 1.2;
+}
+
+.estandar-admin .estandar-plugin-branding__subtitle,
+.estandar-plugin-branding__subtitle {
+  margin: 2px 0 0;
+  color: var(--estandar-color-muted);
+  font-size: var(--estandar-font-size-sm);
+}
+
+.estandar-admin .estandar-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.estandar-admin .estandar-table th,
+.estandar-admin .estandar-table td {
+  padding: var(--estandar-space-sm) var(--estandar-space-md);
+  border-bottom: 1px solid var(--estandar-color-border);
+  text-align: left;
+}
+
+.estandar-admin .description {
+  color: var(--ecb-admin-muted);
+  font-size: var(--estandar-font-size-sm);
+  line-height: 1.5;
+}
+
+.estandar-admin .ecb-admin-shell,
+.estandar-admin .estandar-shell {
+  margin-top: 12px;
+  max-width: 1240px;
+}
+
+.estandar-admin .estandar-utility-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 28px;
+  padding: 0 14px;
+  margin-bottom: 12px;
+  background: #f95b1f;
+  border-radius: 6px;
+}
+
+.estandar-admin .estandar-utility-bar__brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+}
+
+.estandar-admin .estandar-utility-bar__brand img {
+  width: 92px;
+  max-width: 92px;
+  height: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+}
+
+.estandar-admin .estandar-utility-bar__slot {
+  min-width: 120px;
+  min-height: 20px;
+}
+
+.estandar-admin .ecb-admin-topbar,
+.estandar-admin .estandar-topbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  padding: 8px 0 12px;
+}
+
+.estandar-admin .ecb-admin-topbar__brand,
+.estandar-admin .estandar-topbar__brand {
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.estandar-admin .ecb-admin-topbar__brand-copy,
+.estandar-admin .estandar-topbar__brand-copy {
+  font-size: 12px;
+  color: #646970;
+}
+
+.estandar-admin .ecb-admin-topbar__brand img,
+.estandar-admin .estandar-topbar__brand img {
+  width: 104px;
+  max-width: 104px;
+  height: auto;
+  display: block;
+  filter: none;
+}
+
+.estandar-admin .estandar-platform-nav-wrap {
+  margin: 0 0 18px;
+  border: 1px solid var(--estandar-color-border);
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.05);
+}
+
+.estandar-admin .estandar-platform-nav-title {
+  padding: 8px 12px 0;
+  color: var(--estandar-color-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.estandar-admin .estandar-platform-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 10px 10px;
+}
+
+.estandar-admin .estandar-platform-nav__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 104px;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: var(--estandar-radius-sm);
+  border: 1px solid transparent;
+  color: var(--estandar-color-text);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.estandar-admin .estandar-platform-nav__item:hover {
+  background: #f6f7f7;
+  border-color: #e5e7eb;
+  color: var(--estandar-color-text);
+}
+
+.estandar-admin .estandar-platform-nav__item.is-active {
+  background: #111827;
+  color: #fff;
+}
+
+.estandar-admin .estandar-platform-nav__subitem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-height: 26px;
+  padding: 0 10px;
+  border-radius: var(--estandar-radius-sm);
+  border: 1px solid #e5e7eb;
+  color: var(--estandar-color-muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: .01em;
+}
+
+.estandar-admin .estandar-platform-nav__subitem:hover {
+  background: #f6f7f7;
+  border-color: #d1d5db;
+  color: var(--estandar-color-text);
+  text-decoration: none;
+}
+
+.estandar-admin .estandar-platform-nav__subitem.is-active {
+  background: #374151;
+  border-color: #374151;
+  color: #fff;
+}
+
+.estandar-admin .ecb-admin-surface,
+.estandar-admin .estandar-surface {
+  background: var(--ecb-admin-surface);
+  border: 1px solid var(--ecb-admin-border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 12px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+.estandar-admin .ecb-admin-nav {
+  margin-top: 12px;
+  background: #ffffff;
+  border: 1px solid var(--ecb-admin-border);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+.estandar-admin .ecb-admin-nav__main {
+  padding: 0 18px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.estandar-admin .ecb-admin-nav__sub {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 18px;
+  background: #f5f5f5;
+  border-top: 1px solid #eee;
+}
+
+.estandar-admin .ecb-admin-overview {
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 14px;
+  padding: 14px 18px;
+}
+
+.estandar-admin .ecb-nav-tabs {
+  margin-top: 0;
+  border-bottom: 0;
+}
+
+.estandar-admin .ecb-nav-tabs .nav-tab {
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  color: #6b7280;
+  margin-right: 0;
+  margin-bottom: 0;
+  padding: 8px 12px;
+  line-height: 1.4;
+  font-size: 13px;
+  min-height: auto;
+  box-shadow: none;
+  border-bottom: 2px solid transparent;
+  opacity: 0.7;
+}
+
+.estandar-admin .ecb-nav-tabs .nav-tab-active {
+  background: transparent;
+  border-color: transparent;
+  border-bottom-color: #f95b1f;
+  color: #111827;
+  opacity: 1;
+  font-weight: 500;
+}
+
+.estandar-admin .ecb-nav-tabs--main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+}
+
+.estandar-admin .ecb-nav-tabs--main .nav-tab {
+  padding: 11px 16px;
+  border-radius: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid transparent;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.64;
+}
+
+.estandar-admin .ecb-nav-tabs--main .nav-tab.nav-tab-active {
+  background: transparent;
+  border-color: #111827;
+  color: #111827;
+  opacity: 1;
+}
+
+.estandar-admin .ecb-nav-tabs--sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.estandar-admin .ecb-nav-tabs--sub .nav-tab {
+  padding: 8px 12px;
+  font-size: 13px;
+  background: transparent;
+  color: #6b7280;
+  border-bottom: 2px solid transparent;
+  opacity: 0.7;
+}
+
+.estandar-admin .ecb-nav-tabs--sub .nav-tab.nav-tab-active {
+  background: transparent;
+  border-color: transparent;
+  border-bottom-color: #f95b1f;
+  color: #111827;
+  opacity: 1;
+  font-weight: 500;
+}
+
+.estandar-admin .ecb-nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  margin-left: 5px;
+  border-radius: 999px;
+  font-size: 10px;
+  background: #2563eb;
+  color: #fff;
+}
+
+.estandar-admin .ecb-nav-badge.is-dark {
+  background: #111827;
+}
+
+.estandar-admin .ecb-nav-badge.is-muted {
+  background: #6b7280;
+}
+
+.estandar-admin .ecb-admin-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  color: var(--ecb-admin-muted);
+  font-size: 12px;
+}
+
+.estandar-admin .ecb-admin-footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ecb-admin-muted);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.estandar-admin .ecb-admin-footer__brand img {
+  height: 18px;
+  width: auto;
+  opacity: 0.9;
+}
+
+.estandar-admin .ecb-admin-footer__brand a {
+  color: var(--ecb-admin-muted);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.estandar-admin .ecb-admin-footer__brand a:hover {
+  text-decoration: underline;
+}
+
+.estandar-admin .ecb-system-health {
+  margin-bottom: 14px;
+}
+
+.estandar-admin .ecb-system-health__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.estandar-admin .ecb-system-health__score {
+  min-width: 92px;
+  border: 1px solid var(--ecb-admin-border);
+  border-radius: 16px;
+  padding: 12px 14px;
+  text-align: center;
+  background: #fbfbfc;
+}
+
+.estandar-admin .ecb-system-health__score strong {
+  display: block;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.estandar-admin .ecb-system-health__score span {
+  font-size: 12px;
+  color: var(--ecb-admin-muted);
+}
+
+.estandar-admin .ecb-health-card.is-ok {
+  border-color: rgba(22, 163, 74, 0.22);
+  background: linear-gradient(180deg, #ffffff 0%, #f7fcf8 100%);
+}
+
+.estandar-admin .ecb-health-card.is-missing {
+  border-color: rgba(245, 158, 11, 0.24);
+  background: linear-gradient(180deg, #ffffff 0%, #fffaf2 100%);
+}
+
+.estandar-admin .ecb-health-card__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+}
+
+.estandar-admin h3 {
+  margin-top: 0;
+}
+
+.estandar-admin details {
+  border: 1px solid var(--ecb-admin-border);
+  border-radius: 10px;
+  background: #fafafa;
+  padding: 8px 10px;
+}
+
+.estandar-admin details > summary {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.estandar-admin .ecb-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.estandar-admin .ecb-card {
+  background: var(--ecb-admin-surface);
+  border: 1px solid var(--ecb-admin-border);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.estandar-admin .ecb-metric {
+  margin: 0;
+  font-size: 13px;
+}
+
+.estandar-admin .ecb-metric strong {
+  color: var(--ecb-admin-text);
+}
+
+.estandar-admin .ecb-table-wrap {
+  overflow: auto;
+  border: 1px solid var(--ecb-admin-border);
+  border-radius: 12px;
+}
+
+.estandar-admin .ecb-table-wrap table {
+  margin: 0;
+}
+
+.estandar-admin .ecb-table-wrap th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #fff;
+}
+
+.estandar-admin .ecb-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.estandar-admin .ecb-boton-item {
+  background: #fff;
+}
+
+.estandar-admin .ecb-boton-item .button-link-delete {
+  color: #b91c1c;
+}
+
+.estandar-admin .ecb-boton-item .button-link-delete:hover {
+  color: #7f1d1d;
+}
+
+.estandar-admin .ecb-analytics-chart {
+  display: flex;
+  align-items: end;
+  gap: 8px;
+  min-height: 210px;
+  padding: 10px 0 0;
+  overflow-x: auto;
+}
+
+.estandar-admin .ecb-analytics-chart-wrap {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.estandar-admin .ecb-analytics-chart--days-30,
+.estandar-admin .ecb-analytics-chart--days-90 {
+  min-width: max-content;
+}
+
+.estandar-admin .ecb-analytics-chart__group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 26px;
+}
+
+.estandar-admin .ecb-analytics-chart__bars {
+  display: flex;
+  align-items: end;
+  gap: 3px;
+  height: 170px;
+}
+
+.estandar-admin .ecb-leads-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.estandar-admin h2 {
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+
+.estandar-admin table.form-table th {
+  width: 260px;
+  font-weight: 600;
+}
+
+.estandar-admin input[type="text"],
+.estandar-admin input[type="url"],
+.estandar-admin input[type="password"],
+.estandar-admin input[type="number"],
+.estandar-admin select,
+.estandar-admin textarea {
+  border-radius: 10px;
+}
+
+.estandar-admin .button.button-primary {
+  background: var(--ecb-admin-accent);
+  border-color: var(--ecb-admin-accent);
+}
+
+.estandar-admin .button.button-primary:hover {
+  background: #111827;
+  border-color: #111827;
+}
+
+.estandar-admin .nav-tab-wrapper {
+  margin: 14px 0 12px;
+  border-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.estandar-admin .nav-tab-wrapper .nav-tab {
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  color: #6b7280;
+  margin: 0;
+  padding: 8px 12px;
+  line-height: 1.4;
+  font-size: 13px;
+  min-height: auto;
+  box-shadow: none;
+  border-bottom: 2px solid transparent;
+  opacity: 0.7;
+}
+
+.estandar-admin .nav-tab-wrapper .nav-tab.nav-tab-active {
+  background: transparent;
+  border-color: transparent;
+  border-bottom-color: #f95b1f;
+  color: #111827;
+  opacity: 1;
+  font-weight: 500;
+}
+
+.estandar-admin > form {
+  background: var(--ecb-admin-surface);
+  border: 1px solid var(--ecb-admin-border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 12px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+.estandar-admin .widefat {
+  border-color: var(--ecb-admin-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.estandar-admin .estandar-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 12px 0 10px;
+}
+
+.estandar-admin .estandar-card {
+  background: var(--ecb-admin-surface);
+  border: 1px solid var(--ecb-admin-border);
+  border-radius: 14px;
+  padding: 16px;
+  margin: 12px 0;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+.estandar-admin .estandar-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--ecb-admin-border);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--ecb-admin-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.estandar-admin .estandar-card,
+.estandar-admin .ecb-card {
+  border-radius: var(--estandar-radius-md);
+  padding: var(--estandar-space-lg);
+}
+
+.estandar-admin .estandar-surface,
+.estandar-admin .ecb-admin-surface,
+.estandar-admin > form {
+  border-radius: var(--estandar-radius-lg);
+  padding: var(--estandar-space-xl);
+  box-shadow: var(--estandar-shadow-md);
+}
+
+.estandar-admin .widefat {
+  border-radius: var(--estandar-radius-md);
+}
+
+.estandar-admin .nav-tab-wrapper,
+.estandar-admin .estandar-tabs {
+  gap: var(--estandar-space-sm);
+}
+
+.estandar-admin .nav-tab-wrapper .nav-tab,
+.estandar-admin .estandar-tabs .nav-tab {
+  font-size: var(--estandar-font-size-xs);
+  transition: background-color var(--estandar-transition-fast), border-color var(--estandar-transition-fast), color var(--estandar-transition-fast);
+}
+
+.estandar-admin .nav-tab-wrapper .nav-tab:hover,
+.estandar-admin .estandar-tabs .nav-tab:hover {
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--estandar-color-text);
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-admin-nav {
+  margin-top: 12px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  box-shadow: none;
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-admin-nav__main {
+  padding: 0;
+  border-bottom: 1px solid #c3c4c7;
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-admin-nav__sub {
+  gap: 0;
+  padding: 8px 0 0;
+  background: transparent;
+  border-top: 0;
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-nav-tabs,
+.estandar-admin.estandar-chatbot-admin .nav-tab-wrapper.ecb-nav-tabs {
+  gap: 0;
+  margin: 0;
+  border-bottom: 0;
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-nav-tabs .nav-tab,
+.estandar-admin.estandar-chatbot-admin .nav-tab-wrapper.ecb-nav-tabs .nav-tab {
+  border-radius: 0;
+  border: 1px solid #c3c4c7;
+  border-bottom: 0;
+  background: #dcdcde;
+  color: #50575e;
+  margin: 0 4px 0 0;
+  padding: 8px 12px;
+  line-height: 1.71428571;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 1;
+  box-shadow: none;
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-nav-tabs .nav-tab.nav-tab-active,
+.estandar-admin.estandar-chatbot-admin .nav-tab-wrapper.ecb-nav-tabs .nav-tab.nav-tab-active {
+  background: #ffffff;
+  border-color: #c3c4c7;
+  color: #1d2327;
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-nav-tabs--sub .nav-tab,
+.estandar-admin.estandar-chatbot-admin .nav-tab-wrapper.ecb-nav-tabs--sub .nav-tab {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.estandar-admin .estandar-pill,
+.estandar-admin .estandar-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--ecb-admin-border);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--ecb-admin-muted);
+  font-size: var(--estandar-font-size-xs);
+  font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .estandar-admin .ecb-admin-topbar,
+  .estandar-admin .estandar-topbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .estandar-admin .ecb-admin-topbar__brand,
+  .estandar-admin .estandar-topbar__brand {
+    align-items: flex-end;
+    justify-self: end;
+  }
+
+  .estandar-admin .ecb-admin-overview {
+    padding: 12px 14px;
+  }
+
+  .estandar-admin .ecb-admin-nav__sub {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .estandar-admin .ecb-admin-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .estandar-admin .ecb-admin-footer__brand {
+    justify-content: flex-start;
+  }
+}
+
+/* =====================================================================
+ * ESTANDAR_ADMIN_UI_V0 — Layout normalization + header compaction (2026-06-19)
+ * Aditivo y reversible: borrar este bloque restaura el comportamiento previo.
+ * V0.1 anchos/espacios · V0.2 header compacto. Scope estricto .estandar-admin.
+ * ===================================================================== */
+
+/* V0.1 — En modo fluido el shell (header) acompaña el ancho del contenido.
+ * Antes el shell quedaba topado a 1240px mientras el contenido usaba todo el
+ * viewport → desalineación header/contenido (1400 vs 2000 de las capturas). */
+.estandar-admin.estandar-admin--fluid .estandar-shell,
+.estandar-admin.estandar-layout-fluid .estandar-shell,
+.estandar-admin.estandar-admin--fluid .ecb-admin-shell,
+.estandar-admin.estandar-layout-fluid .ecb-admin-shell {
+  max-width: none;
+}
+
+/* V0.1 — respiro lateral consistente en pantallas fluidas (no pegar al borde). */
+.estandar-admin.estandar-admin--fluid,
+.estandar-admin.estandar-layout-fluid {
+  margin-right: 20px;
+  padding-right: 4px;
+}
+
+/* V0.2 — Header compacto: menos altura y espacio muerto antes del contenido.
+ * Primer dato útil visible sin scroll en notebook 1366x768. */
+.estandar-admin .estandar-shell,
+.estandar-admin .ecb-admin-shell {
+  margin-top: 8px;
+}
+
+.estandar-admin .estandar-utility-bar {
+  min-height: 24px;
+  margin-bottom: 8px;
+}
+
+.estandar-admin .estandar-topbar,
+.estandar-admin .ecb-admin-topbar {
+  padding: 4px 0 8px;
+  gap: 14px;
+}
+
+.estandar-admin .estandar-platform-nav-wrap {
+  margin-bottom: 12px;
+}
+
+/* La primera superficie de contenido no necesita doble margen tras el header. */
+.estandar-admin .estandar-shell + .estandar-surface,
+.estandar-admin .ecb-admin-shell + .estandar-surface,
+.estandar-admin .estandar-platform-nav-wrap + .estandar-surface {
+  margin-top: 8px;
+}
+
+/* =====================================================================
+ * ESTANDAR_ADMIN_UI_V0.5 — Information Architecture Compression (2026-06-19)
+ * Aditivo y reversible. NO toca lógica ni markup de render_*(): solo restyla
+ * la salida existente del shell para colapsar capas verticales.
+ * Objetivo: primer dato útil sin scroll en 1366x768.
+ * ===================================================================== */
+
+/* P1 — "ESTANDAR PLATFORM" no aporta: el usuario ya sabe dónde está. Se elimina
+ * visualmente el rótulo (el markup queda inerte; su retiro físico = V2). */
+.estandar-admin .estandar-platform-nav-title {
+  display: none;
+}
+
+/* P2 — La navegación deja de ser una caja de dos niveles y pasa a una sola
+ * barra: sin borde/fondo/sombra, pegada al header, items de ancho natural. */
+.estandar-admin .estandar-platform-nav-wrap {
+  margin: 0 0 10px;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.estandar-admin .estandar-platform-nav {
+  padding: 4px 0 0;
+  gap: 6px;
+}
+
+.estandar-admin .estandar-platform-nav__item {
+  flex: 0 0 auto;       /* antes flex:1 estiraba los items a todo el ancho */
+  min-width: 0;
+  min-height: 30px;
+  padding: 0 12px;
+}
+
+/* P3 — Título de pantalla compacto: compite menos con la navegación. */
+.estandar-admin .estandar-title,
+.estandar-admin .ecb-admin-title {
+  font-size: var(--estandar-font-size-lg);   /* baja desde xl (31px) */
+  line-height: 1.2;
+  margin: 0;
+}
+
+.estandar-admin .estandar-subtitle,
+.estandar-admin .ecb-admin-subtitle {
+  font-size: var(--estandar-font-size-sm);
+  margin: 2px 0 0;
+  color: var(--estandar-color-muted);
+}
+
+/* P4 — Notices compactos SOLO en pantallas Estandar (body .estandar-admin-screen).
+ * No se ocultan (preservamos la señal, ej. Action Scheduler), solo se aplanan:
+ * de ~60-80px a una línea. Fuera de pantallas Estandar, intactos. */
+.estandar-admin-screen #wpbody-content > .notice,
+.estandar-admin-screen #wpbody-content > .notice-warning,
+.estandar-admin-screen #wpbody-content > .notice-info,
+.estandar-admin-screen #wpbody-content > .updated,
+.estandar-admin-screen #wpbody-content > .update-nag {
+  margin: 6px 20px 6px 0;
+  padding: 4px 12px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.estandar-admin-screen #wpbody-content > .notice p,
+.estandar-admin-screen #wpbody-content > .updated p,
+.estandar-admin-screen #wpbody-content > .update-nag p {
+  margin: 2px 0;
+  padding: 0;
+}
+
+/* =====================================================================
+ * ESTANDAR_ADMIN_UI_V0.6 — Sticky chrome + más compactación (2026-06-19)
+ * Aditivo y reversible. P3 altura · P4 sticky. Sin tocar lógica.
+ * ===================================================================== */
+
+/* P4 — Barra naranja + título + navegación principal sticky como un solo bloque.
+ * Permanecen visibles al hacer scroll. top = altura del admin bar de WP. */
+.estandar-admin .estandar-sticky-top {
+  position: sticky;
+  top: var(--wp-admin--admin-bar--height, 32px);
+  z-index: 90;
+  background: var(--estandar-color-bg);
+  /* Sangría para que el fondo cubra el ancho útil sin pisar el menú lateral. */
+  margin-left: -4px;
+  padding: 2px 4px 4px;
+  box-shadow: 0 6px 10px -8px rgba(15, 23, 42, 0.18);
+}
+
+/* Dentro del bloque sticky los sub-bloques no acumulan margen propio. */
+.estandar-admin .estandar-sticky-top .estandar-shell,
+.estandar-admin .estandar-sticky-top .ecb-admin-shell {
+  margin-top: 4px;
+}
+.estandar-admin .estandar-sticky-top .estandar-platform-nav-wrap {
+  margin-bottom: 6px;
+}
+
+/* P3 — Más reducción de altura sobre el contenido útil. */
+.estandar-admin .estandar-utility-bar {
+  min-height: 22px;
+  margin-bottom: 6px;
+}
+
+.estandar-admin .estandar-topbar,
+.estandar-admin .ecb-admin-topbar {
+  padding: 2px 0 6px;
+}
+
+.estandar-admin .estandar-title,
+.estandar-admin .ecb-admin-title {
+  font-size: var(--estandar-font-size-md);   /* 16px: título compacto */
+}
+
+/* La primera superficie pegada al chrome sticky, sin doble margen. */
+.estandar-admin .estandar-sticky-top + .estandar-surface,
+.estandar-admin .estandar-sticky-top + .ecb-admin-surface {
+  margin-top: 8px;
+}
+
+/* Modal/overlays internos no deben quedar bajo el sticky (z-index seguro). */
+.estandar-admin .estandar-sticky-top { isolation: isolate; }
+
+/* =====================================================================
+ * ESTANDAR_ADMIN_UI_V0.7 — Fix visual real (verificado en SALADEPRUEBAS, 2026-06-19)
+ * Resuelve: notices dentro del header · nav no pegado · subtítulos · altura.
+ * ===================================================================== */
+
+/* P2/#5 — El <hr class="wp-header-end"> es solo un marcador de posición para
+ * que WordPress coloque los notices aquí (después del chrome). No debe verse. */
+.estandar-admin .wp-header-end {
+  display: none;
+}
+
+/* #4 — Eliminar las líneas descriptivas bajo el título (no aportan, ocupan alto). */
+.estandar-admin .estandar-subtitle,
+.estandar-admin .ecb-admin-subtitle {
+  display: none;
+}
+
+/* #2 — Navegación pegada a la barra naranja SIN reorder PHP: se aplana el wrapper
+ * .estandar-shell con display:contents (sus hijos suben al flex del sticky-top) y
+ * se reordena por CSS → barra naranja · navegación · título. */
+.estandar-admin .estandar-sticky-top {
+  display: flex;
+  flex-direction: column;
+}
+.estandar-admin .estandar-sticky-top > .estandar-shell,
+.estandar-admin .estandar-sticky-top > .ecb-admin-shell {
+  display: contents;
+}
+.estandar-admin .estandar-sticky-top .estandar-utility-bar { order: 1; }
+.estandar-admin .estandar-sticky-top .estandar-platform-nav-wrap { order: 2; margin: 0 0 6px; }
+.estandar-admin .estandar-sticky-top .estandar-topbar,
+.estandar-admin .estandar-sticky-top .ecb-admin-topbar { order: 3; padding: 0 0 4px; }
+
+/* #5 — Notices reubicados por WP quedan ahora dentro de .wrap (antes de wp-header-end).
+ * Compactarlos a una línea y a ancho completo, sin romper el layout. El selector
+ * anterior (#wpbody-content > .notice) no aplicaba porque el notice queda anidado. */
+.estandar-admin-screen .wrap .notice,
+.estandar-admin-screen .wrap .notice-warning,
+.estandar-admin-screen .wrap .notice-info,
+.estandar-admin-screen .wrap .notice-error,
+.estandar-admin-screen .wrap .updated,
+.estandar-admin-screen .wrap .update-nag {
+  margin: 6px 0;
+  padding: 4px 12px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.estandar-admin-screen .wrap .notice p,
+.estandar-admin-screen .wrap .updated p {
+  margin: 2px 0;
+  padding: 0;
+}
+
+/* #6 — Reducción final de altura del chrome. */
+.estandar-admin .estandar-utility-bar { min-height: 22px; margin-bottom: 6px; }
+.estandar-admin .estandar-title,
+.estandar-admin .ecb-admin-title { margin: 0; line-height: 1.2; }
+.estandar-admin .estandar-sticky-top { padding-top: 0; }
+
+/* =====================================================================
+ * HEADER_COMPACT_V1 — Título de sección dentro de la barra naranja +
+ * chrome sticky de 2 filas (barra naranja · navegación). El bloque de
+ * título dedicado (estandar-topbar) deja de emitirse en el shell Core,
+ * por lo que su `order: 3` queda sin efecto. Aditivo y reversible.
+ * ===================================================================== */
+
+/* [Logo] | [Bar Title] — alineación a la izquierda con separador. */
+.estandar-admin .estandar-utility-bar--titled {
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+/* Título: nunca envuelve, nunca crece la barra; trunca con ellipsis. */
+.estandar-admin .estandar-utility-bar__title {
+  position: relative;
+  flex: 0 1 auto;
+  min-width: 0;                 /* permite encoger para el ellipsis dentro del flex */
+  padding-left: 13px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;          /* sin salto de línea */
+  overflow: hidden;
+  text-overflow: ellipsis;      /* … cuando no hay espacio */
+}
+
+/* Separador vertical "|" entre logo y título. */
+.estandar-admin .estandar-utility-bar__title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* Gap navegación → contenido <= 8px (sin eliminarlo por completo). */
+.estandar-admin .estandar-sticky-top .estandar-platform-nav-wrap { margin: 0; }
+.estandar-admin .estandar-sticky-top + .estandar-surface,
+.estandar-admin .estandar-sticky-top + .ecb-admin-surface { margin-top: 4px; }
+
+/* =====================================================================
+ * NAVIGATION_CANON_V2_PHASE1 — navegación primaria + secundaria como un
+ * único sistema visual. Solo presentación: no cambia rutas ni jerarquías.
+ * ===================================================================== */
+
+.estandar-admin .estandar-platform-nav-wrap {
+  margin: 0;
+  border-radius: 8px 8px 0 0;
+  box-shadow: none;
+}
+
+.estandar-admin .estandar-platform-nav-title {
+  padding: 7px 12px 0;
+  color: #6b7280;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.estandar-admin .estandar-platform-nav {
+  gap: 4px;
+  padding: 6px 8px 8px;
+}
+
+.estandar-admin .estandar-platform-nav__item {
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.estandar-admin .estandar-platform-nav__item.is-active {
+  background: #1f2937;
+}
+
+.estandar-admin .estandar-shell-nav,
+.estandar-admin .estandar-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0 0 8px;
+  padding: 8px;
+  background: #ffffff;
+  border: 1px solid var(--estandar-color-border);
+  border-top: 0;
+  border-radius: 0 0 8px 8px;
+  box-shadow: none;
+}
+
+.estandar-admin .estandar-shell-nav .nav-tab,
+.estandar-admin .estandar-tabs .nav-tab {
+  min-height: auto;
+  margin: 0;
+  padding: 8px 12px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+  opacity: 0.7;
+}
+
+.estandar-admin .estandar-shell-nav .nav-tab:hover,
+.estandar-admin .estandar-tabs .nav-tab:hover {
+  background: transparent;
+  border-color: transparent;
+  color: #111827;
+  opacity: 1;
+}
+
+.estandar-admin .estandar-shell-nav .nav-tab.nav-tab-active,
+.estandar-admin .estandar-tabs .nav-tab.nav-tab-active {
+  background: transparent;
+  border-color: transparent;
+  border-bottom-color: #f95b1f;
+  color: #111827;
+  opacity: 1;
+  font-weight: 600;
+}
+
+.estandar-admin .estandar-shell-nav + .estandar-surface,
+.estandar-admin .estandar-tabs + .estandar-surface,
+.estandar-admin .estandar-tabs + .ecb-admin-surface {
+  margin-top: 6px;
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-admin-nav {
+  margin: 0 0 8px;
+  background: #ffffff;
+  border: 1px solid var(--estandar-color-border);
+  border-top: 0;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-admin-nav__main,
+.estandar-admin.estandar-chatbot-admin .ecb-admin-nav__sub {
+  padding: 8px;
+  border: 0;
+  background: #ffffff;
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-admin-nav__sub {
+  padding-top: 0;
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-nav-tabs,
+.estandar-admin.estandar-chatbot-admin .nav-tab-wrapper.ecb-nav-tabs {
+  gap: 4px;
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-nav-tabs .nav-tab,
+.estandar-admin.estandar-chatbot-admin .nav-tab-wrapper.ecb-nav-tabs .nav-tab {
+  min-height: 30px;
+  margin: 0;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: #4b5563;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-nav-tabs .nav-tab:hover,
+.estandar-admin.estandar-chatbot-admin .nav-tab-wrapper.ecb-nav-tabs .nav-tab:hover {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #111827;
+}
+
+.estandar-admin.estandar-chatbot-admin .ecb-nav-tabs .nav-tab.nav-tab-active,
+.estandar-admin.estandar-chatbot-admin .nav-tab-wrapper.ecb-nav-tabs .nav-tab.nav-tab-active {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  color: #111827;
+}
+
+@media (max-width: 782px) {
+  .estandar-admin .estandar-platform-nav__item {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 128px;
+  }
+
+  .estandar-admin .estandar-shell-nav,
+  .estandar-admin .estandar-tabs,
+  .estandar-admin.estandar-chatbot-admin .ecb-admin-nav__main,
+  .estandar-admin.estandar-chatbot-admin .ecb-admin-nav__sub {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  .estandar-admin .estandar-shell-nav .nav-tab,
+  .estandar-admin .estandar-tabs .nav-tab,
+  .estandar-admin.estandar-chatbot-admin .ecb-nav-tabs .nav-tab,
+  .estandar-admin.estandar-chatbot-admin .nav-tab-wrapper.ecb-nav-tabs .nav-tab {
+    white-space: nowrap;
+  }
+}
+
+/* =====================================================================
+ * NAVIGATION_CANON_V2_PHASE1_1 — Eliminar contenedores redundantes.
+ * Reduce padding vertical entre header y tabs secundarias; evita doble
+ * caja. Aditivo y reversible. No cambia rutas, tabs ni arquitectura.
+ * ===================================================================== */
+
+/* P1 — Caja superior (platform-nav): reducir padding inferior de 8px
+ * a 4px. Cierra el espacio acumulado con la caja de tabs secundarias. */
+.estandar-admin .estandar-platform-nav {
+  padding-bottom: 4px;
+}
+
+/* P2 — Chatbot nav main: de 8px uniforme a 4px arriba, 0 abajo.
+ * El combined padding caja-a-caja baja de 16px a 8px. */
+.estandar-admin.estandar-chatbot-admin .ecb-admin-nav__main {
+  padding: 4px 8px 0;
+}
+
+/* P3 — Chatbot nav sub: reducir padding inferior de 8px a 4px.
+ * La fila de sub-tabs queda más compacta sin perder área de click. */
+.estandar-admin.estandar-chatbot-admin .ecb-admin-nav__sub {
+  padding-bottom: 4px;
+}
+
+/* P4 — Chatbot nav container: reducir margen inferior de 8px a 4px.
+ * Acerca la surface de contenido al bloque de navegación. */
+.estandar-admin.estandar-chatbot-admin .ecb-admin-nav {
+  margin-bottom: 4px;
+}
+
+/* P5 — Shell nav (Leads, Analytics, Core, Forms): mismo espaciado que chatbot
+ * post Phase1.1. Unifica la separación entre platform-nav y surface en todos
+ * los plugins que usan estandar_core_render_admin_shell() con navigation arg. */
+.estandar-admin .estandar-shell-nav {
+  padding: 4px 8px;
+  margin-bottom: 4px;
+}
+
+/* LEADS_TABLE_UX_V1 — Origin badges.
+ * Consumido por leads.php (tabla admin) y exports.php (Export Center).
+ * Clases canónicas: es-origin-badge + modificador es-origin-{type}.
+ * No usar estilos inline de color en ningún template de Leads. */
+.es-origin-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.es-origin-chatbot {
+  background: #e8f4fd;
+  color: #0072b1;
+}
+.es-origin-form {
+  background: #e8f5e9;
+  color: #1b5e20;
+}
+.es-origin-manual {
+  background: #f5f5f5;
+  color: #616161;
+}
+.es-origin-api {
+  background: #fdf6e3;
+  color: #7b6000;
+}
+.es-origin-unknown {
+  background: #f3f3f3;
+  color: #9e9e9e;
+}
+
+/* ======================================================
+ * CHROME_FLAT_FULL_WIDTH_V1 — barra naranja + nav principal + submenús.
+ * Un solo bloque de reglas al final del archivo (gana la cascada sobre
+ * los border-radius/margin/max-width/box-shadow de arriba, que quedaban
+ * de iteraciones previas) para que TODA la fila de navegación (marca,
+ * nav principal, submenú de sección) se vea como una sola pieza continua:
+ * ancho completo, sin esquinas redondeadas, sin espacio muerto entre filas.
+ * ====================================================== */
+.estandar-admin .estandar-shell,
+.estandar-admin .ecb-admin-shell {
+  max-width: none;
+  width: 100%;
+  margin-top: 0;
+}
+
+/* WP pinta el <div class="wrap"> con margin propio (10px 20px 0 2px aprox);
+ * eso es el hueco entre la barra negra/el borde izquierdo y nuestra barra
+ * naranja. La barra naranja debe quedar pegada a ambos. */
+#wpbody-content .wrap.estandar-admin {
+  margin: 0 !important;
+}
+
+.estandar-admin .estandar-utility-bar {
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.estandar-admin .estandar-platform-nav-wrap {
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  box-shadow: none;
+  margin: 0;
+}
+
+.estandar-admin .estandar-platform-nav__item,
+.estandar-admin .estandar-platform-nav__subitem {
+  border-radius: 0;
+}
+
+.estandar-admin .estandar-tabs,
+.estandar-admin .estandar-shell-nav {
+  border-radius: 0;
+  margin: 0;
+  padding: 0 6px;
+}
+
+.estandar-admin .estandar-tabs .nav-tab,
+.estandar-admin .estandar-shell-nav .nav-tab {
+  padding: 6px 10px;
+}
+
+.estandar-admin .estandar-topbar,
+.estandar-admin .ecb-admin-topbar {
+  padding-top: 0;
+  padding-bottom: 6px;
+}
+
+.estandar-admin .estandar-sticky-top .estandar-platform-nav-wrap,
+.estandar-admin .estandar-sticky-top .estandar-utility-bar {
+  margin: 0;
+}
+
+.estandar-admin .estandar-sticky-top + .estandar-surface,
+.estandar-admin .estandar-sticky-top + .ecb-admin-surface {
+  margin-top: 12px;
+}
+
+.estandar-admin .estandar-surface,
+.estandar-admin .ecb-admin-surface {
+  border-radius: 0;
+}
+
+/* El hr.wp-header-end (marcador de WP para reubicar notices) queda entre el
+ * sticky-top y el header_slot (submenú de sección) — si no se colapsa a 0,
+ * deja un hueco visible entre el nav principal y el submenú. */
+.estandar-admin > hr.wp-header-end {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  height: 0;
+}
+
+.estandar-admin .estandar-sticky-top ~ .estandar-tabs,
+.estandar-admin .estandar-sticky-top ~ .estandar-shell-nav {
+  margin-top: 0;
+}

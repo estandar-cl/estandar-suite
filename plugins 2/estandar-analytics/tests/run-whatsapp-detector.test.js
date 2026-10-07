@@ -1,0 +1,25 @@
+const fs=require('fs'),path=require('path');
+const code=fs.readFileSync(path.join(__dirname,'..','assets/tracker.js'),'utf8');
+const events=fs.readFileSync(path.join(__dirname,'..','includes/class-events.php'),'utf8');
+const schema=fs.readFileSync(path.join(__dirname,'..','includes/class-installer.php'),'utf8');
+const leads=fs.readFileSync(path.join(__dirname,'..','..','estandar-leads/includes/class-estandar-leads-whatsapp-redirect.php'),'utf8');
+const chatbot=fs.readFileSync(path.join(__dirname,'..','..','estandar-chatbot/estandar-chatbot.php'),'utf8');
+let p=0,f=0;function ck(l,c){if(c){p++;console.log('PASS  '+l)}else{f++;console.log('FAIL  '+l)}}
+ck('delegates on document',code.includes("document.addEventListener('click', onClick"));
+ck('detects wa.me',code.includes('wa\\.me'));
+ck('detects api.whatsapp.com/send',code.includes('api\\.whatsapp\\.com\\/send'));
+ck('detects web.whatsapp.com',code.includes('web\\.whatsapp\\.com'));
+ck('detects whatsapp protocol',code.includes('whatsapp:\\/\\/'));
+ck('emits one canonical event name',code.includes("trackEvent('WhatsAppClick'")&&!code.includes("trackEvent('whatsapp_click'"));
+ck('shares event id with bridge',code.includes("searchParams.set('event_id', bridgeEventId)"));
+ck('shares session id with bridge',code.includes("searchParams.set('session_id', getSessionId())"));
+ck('double click reuses event id inside dedupe window',code.includes('now - recent.time < 1000')&&code.includes('whatsappEventIdFor(href)'));
+ck('does not intercept window.open',!code.includes('window.open('));
+ck('dynamic content supported without load scan',!code.includes("querySelectorAll('a[href"));
+ck('event id is unique and nullable for legacy rows',schema.includes('event_id varchar(64) DEFAULT NULL')&&schema.includes('UNIQUE KEY event_id (event_id)'));
+ck('server stores canonical event name',events.includes("'event_type'  => 'WhatsAppClick'"));
+ck('duplicate event id is counted and not reinserted',events.includes('ea_whatsapp_duplicates_avoided')&&events.includes('WHERE event_id = %s LIMIT 1'));
+ck('confirmed bridge promotes observed metadata',events.includes("=== 'confirmed'")&&events.includes("!== 'confirmed'"));
+ck('legacy Leads bridge remains active and receives event id',leads.includes("const ROUTE_PATH      = '/whatsapp-redirect'")&&leads.includes("$_GET['event_id']"));
+ck('Chatbot keeps consuming legacy bridge',chatbot.includes("rest_url( 'estandar-leads/v1/whatsapp-redirect' )"));
+console.log(`\n${p} passed, ${f} failed`);process.exit(f?1:0);

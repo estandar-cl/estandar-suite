@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "estandar/before-after",
+	"title": "Antes / Después",
+	"category": "estandar-experience",
+	"icon": "image-flip-horizontal",
+	"description": "Comparador de dos imágenes con divisor arrastrable, accesible por teclado.",
+	"keywords": [ "before", "after", "antes", "despues", "comparar" ],
+	"textdomain": "estandar-experience-blocks",
+	"attributes": {
+		"beforeId": { "type": "number" },
+		"beforeUrl": { "type": "string", "default": "" },
+		"afterId": { "type": "number" },
+		"afterUrl": { "type": "string", "default": "" },
+		"beforeLabel": { "type": "string", "default": "Antes" },
+		"afterLabel": { "type": "string", "default": "Después" },
+		"startPosition": { "type": "number", "default": 50 }
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true },
+		"__experimentalBorder": { "radius": true }
+	},
+	"editorScript": "estandar-efx-blocks-editor",
+	"editorStyle": "estandar-efx-beforeafter-css",
+	"render": "file:./render.php"
+}

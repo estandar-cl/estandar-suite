@@ -1,0 +1,69 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "estandar/pinned-image-reveal",
+	"title": "Pinned Image Reveal",
+	"category": "estandar-experience",
+	"icon": "format-image",
+	"description": "Imagen sticky con máscara/zoom por scroll para hero cinematic o producto.",
+	"keywords": [
+		"pinned",
+		"image",
+		"mask",
+		"zoom",
+		"apple",
+		"rivian"
+	],
+	"textdomain": "estandar-experience",
+	"attributes": {
+		"imageUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"default": "Cinematic reveal"
+		},
+		"body": {
+			"type": "string",
+			"default": "Pinned media with scroll-driven mask and zoom."
+		},
+		"height": {
+			"type": "number",
+			"default": 180
+		},
+		"mode": {
+			"type": "string",
+			"default": "mask-zoom"
+		},
+		"startScale": {
+			"type": "number",
+			"default": 1.18
+		},
+		"endScale": {
+			"type": "number",
+			"default": 1
+		},
+		"radius": {
+			"type": "number",
+			"default": 28
+		},
+		"overlayOpacity": {
+			"type": "number",
+			"default": 0.35
+		}
+	},
+	"supports": {
+		"align": [
+			"wide",
+			"full"
+		],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"render": "file:./render.php",
+	"editorScript": "estandar-experience-editor",
+	"editorStyle": "estandar-experience-editor-css"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "estandar/website-scanner",
+  "description": "WordPress plugin for technical website diagnostics and PDF reporting",
+  "type": "project",
+  "require": {
+    "dompdf/dompdf": "^2.0"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}

@@ -1,0 +1,28 @@
+/**
+ * Estandar FX — Text engine styles.
+ */
+
+.efx-word {
+	display: inline-block;
+	white-space: pre-wrap;
+}
+
+.efx-char {
+	display: inline-block;
+}
+
+.efx-caret {
+	display: inline-block;
+	width: 0.08em;
+	height: 1em;
+	margin-left: 0.06em;
+	background: currentColor;
+	vertical-align: text-bottom;
+	animation: efx-caret-blink 1s steps(2, start) infinite;
+}
+
+@keyframes efx-caret-blink {
+	to {
+		visibility: hidden;
+	}
+}

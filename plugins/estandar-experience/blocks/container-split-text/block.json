@@ -1,0 +1,60 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "estandar/container-split-text",
+	"title": "Container SplitText",
+	"category": "estandar-experience",
+	"icon": "editor-textcolor",
+	"description": "Paneles horizontales con texto dividido y animado por scroll dentro de un contenedor sticky.",
+	"keywords": [
+		"container",
+		"splittext",
+		"horizontal",
+		"scroll",
+		"gsap"
+	],
+	"textdomain": "estandar-experience",
+	"attributes": {
+		"panels": {
+			"type": "array",
+			"default": []
+		},
+		"height": {
+			"type": "number",
+			"default": 82
+		},
+		"textEffect": {
+			"type": "string",
+			"default": "cascade"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "#0b0b0f"
+		},
+		"textColor": {
+			"type": "string",
+			"default": "#f8fafc"
+		},
+		"accentColor": {
+			"type": "string",
+			"default": "#84cc16"
+		},
+		"showProgress": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"align": [
+			"wide",
+			"full"
+		],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"render": "file:./render.php",
+	"editorScript": "estandar-experience-editor",
+	"editorStyle": "estandar-experience-editor-css"
+}
