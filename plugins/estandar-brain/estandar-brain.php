@@ -5,7 +5,7 @@
  * deterministas, scoring, intents, ledgers de señales canónicas y adopción de
  * señales históricas de los plugins originales. Producto aislado; NO reemplaza
  * ni modifica los plugins originales.
- * Version: 2.9.3
+ * Version: 2.9.4
  * Requires at least: 6.0
  * Tested up to: 7.0
  * Requires PHP: 8.0
@@ -22,7 +22,7 @@ if ( version_compare( PHP_VERSION, '8.0', '<' ) ) {
 }
 
 define( 'ESTANDAR_SUITE_BRAIN_FILE', __FILE__ );
-define( 'ESTANDAR_SUITE_BRAIN_VERSION', '2.9.3');
+define( 'ESTANDAR_SUITE_BRAIN_VERSION', '2.9.4');
 define( 'ESTANDAR_SUITE_BRAIN_PATH', plugin_dir_path( __FILE__ ) );
 
 require_once ESTANDAR_SUITE_BRAIN_PATH . 'includes/Rules.php';
