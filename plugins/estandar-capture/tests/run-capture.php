@@ -248,7 +248,11 @@ check('10a notify enabled + destinatarios', ! empty($ms['notify']['enabled']) &&
 $ms2 = C\Forms::mail_settings(array('autoresponse' => array('enabled' => 1, 'email_field' => 'mail', 'subject' => 'Gracias')));
 check('10b autoresponse config', ! empty($ms2['autoresponse']['enabled']) && $ms2['autoresponse']['email_field'] === 'mail');
 $no = C\Forms::notify_submission(2, array(), array());
-check('10c notify sin config → disabled (no wp_mail)', ! empty($no['error']) && $no['error'] === 'disabled');
+check('10c notify sin destinatario → sin_destinatarios (nunca disabled) [NOTIFY_ALWAYS_V1]', ($no['error'] ?? '') === 'sin_destinatarios');
+// NOTIFY_GUARANTEE_V1: un form necesita destinatario (notify_emails / routing / operadores).
+check('10n destinatario por notify_emails', C\Forms::form_has_designated_recipient(array('notify_emails' => 'a@b.cl')));
+check('10o destinatario por campo routing', C\Forms::form_has_designated_recipient(array('sections' => array(array('fields' => array(array('type' => 'routing', 'name' => 'r')))))));
+check('10p sin destinatario → false', ! C\Forms::form_has_designated_recipient(array('sections' => array(array('fields' => array(array('type' => 'text', 'name' => 'x')))))));
 // AUTORESPONSE_DEFAULT_V1: la confirmación al remitente es DEFAULT ON.
 $ms3 = C\Forms::mail_settings(array());
 check('10d1 autoresponse default ON (sin config)', ! empty($ms3['autoresponse']['enabled']));
@@ -534,7 +538,7 @@ $n_route = C\Forms::notify_submission(199, array('send_email' => 0, 'notify_emai
 check('11r1 ROUTING_INDEPENDENT_V1: send_email off + routing → no se corta', ($n_route['error'] ?? '') !== 'disabled' && !empty($n_route['ok']));
 check('11r2 ROUTING_INDEPENDENT_V1: To = routing', ($GLOBALS['__test_mail_last']['to'] ?? '') === 'r@z.cl');
 $n_noroute = C\Forms::notify_submission(198, array('send_email' => 0, 'notify_emails' => 'x@y.cl'), array('fields' => array()), array('skip_dedupe' => true));
-check('11r3 sin routing + send_email off → disabled', ($n_noroute['error'] ?? '') === 'disabled');
+check('11r3 NOTIFY_ALWAYS_V1: send_email off + notify_emails → no se corta (envía)', ($n_noroute['error'] ?? '') !== 'disabled' && !empty($n_noroute['ok']));
 
 // ROUTING_FORM_AUTOCONFIG_V1: form que DECLARA campo 'routing' → aviso genérico
 // apagado (solo routing), diferido apagado, y el correo usa el template default.

@@ -713,6 +713,9 @@ class Forms
 				// MAQ_TYPE_GUARD_V1: repara en el servidor campos dependientes
 				// degradados (depends_on + type no dependiente → dependent_select).
 				$parsed = self::repair_dependent_fields( $parsed );
+				// NOTIFY_ALWAYS_V1: el aviso al operador es obligatorio → se fuerza
+				// activo en cada guardado (no se puede persistir apagado).
+				$parsed['send_email'] = 1;
 				$config = (string) wp_json_encode( self::sanitize_config_tree( $parsed ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
 			}
 		}
@@ -2209,6 +2212,43 @@ class Forms
 		return sanitize_title( (string) ( $config['form_project'] ?? '' ) );
 	}
 
+	/**
+	 * NOTIFY_GUARANTEE_V1: ¿el form tiene un destinatario designado para el aviso
+	 * del lead? Se cumple si hay (a) correos en `notify_emails`, (b) un campo de
+	 * tipo `routing` (los correos los define la opción elegida) o (c) operadores
+	 * activos con email en el proyecto del form. Un form sin ninguna de las tres
+	 * NO puede guardarse (evita leads que nunca notifican).
+	 */
+	public static function form_has_designated_recipient( array $config ): bool
+	{
+		if ( trim( (string) ( $config['notify_emails'] ?? '' ) ) !== '' ) {
+			return true;
+		}
+		foreach ( self::renderable_fields( $config ) as $f ) {
+			if ( is_array( $f ) && strtolower( (string) ( $f['type'] ?? '' ) ) === 'routing' ) {
+				return true;
+			}
+		}
+		$slug = self::form_project( $config );
+		if ( $slug !== '' ) {
+			global $wpdb;
+			if ( isset( $wpdb ) ) {
+				$t = $wpdb->prefix . 'es_operators';
+				if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $t ) ) === $t ) {
+					$n = (int) $wpdb->get_var( $wpdb->prepare(
+						"SELECT COUNT(*) FROM {$t} WHERE active = 1 AND email <> '' AND (project_slug = %s OR allowed_projects_json LIKE %s)",
+						$slug,
+						'%' . $wpdb->esc_like( $slug ) . '%'
+					) );
+					if ( $n > 0 ) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	/** Configuración de correo por Form (notificación + autorespuesta). */
 	public static function mail_settings( array $config ): array
 	{
@@ -2236,7 +2276,15 @@ class Forms
 		$ar_subject = trim( (string) ( $ar['subject'] ?? '' ) );
 		return array(
 			'notify' => array(
-				'enabled'  => ! empty( $config['send_email'] ) && ! empty( $config['notify_emails'] ),
+				// NOTIFY_ALWAYS_V1: el aviso de llegada del lead/form/mensaje es
+				// OBLIGATORIO y NUNCA se apaga (antes dependía del switch
+				// "send_email"; un form con el switch apagado perdía el aviso sin
+				// registro alguno — caso rodrigovaldes form 1). Los destinatarios
+				// los resuelve notify_submission (notify_emails / routing /
+				// operadores del proyecto); sin destinatario devuelve
+				// 'sin_destinatarios' (y el guardado de forms sin operador queda
+				// bloqueado en Admin).
+				'enabled'  => true,
 				'to'       => (string) ( $config['notify_emails'] ?? '' ),
 				'subject'  => (string) ( $config['mail_subject'] ?? 'Nuevo envío: {{form_name}}' ),
 				// NOTIFY_BODY_HEAL_V1: sanea la plantilla al render (por si se

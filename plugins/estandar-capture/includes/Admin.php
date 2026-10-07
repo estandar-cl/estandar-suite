@@ -1142,6 +1142,32 @@ class Admin
 			}
 		}
 
+		// NOTIFY_GUARANTEE_V1: ningún form puede guardarse sin un operador con
+		// mail (ni con `notify_emails`, ni routing, ni operadores del proyecto).
+		$cfg_eff = json_decode( (string) $raw['config_json'], true );
+		if ( ! is_array( $cfg_eff ) ) {
+			$cfg_eff = array();
+		}
+		if ( $id > 0 ) {
+			$ex0 = Forms::get( $id );
+			if ( $ex0 ) {
+				$merged0 = json_decode( Forms::merge_config_json( (string) $ex0['config_json'], (string) $raw['config_json'] ), true );
+				if ( is_array( $merged0 ) ) {
+					$cfg_eff = $merged0;
+				}
+			}
+		}
+		if ( ! Forms::form_has_designated_recipient( $cfg_eff ) ) {
+			if ( $id > 0 ) {
+				$q = 'admin.php?page=estandar-suite-capture&tab=config&sub=' . self::form_sub_for( $id ) . '&ss=formularios&editar=' . $id . '&st=correos&notify_error=1';
+			} else {
+				$back = ( $raw['form_type'] === 'lead' ) ? 'sub=forms&fm=formularios' : 'sub=' . $sub;
+				$q = 'admin.php?page=estandar-suite-capture&tab=config&' . $back . '&nuevo=1&notify_error=1';
+			}
+			wp_safe_redirect( admin_url( $q ) );
+			exit;
+		}
+
 		if ( $id ) {
 			// Fusión no destructiva: el documento existente nunca se pierde por un
 			// guardado parcial/vacío (protege config no visible de otras subtabs).
@@ -1555,15 +1581,59 @@ class Admin
 			),
 		);
 	}
+	/** NOTIFY_GUARANTEE_V1: forms activos sin destinatario de aviso designado. */
+	public static function forms_missing_recipient(): array
+	{
+		global $wpdb;
+		$out = array();
+		if ( ! isset( $wpdb ) ) {
+			return $out;
+		}
+		$t = $wpdb->prefix . 'estandar_capture_forms';
+		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $t ) ) !== $t ) {
+			return $out;
+		}
+		$rows = $wpdb->get_results( "SELECT id, name, form_type, config_json FROM {$t} WHERE status = 'active' ORDER BY id", ARRAY_A );
+		foreach ( (array) $rows as $r ) {
+			$c = json_decode( (string) ( $r['config_json'] ?? '{}' ), true );
+			if ( ! is_array( $c ) ) {
+				$c = array();
+			}
+			if ( ! \Estandar\Capture\Forms::form_has_designated_recipient( $c ) ) {
+				$out[] = array( 'id' => (int) $r['id'], 'name' => (string) $r['name'], 'type' => (string) $r['form_type'] );
+			}
+		}
+		return $out;
+	}
 
-  	public static function render(): void
-  	{
-  		if ( ! current_user_can( 'manage_options' ) ) {
-  			wp_die( 'Sin permisos.' );
-  		}
- 		// PROJECT_OWNERSHIP_V1 · la guía "sin proyectos → a Proyectos" se resuelve
- 		// en feature-forms-product (bloqueo en la pantalla de creación).
- 		\Estandar\Core\Admin::render_product_header();
+	/** Aviso en la página de configuración: forms sin operador, con enlace directo. */
+	public static function render_notify_guard_notice(): void
+	{
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		$miss = self::forms_missing_recipient();
+		if ( ! $miss ) {
+			return;
+		}
+		echo '<div class="notice notice-error" style="border-left-color:#d63638;">';
+		echo '<p><strong>Formularios sin operador de aviso (obligatorio).</strong> Estos catchers no tienen «Correos de aviso», ni un campo de routing, ni operadores activos en su proyecto: un lead que entre por ellos <strong>no notifica a nadie</strong>. Asígnalo en «Correos de aviso»:</p>';
+		echo '<ul style="margin:6px 0 6px 18px;list-style:disc;">';
+		foreach ( $miss as $m ) {
+			$link = admin_url( 'admin.php?page=estandar-suite-capture&tab=config&sub=' . self::form_sub_for( $m['id'] ) . '&ss=formularios&editar=' . $m['id'] . '&st=correos' );
+			echo '<li><strong>#' . (int) $m['id'] . '</strong> — ' . esc_html( $m['name'] ) . ' (' . esc_html( $m['type'] ) . ') → <a href="' . esc_url( $link ) . '">asignar operador / correo de aviso</a></li>';
+		}
+		echo '</ul></div>';
+	}
+
+ 	public static function render(): void
+ 	{
+ 		if ( ! current_user_can( 'manage_options' ) ) {
+ 			wp_die( 'Sin permisos.' );
+ 		}
+  		// PROJECT_OWNERSHIP_V1 · la guía "sin proyectos → a Proyectos" se resuelve
+  		// en feature-forms-product (bloqueo en la pantalla de creación).
+  		\Estandar\Core\Admin::render_product_header();
  		$tabs = array(
 			'estado'   => 'Estado',
 			'config'   => 'Catchers',
@@ -1595,6 +1665,11 @@ class Admin
 		$tab = \Estandar\Core\Admin::resolve_tab( $tabs, $default_tab );
 		$default_sub = ( $tab === 'config' && ! isset( $_GET['sub'] ) ) ? 'forms' : '';
 		$sub = isset( $subs[ $tab ] ) ? \Estandar\Core\Admin::resolve_sub( $subs[ $tab ], $default_sub ) : '';
+
+		// NOTIFY_GUARANTEE_V1: aviso de catchers existentes sin operador de aviso.
+		if ( $tab === 'config' ) {
+			self::render_notify_guard_notice();
+		}
 
 		// ── Settings tab data: capability matrix + feature fields ──────────
 		$settings_matrix = Forms::capability_matrix();
